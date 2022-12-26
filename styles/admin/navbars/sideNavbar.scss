@@ -1,0 +1,36 @@
+li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  margin: 10px auto;
+}
+  
+  #side-navbar {
+    width: 300px;
+    min-height: 100vh;
+
+    .navbar-expand .navbar-nav {
+        flex-direction: column;
+        margin-left: 15px;
+        height: 100%;
+    }
+
+    .navbar {
+      height: 100%;
+    }
+
+    .avatar-section {
+      margin-top: auto;
+    }
+
+    .nav-link {
+      margin: 5px 0;
+    
+      svg {
+        margin-right: 10px;
+      }
+    }
+
+    .navbar-title {
+      margin: 20px 15px;
+      font-size: 1.2rem;
+    }
+  }
+  
