@@ -1,13 +1,17 @@
 import { ClientListInterface } from "../../interfaces/ClientInterfaces"; 
 import ClientCard from "./ClientCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
 
-const ClientList = ({ clients }: ClientListInterface[]) => {
+interface ClientListProps {
+    clients: ClientListInterface[]
+}
+
+const ClientList = ({ clients }: ClientListProps) => {
 
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ClientListInterface[]>([])

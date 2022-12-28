@@ -15,6 +15,8 @@ import axios from "axios";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
+    console.log(props);
+
     const [clientData, setClientData] = useState<ClientDataInterface>({
         _id: props._id,
         name: props.name,
