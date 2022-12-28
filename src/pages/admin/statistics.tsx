@@ -1,13 +1,13 @@
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
-const Protected = () => {
+const StatisticsPage = () => {
     return (
         <>
             <NavbarLayout>
-                <h1>Hello from the other side</h1>
+                <h1>statisztikák</h1>
             </NavbarLayout>
         </>
     )
 }
 
-export default Protected;
+export default StatisticsPage;

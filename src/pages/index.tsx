@@ -1,5 +1,3 @@
-"use client";
-
 import Head from 'next/head';
 import LoginForm from '../components/authentication/LoginForm';
 import RegistrationForm from '../components/authentication/RegistrationForm';
@@ -22,7 +20,6 @@ export default function Home() {
           <Row>
             <Col lg={6}>
               <RegistrationForm />
-              <Link href="/login">Login</Link>
             </Col>
             <Col lg={6}>
               <LoginForm />

@@ -1,5 +1,3 @@
-"use client";
-
 import LoginForm from '../components/authentication/LoginForm';
 
 const LoginPage = () => {

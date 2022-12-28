@@ -1,11 +1,11 @@
 export interface ClientListInterface {
-    id?: string;
+    _id?: string;
     name: string;
     age: string;
 }
 
 export interface ClientDataInterface {
-    id?: string;
+    _id?: string;
     name: string;
     age: string;
     mobileNumber: string;

@@ -1,8 +1,18 @@
 @import './variables.scss';
 @import './globals.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import './admin/navbars/sideNavbar.scss';
-@import './admin/globalAdmin.scss';
-@import './admin/clients/clientList.scss';
+
+// Authentication 
 @import './authentication/authentication.scss';
-@import './admin/clients/clientCard.scss';
+
+// Admin / Global
+@import './admin/globalAdmin.scss';
+
+// Admin / Navbar
+@import './admin/navbars/sideNavbar.scss';
+
+// Admin / Client
+@import './admin/clients/clientList.scss';
+@import './admin/clients/clientDetails.scss';
+@import './admin/clients/addNewClient.scss';
+

@@ -1,0 +1,27 @@
+@import '../../variables.scss';
+
+#client-details-section {
+    .title-block {
+        h3 {
+            display: inline-block;
+        }
+
+        .edit-icons {
+            margin: 0 0 10px 10px;
+        }
+    }
+
+    .section-options-buttons {
+        text-align: center;
+        margin: 10px auto;
+
+        button {
+            margin: 10px;
+        }
+    }
+
+    .buttons-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+}

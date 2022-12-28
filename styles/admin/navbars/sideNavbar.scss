@@ -1,10 +1,17 @@
 li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
   margin: 10px auto;
 }
+
+.side-navbar-col {
+  padding-left: 0;
+}
   
   #side-navbar {
-    width: 300px;
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    bottom: 0;
+    width: inherit;
 
     .navbar-expand .navbar-nav {
         flex-direction: column;
@@ -29,7 +36,7 @@ li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiM
     }
 
     .navbar-title {
-      margin: 20px 15px;
+      margin: 20px auto 20px 0px;
       font-size: 1.2rem;
     }
   }

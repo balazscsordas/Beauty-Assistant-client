@@ -15,10 +15,10 @@ const sideNavbar = () => {
                 <Nav>
                     <Link href="/admin" className="navbar-title nav-link">Beauty Assistant</Link>
                     <Link href="/admin/clients" className="nav-link"><PeopleIcon />Vendégek</Link>
-                    <Link href="/admin/idopontok"className="nav-link"><CalendarMonthIcon />Időpontok</Link>
+                    <Link href="/admin/appointments"className="nav-link"><CalendarMonthIcon />Időpontok</Link>
                     <Link href="/admin/services"className="nav-link"><BusinessCenterIcon />Szolgáltatások</Link>
                     <Link href="/admin/giftcard"className="nav-link"><RedeemIcon />Ajándékutalvány</Link>
-                    <Link href="/admin/giftcard"className="nav-link"><BarChartIcon />Statisztikák</Link>
+                    <Link href="/admin/statistics"className="nav-link"><BarChartIcon />Statisztikák</Link>
                     <AvatarSection />
                 </Nav>
             </Navbar>

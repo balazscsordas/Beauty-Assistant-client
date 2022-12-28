@@ -1,7 +1,6 @@
-import NavbarTop from '../components/navbars/NavbarTop';
 import SideNavbar from '../components/navbars/SideNavbar';
 import { ReactNode } from "react";
-import Container from 'react-bootstrap/Container';
+import { Container, Row, Col } from 'react-bootstrap';
 
 type Props = {
     children: ReactNode
@@ -9,15 +8,16 @@ type Props = {
 
 const NavbarLayout = ({ children }: Props) => {
     return (
-        <>
-            <div className='column-layout'>
-                <SideNavbar />
-                <Container>
+        <Container fluid>
+            <Row>
+                <Col lg={2} md={3} className="side-navbar-col">
+                    <SideNavbar />
+                </Col>
+                <Col>
                     {children}
-                </Container>
-                
-            </div>
-        </>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

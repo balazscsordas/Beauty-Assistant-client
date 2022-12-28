@@ -115,7 +115,7 @@ const RegistrationForm = () => {
       <section id="registration-section">
         <Container component="main" maxWidth="xs">
           <Box className="login-box">
-            <h2>Registration</h2>
+            <h2>Regisztráció</h2>
             <Box className="form" component="form" onSubmit={handleSubmit}>
               <TextField
                   margin="normal"
@@ -173,7 +173,7 @@ const RegistrationForm = () => {
                     className="submit-button global-button"
                     disabled={loading}
                   >
-                    Registration
+                    Regisztráció
                   </Button>
                   {loading && (
                     <CircularProgress size={24} className="loading-icon" />

@@ -1,16 +1,15 @@
 import React, { useState, useRef, useContext } from "react";
 import Container from 'react-bootstrap/Container';
-import { Button } from '@mui/material';
-import TextField from '@mui/material/TextField';
+import { Button, Collapse, TextField, Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import axios from "axios";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
-
+import Router from 'next/router';
 
 const AddClients = () => {
 
@@ -18,21 +17,26 @@ const AddClients = () => {
     const [showAlert, setShowAlert] = useState(false);
     const nameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const allergiesRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+    const mobileNumberRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const usedCreamsRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const skinTypeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const baseInformationRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const [inputData, setInputData] = useState({
-        name: "",
         age: "",
-        mobileNumber: ""
     })
+
+    // States for show or hide textfields
+    const [showAllergies, setShowAllergies] = useState(false);
+    const [showSkinType, setShowSkinTypes] = useState(false);
+    const [showUsedCreams, setShowUsedCreams] = useState(false);
+    const [showBaseInformation, setShowBaseInformation] = useState(false);
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         const newClient: ClientDataInterface = {
             name: nameRef.current.value,
             age: inputData.age,
-            mobileNumber: inputData.mobileNumber,
+            mobileNumber: mobileNumberRef.current.value,
             allergies: allergiesRef.current.value,
             skinType: skinTypeRef.current.value,
             usedCreams: usedCreamsRef.current.value,
@@ -40,15 +44,14 @@ const AddClients = () => {
         }
         addNewClientToDatabase(newClient);
         setInputData({
-            name: "",
-            age: "",
-            mobileNumber: ""
+            age: ""
         })
         nameRef.current.value = "";
         skinTypeRef.current.value = "";
         baseInformationRef.current.value = "";
         allergiesRef.current.value = "";
         usedCreamsRef.current.value = "";
+        mobileNumberRef.current.value = "";
     }
 
     const addNewClientToDatabase = async (clientData: ClientDataInterface) => {
@@ -59,6 +62,7 @@ const AddClients = () => {
             console.log(response.data.message);
             if (response.data.message = "Client has been added") {
                 setShowAlert(true);
+                Router.push('/admin/clients');
             }
         }
         catch (err) {
@@ -139,8 +143,7 @@ const AddClients = () => {
                                     required
                                     type="tel"
                                     fullWidth
-                                    onChange={changeInputData}
-                                    value={inputData.mobileNumber}
+                                    inputRef={mobileNumberRef}
                                     id="mobileNumber"
                                     label="Telefonszám"
                                     name="mobileNumber"
@@ -148,16 +151,32 @@ const AddClients = () => {
                                 />
                             </Col>
                         </Row>
-                        <Row>
-                            <Col className="section-options-buttons">
-                                <Button variant="contained" startIcon={<AddCircleOutlineIcon />}>Allergia</Button>
-                                <Button variant="contained" startIcon={<AddCircleOutlineIcon />}>Bőrtípus</Button>
-                                <Button variant="contained" startIcon={<AddCircleOutlineIcon />}>Otthon használt készítmények</Button>
-                                <Button variant="contained" startIcon={<AddCircleOutlineIcon />}>Általános információk</Button>
+                        <Row className="section-options-buttons">
+                            <Col >
+                                <Button 
+                                    variant="contained" 
+                                    onClick={() => setShowAllergies(!showAllergies)} 
+                                    startIcon={!showAllergies ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Allergia
+                                    </Button>
+                                <Button 
+                                    variant="contained"
+                                    onClick={() => setShowSkinTypes(!showSkinType)}
+                                    startIcon={!showSkinType ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Bőrtípus
+                                    </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => setShowUsedCreams(!showUsedCreams)}
+                                    startIcon={!showUsedCreams ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Otthon használt készítmények
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => setShowBaseInformation(!showBaseInformation)}
+                                    startIcon={!showBaseInformation ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Általános információk
+                                </Button>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col lg={6}>
+                        <div className="options-fields">
+                            <Collapse in={showAllergies}>
                                 <TextField
                                     margin="normal"
                                     minRows={4}
@@ -168,9 +187,8 @@ const AddClients = () => {
                                     label="Allergiák"
                                     name="allergies"
                                 />
-                                
-                            </Col>
-                            <Col lg={6}>
+                            </Collapse>
+                            <Collapse in={showSkinType}>
                                 <TextField
                                     margin="normal"
                                     minRows={4}
@@ -181,10 +199,8 @@ const AddClients = () => {
                                     label="Bőrtípus"
                                     name="skinType"
                                 />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col lg={6}>
+                            </Collapse>
+                            <Collapse in={showUsedCreams}>
                                 <TextField
                                     margin="normal"
                                     minRows={4}
@@ -195,8 +211,8 @@ const AddClients = () => {
                                     label="Otthon használt készítmények"
                                     name="usedCreams"
                                 />
-                            </Col>
-                            <Col lg={6}>
+                            </Collapse>
+                            <Collapse in={showBaseInformation}>
                                 <TextField
                                     margin="normal"
                                     minRows={4}
@@ -207,8 +223,8 @@ const AddClients = () => {
                                     label="Általános információk"
                                     name="baseInformation"
                                 />
-                            </Col>
-                        </Row>
+                            </Collapse>
+                        </div>
                     </Container>
                         <div className="button-block">
                             <Button 
