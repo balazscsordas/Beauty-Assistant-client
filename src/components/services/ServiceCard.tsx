@@ -1,4 +1,4 @@
-import { ServiceListInterface } from "../../interfaces/ServicesListInterfaces"; 
+import { ServiceListInterface } from "../../interfaces/ServiceInterfaces"; 
 
 const ClientCard = ({ name }: ServiceListInterface) => {
     return (

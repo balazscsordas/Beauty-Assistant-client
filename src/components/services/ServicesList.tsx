@@ -1,6 +1,6 @@
 import { useState } from "react"; 
 import { Row } from "react-bootstrap";
-import { ServicesListInterface } from "../../interfaces/ServicesListInterfaces"; 
+import { ServiceListInterface } from "../../interfaces/ServiceInterfaces"; 
 import ServiceCard from "./ServiceCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Button from '@mui/material/Button';  
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const ClientList = () => {
 
-    const [services, setServices] = useState<ServicesListInterface[]>([]);
+    const [services, setServices] = useState<ServiceListInterface[]>([]);
 
     return (
             <section id="client-list-section">

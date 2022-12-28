@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { ServiceCategories, ServiceDataInterface } from '../../interfaces/ServicesListInterfaces';
+import { ServiceCategories, ServiceDataInterface } from '../../interfaces/ServiceInterfaces';
 import Router from 'next/router';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
