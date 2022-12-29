@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 
 const authMiddleware = (req: NextRequest) => {
     const jwt = req.cookies.get('jwt')?.value;
+    console.log(req.cookies);
     let url = req.url;
 
     if(!jwt && url.includes('/admin')){

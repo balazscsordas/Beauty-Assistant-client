@@ -34,7 +34,12 @@ const LoginForm = () => {
       setAuth({ email, password, accessToken });
       setLoginMessage(response.data.message);
       setLoading(false);
-      Router.push('/admin');
+      if (response.status === 401) {
+        console.log("Unathorized");
+      }
+      else if(response.data.message === "Success") {
+        Router.push('/admin');
+      }
     } 
     catch(err) {
       err instanceof Error && console.log(err.message);
