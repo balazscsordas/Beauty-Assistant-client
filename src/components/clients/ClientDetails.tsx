@@ -15,8 +15,6 @@ import axios from "axios";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
-    console.log(props);
-
     const [clientData, setClientData] = useState<ClientDataInterface>({
         _id: props._id,
         name: props.name,
@@ -51,10 +49,10 @@ const ClientDetails = (props: ClientDataInterface) => {
     // Save client in database API
 
     const saveModifiedData = async (newClientData: ClientDataInterface) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/save-modified-client-data";
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/save-modified-client-data";
         const params = { newClientData: newClientData};
         const response = await axios.put(url, params, { withCredentials: true });
-        if(response.status === 204) {
+        if(response.status === 200) {
             setShowSavingAlert(true);
         } 
         else {
@@ -65,14 +63,14 @@ const ClientDetails = (props: ClientDataInterface) => {
     // Delete client API
 
     const deleteClientRequest = async (clientId: string | undefined) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/delete-client";
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/delete-client";
         const config = {
             data: { clientId },
             withCredentials: true,
         }
         const response = await axios.delete(url, config);
         console.log(response);
-        if(response.status === 204) {
+        if(response.status === 200) {
             setShowDeleteAlert(true);
         } 
         else {

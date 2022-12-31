@@ -1,4 +1,5 @@
 import SideNavbar from '../components/navbars/SideNavbar';
+import { useState, useEffect } from 'react';
 import { ReactNode } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -7,6 +8,7 @@ type Props = {
 }
 
 const NavbarLayout = ({ children }: Props) => {
+ 
     return (
         <Container fluid>
             <Row>

@@ -25,3 +25,16 @@ h3 {
 .column-layout {
     display: flex;
 }
+
+// Client and Services list TOP section
+
+#client-list-section, #services-list-section {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+
+    .searchbar-section {
+        width: 600px;
+        margin: 40px auto 35px;
+    }
+}

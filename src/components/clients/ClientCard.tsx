@@ -2,7 +2,6 @@ import { ClientListInterface } from "../../interfaces/ClientInterfaces";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Col } from 'react-bootstrap';
 import Link from "next/link";
 
 const ClientCard = ({ name, age, _id }: ClientListInterface) => {

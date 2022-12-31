@@ -56,7 +56,7 @@ const AddClients = () => {
 
     const addNewClientToDatabase = async (clientData: ClientDataInterface) => {
         try {
-            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/add-new-client";
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/add-new-client";
             const params = {clientData: clientData};
             const response = await axios.post(url, params, { withCredentials: true });
             console.log(response.data.message);
@@ -101,7 +101,7 @@ const AddClients = () => {
                     severity="success"
                     variant="filled"
                     sx={{ width: '100%' }}>
-                    New client has been added!
+                    Vendég hozzáadása sikeres volt.
                 </MuiAlert>
             </Snackbar>
 

@@ -1,6 +1,6 @@
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
-const Protected = () => {
+const MainIndexPage = () => {
     return (
         <>
             <NavbarLayout>
@@ -10,4 +10,4 @@ const Protected = () => {
     )
 }
 
-export default Protected;
+export default MainIndexPage;

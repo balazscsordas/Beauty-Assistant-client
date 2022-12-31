@@ -5,9 +5,10 @@ import { ClientListInterface } from "../../interfaces/ClientInterfaces";
 import axios from "axios";
 
 export const getServerSideProps = async () => {
-    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/get-client-list";
+    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/get-client-list";
     const response = await axios.get(url, { withCredentials: true });
-    const clients: ClientListInterface[] = response.data.foundClients
+    /* const response = await axios.get(url, { withCredentials: true , headers: { "Authorization": "Bearer abcd"}}); */
+    const clients: ClientListInterface[] = response.data.foundClients;
 
     return {
         props: {

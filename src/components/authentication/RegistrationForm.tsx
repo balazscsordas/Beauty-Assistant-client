@@ -50,9 +50,10 @@ const RegistrationForm = () => {
   const sendRegistrationData = async (registrationData: RegistrationData) => {
       try {
         setLoading(true);
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/registration";
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/registration";
         const params = {registrationData: registrationData};
         const response = await axios.post(url, params);
+        console.log(response.data.error)
         setLoading(false);
         setRegistrationMessage(response.data.message);
         setShowRegistrationMessage(true);

@@ -31,52 +31,51 @@ const ClientList = ({ clients }: ClientListProps) => {
 
     return (
             <section id="client-list-section">
-                <>
-                    <h1 className="section-title">Vendégek</h1>
-                    <div className="button-block">
-                        <Link href="/admin/add-new-client" passHref>
-                            <Button 
-                                className="add-new-client-button" 
-                                variant="outlined" 
-                                startIcon={<AddCircleOutlineIcon />}>
-                                Vendég hozzáadása
-                            </Button>
-                        </Link>
-                    </div>
-                    <div className="searchbar-section">
-                    <TextField
-                        onChange={changeSearchBarData}
-                        variant="outlined"
-                        name="searchbar"
-                        value={inputTextValue}
-                        id="searchbar"
-                        fullWidth
-                        label="Keresés"
-                    />
-                    </div>
-                    <Container className="client-list">
-                        {filteredArray.length === 0
-                            ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
-                            : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (
-                            <ClientCard
-                                key={index}
-                                _id={client._id}
-                                age={client.age}
-                                name={client.name}
-                            />
-                        ))}
-                        {clients.length === 0 
-                            ? <p>Még nem adtál hozzá vendéget!</p>
-                            : inputTextValue === "" && clients.map((client: ClientListInterface, index: number) => (
-                            <ClientCard
-                                key={index}
-                                _id={client._id}
-                                age={client.age}
-                                name={client.name}
-                            />
-                        ))}
-                    </Container>
-                </>
+                <h1 className="section-title">Vendégek</h1>
+                <div className="button-block">
+                    <Link href="/admin/add-new-client" passHref>
+                        <Button 
+                            className="add-new-client-button" 
+                            variant="outlined" 
+                            startIcon={<AddCircleOutlineIcon />}>
+                            Vendég hozzáadása
+                        </Button>
+                    </Link>
+                </div>
+                <div className="searchbar-section">
+                <TextField
+                    onChange={changeSearchBarData}
+                    type="search"
+                    variant="outlined"
+                    name="searchbar"
+                    value={inputTextValue}
+                    id="searchbar"
+                    fullWidth
+                    label="Keresés"
+                />
+                </div>
+                <Container className="client-list">
+                    {filteredArray.length === 0
+                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                        : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (
+                        <ClientCard
+                            key={index}
+                            _id={client._id}
+                            age={client.age}
+                            name={client.name}
+                        />
+                    ))}
+                    {clients.length === 0 
+                        ? <p>Még nem adtál hozzá vendéget!</p>
+                        : inputTextValue === "" && clients.map((client: ClientListInterface, index: number) => (
+                        <ClientCard
+                            key={index}
+                            _id={client._id}
+                            age={client.age}
+                            name={client.name}
+                        />
+                    ))}
+                </Container>
             </section>
     )
 }

@@ -23,9 +23,6 @@ const AddNewService = () => {
     const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const timeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const stepsRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const [inputData, setInputData] = useState({
-        age: "",
-    })
 
     const [categories, setCategories] = useState<ServiceCategories[]>([
         {
@@ -44,7 +41,7 @@ const AddNewService = () => {
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newClient: ServiceDataInterface = {
+        const newService: ServiceDataInterface = {
             name: nameRef.current.value,
             category: categoryRef.current.value,
             price: parseInt(priceRef.current.value),
@@ -52,42 +49,25 @@ const AddNewService = () => {
             description: descriptionRef.current.value,
             steps: stepsRef.current.value,
         }
-        addNewClientToDatabase(newClient);
-        setInputData({
-            age: ""
-        })
+        addNewServiceToDatabase(newService);
         nameRef.current.value = "";
         stepsRef.current.value = "";
         descriptionRef.current.value = "";
     }
 
-    const addNewClientToDatabase = async (clientData: ServiceDataInterface) => {
+    const addNewServiceToDatabase = async (serviceData: ServiceDataInterface) => {
         try {
-            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/add-new-client";
-            const params = {clientData: clientData};
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/service/add-new-service";
+            const params = {serviceData: serviceData};
             const response = await axios.post(url, params, { withCredentials: true });
             console.log(response.data.message);
-            if (response.data.message = "Client has been added") {
+            if (response.data.message = "Service has been added") {
                 setShowAlert(true);
-                Router.push('/admin/clients');
+                Router.push('/admin/services');
             }
         }
         catch (err) {
             err instanceof Error && console.log(err.message);
-        }
-    }
-
-    const changeInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        if(!value || ( value[value.length-1].match('[0-9]') && value[0].match('[1-9]'))) {
-            if (value.length < 3) {
-                setInputData(prevData => {
-                    return {
-                        ...prevData,
-                        [name]: value
-                    }
-                })
-            }
         }
     }
 
@@ -100,7 +80,7 @@ const AddNewService = () => {
             <Snackbar 
                 open={showAlert} 
                 autoHideDuration={3000} 
-                onClose={handleCloseAlert}
+                onClose={handleCloseAlert}  
                 >
                 <MuiAlert 
                     onClose={handleCloseAlert} 
@@ -108,7 +88,7 @@ const AddNewService = () => {
                     severity="success"
                     variant="filled"
                     sx={{ width: '100%' }}>
-                    New client has been added!
+                    Szolgáltatás hozzáadása sikeres volt.
                 </MuiAlert>
             </Snackbar>
 

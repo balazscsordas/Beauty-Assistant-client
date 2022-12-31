@@ -24,9 +24,8 @@ const AccountAvatar = () => {
 
     const handleLogout = async () => {
       try {
-        const url = 'http://localhost:8001/logout';
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/logout";
         const response = await axios.delete(url, { withCredentials: true });
-        console.log(response.data.message);
         setAnchorElUser(null);
         Router.push('/login');
       } 

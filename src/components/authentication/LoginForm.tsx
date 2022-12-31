@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useContext, useRef } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -27,7 +25,7 @@ const LoginForm = () => {
   const sendLoginData = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/login";
+      const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/login";
       const params = {email: email, password: password};
       const response = await axios.post(url, params, { withCredentials: true });
       const accessToken = response.data.accessToken;

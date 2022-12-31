@@ -6,7 +6,7 @@ import ClientDetails from "../../../components/clients/ClientDetails";
 
 export const getServerSideProps: GetServerSideProps<{ clientDetails: ClientDataInterface }> = async (context) => {
     const _id = context.params?._id;
-    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/get-client-details/" + _id;
+    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/get-client-details/" + _id;
     const response = await axios.get(url, { withCredentials: true });
     const clientDetails: ClientDataInterface = response.data.foundClient;
 
