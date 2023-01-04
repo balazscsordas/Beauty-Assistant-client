@@ -1,39 +1,79 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import { useContext } from "react";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from "@mui/material";
+import axios from "axios";
+import MuiAlert from '@mui/material/Alert';
+import { useContext, useState } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
+import { NewAppointmentInterface } from "../../interfaces/AppointmentInterfaces";
 import { combineMinuteWithHours, getNamedDay, getNamedMonth, getNumberedDay } from '../appointment/Utils';
 import ClientSearchbar from "./searchbars/ClientSearchbar";
+import ServiceSearchbar from "./searchbars/ServiceSearchbar";
 
 const AddAppointmentDialog = () => {
 
     const { 
+        newAppointmentData,
         openAddAppointmentDialog,
         setOpenAddAppointmentDialog,
-        addAppointmHour,
-        addAppointmMinute,
-        addAppointmDate
     } = useContext(AppointmentContext);
 
-    const handleClose = () => {
-        setOpenAddAppointmentDialog(false);
-      };
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    
+    const sendNewAppointmentDataToServer = async (data: NewAppointmentInterface) => {
+        try {
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/add-new-appointment";
+            const params = {data};
+            const response = await axios.post(url, params, { withCredentials: true });
+            if (response?.status === 200) {
+                setShowSuccessAlert(true);
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
 
+    const handleSubmit = () => {
+        setOpenAddAppointmentDialog(false);
+        sendNewAppointmentDataToServer(newAppointmentData);
+    }
 
     return (
-        <Dialog open={openAddAppointmentDialog} onClose={handleClose} id='dialog-section'>
-            <DialogTitle>Időpont hozzáadása</DialogTitle>
-            <DialogContent>
-            <DialogContentText className='dialog-context-text'>
-                <p>{addAppointmDate.getFullYear() + '. ' + getNamedMonth(addAppointmDate) + ' ' + getNumberedDay(addAppointmDate) + '. ' + getNamedDay(addAppointmDate)}</p>
-                <p>{combineMinuteWithHours(addAppointmHour, addAppointmMinute)}</p>
-            </DialogContentText>
-                <ClientSearchbar/>
-            </DialogContent>
-            <DialogActions>
-            <Button onClick={handleClose}>Mégse</Button>
-            <Button onClick={handleClose}>Hozzáadás</Button>
-            </DialogActions>
-        </Dialog>
+        <>
+            <Snackbar 
+                open={showSuccessAlert} 
+                autoHideDuration={3000} 
+                onClose={() => setShowSuccessAlert(false)}
+                >
+                <MuiAlert 
+                    onClose={() => setShowSuccessAlert(false)} 
+                    elevation={6}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: '100%' }}>
+                    Foglalás hozzáadása sikeres volt.
+                </MuiAlert>
+            </Snackbar>
+
+            <Dialog open={openAddAppointmentDialog} onClose={() => setOpenAddAppointmentDialog(false)} id='dialog-section'>
+                <DialogTitle>Időpont hozzáadása</DialogTitle>
+                <DialogContent>
+                <DialogContentText className='dialog-context-text'>
+                    <p>{
+                        newAppointmentData.date.getFullYear() 
+                        + '. ' + getNamedMonth(newAppointmentData.date) 
+                        + ' ' + getNumberedDay(newAppointmentData.date) 
+                        + '. ' + getNamedDay(newAppointmentData.date)
+                        + ' ' + combineMinuteWithHours(newAppointmentData.hour, newAppointmentData.minute)
+                    }</p>
+                </DialogContentText>
+                    <ClientSearchbar/>
+                    <ServiceSearchbar/>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={() => setOpenAddAppointmentDialog(false)}>Mégse</Button>
+                <Button onClick={handleSubmit}>Hozzáadás</Button>
+                </DialogActions>
+            </Dialog>
+        </>
     )
 }
 

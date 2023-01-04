@@ -5,6 +5,7 @@ import NextNProgress from 'nextjs-progressbar';
 import { ThemeProvider } from '../context/ThemeProvider';
 import { AppointmentProvider } from '../context/AppointmentProvider';
 import { ClientProvider } from '../context/ClientProvider';
+import { ServiceProvider } from '../context/ServiceProvider';
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -12,10 +13,12 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider>
       <AuthProvider>
         <ClientProvider>
-          <AppointmentProvider>
-            <NextNProgress />
-            <Component {...pageProps} />
-          </AppointmentProvider>
+           <ServiceProvider>
+            <AppointmentProvider>
+              <NextNProgress />
+              <Component {...pageProps} />
+            </AppointmentProvider>
+          </ServiceProvider> 
         </ClientProvider>
       </AuthProvider>
     </ThemeProvider>

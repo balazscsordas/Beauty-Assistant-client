@@ -7,19 +7,14 @@ import AddAppointmentDialog from "./AddAppointmDialog";
 const Calendar = () => {
 
     const {
-        currentWeek, 
-        setCurrentWeek, 
-        openAddAppointmentDialog, 
+        currentWeek,
+        newAppointmentData,
+        setCurrentWeek,
+        setNewAppointmentData,
         setOpenAddAppointmentDialog,
-        addAppointmHour,
-        setAddAppointmHour,
-        addAppointmMinute,
-        setAddAppointmMinute,
-        addAppointmDate,
-        setAddAppointmDate
     } = useContext(AppointmentContext);
+
     const hours = [8, 9, 10 , 11, 12, 13, 14, 15, 16, 17, 18, 19];
-    
 
     useEffect(() => {
         const cells = document.querySelectorAll('td');
@@ -27,9 +22,14 @@ const Calendar = () => {
             cell.addEventListener('click', () => {
                 const minuteIndex = Math.floor(cell.closest('tr').rowIndex % 4);
                 const dayIndex = cell.cellIndex;
-                setAddAppointmHour(hours[Math.floor(cell.closest('tr').rowIndex / 4)]);
-                setAddAppointmMinute(minuteIndexToMinute(minuteIndex));
-                setAddAppointmDate(getDayDataFromDayIndex(dayIndex, currentWeek));
+                setNewAppointmentData(prevData => {
+                    return {
+                        ...prevData,
+                        date: getDayDataFromDayIndex(dayIndex, currentWeek),
+                        hour: hours[Math.floor(cell.closest('tr').rowIndex / 4)],
+                        minute: minuteIndexToMinute(minuteIndex)
+                    }
+                })
                 setOpenAddAppointmentDialog(true);
             });
         })

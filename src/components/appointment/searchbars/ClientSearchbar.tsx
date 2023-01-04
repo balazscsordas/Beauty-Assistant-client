@@ -1,12 +1,14 @@
-import { Collapse, TextField } from "@mui/material";
+import { Collapse, IconButton, TextField } from "@mui/material";
 import { useState, useContext } from "react";
 import ClientContext from "../../../context/ClientProvider";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ClientListInterface } from "../../../interfaces/ClientInterfaces";
-import ClientCard from "../../clients/ClientCard";
+import AppointmentContext from "../../../context/AppointmentProvider";
 
 const ClientSearchbar = () => {
 
     const { clients } = useContext(ClientContext);
+    const { setNewAppointmentData } = useContext(AppointmentContext);
 
     const [clientSearchbarValue, setClientSearchbarValue] = useState("");
     const [filteredClientList, setFilteredClientList] = useState<ClientListInterface[]>([])
@@ -27,6 +29,17 @@ const ClientSearchbar = () => {
         setFilteredClientList(result);
     }
 
+    const setClient = (_id: string | undefined, name: string) => {
+        _id && setNewAppointmentData(prevData => {
+            return {
+                ...prevData,
+                clientId: _id,
+            }
+        })
+        setClientSearchbarValue(name);
+        setShowFilteredClients(false);
+    }
+
 
     return (
         <div className="searchbar-section">
@@ -34,21 +47,22 @@ const ClientSearchbar = () => {
                 onChange={changeSearchBarData}
                 type="search"
                 variant="outlined"
-                name="client-searchbar"
                 value={clientSearchbarValue}
                 fullWidth
-                label="Írd be a vendég nevét"
+                label="Vendég neve"
             />
             <Collapse in={showFilteredClients}>
                 {filteredClientList.length === 0
                     ? clientSearchbarValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
                     : clientSearchbarValue !== "" && filteredClientList.map((client: ClientListInterface, index: number) => (
-                    <ClientCard
-                        key={index}
-                        _id={client._id}
-                        age={client.age}
-                        name={client.name}
-                    />
+                        <section id="client-card-section" key={index}>
+                            <div className="head-block">
+                                <h4 className="name-title">{client.name}</h4>
+                                <IconButton onClick={() => setClient(client._id, client.name)} className="hamburger-icon" aria-label="add">
+                                    <AddCircleOutlineIcon />
+                                </IconButton>
+                            </div>
+                        </section>
                 ))}
             </Collapse>
         </div>

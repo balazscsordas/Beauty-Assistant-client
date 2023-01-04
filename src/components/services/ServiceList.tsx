@@ -1,18 +1,20 @@
 import { ServiceListInterface } from "../../interfaces/ServiceInterfaces";
 import ServiceCard from "./ServiceCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import { Container } from 'react-bootstrap';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
+import ServiceContext from "../../context/ServiceProvider";
 
 interface ServicesListProps {
     services: ServiceListInterface[]
 }
 
-const ServiceList = ({ services }: ServicesListProps) => {
+const ServiceList = () => {
 
+    const { services } = useContext(ServiceContext);
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ServiceListInterface[]>([])
 
