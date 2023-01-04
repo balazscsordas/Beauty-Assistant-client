@@ -1,5 +1,4 @@
 import React from 'react';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PersonIcon from '@mui/icons-material/Person';
@@ -10,7 +9,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import axios from 'axios';
 import Router from 'next/router';
 
-const AccountAvatar = () => {
+const AvatarMobile = () => {
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,14 +35,14 @@ const AccountAvatar = () => {
 
     return (
         <>  
-            <a onClick={handleOpenUserMenu}><PersonIcon /><span>Laci</span></a>
+            <a onClick={handleOpenUserMenu} className='account'><PersonIcon /><span>Laci</span></a>
             <Menu
-              sx={{ mt: '-10px'}}
+              sx={{ mt: '30px'}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: 'bottom',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
@@ -67,4 +66,4 @@ const AccountAvatar = () => {
     )
 }
 
-export default AccountAvatar;
+export default AvatarMobile;

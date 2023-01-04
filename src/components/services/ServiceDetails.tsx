@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
+import { ServiceDataInterface } from '../../interfaces/ServiceInterfaces';
 import TextField from '@mui/material/TextField';
 import Zoom from '@mui/material/Zoom';
-import { Button, Collapse } from '@mui/material';
+import { Button, Collapse, InputAdornment } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -13,17 +13,16 @@ import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
 
-const ClientDetails = (props: ClientDataInterface) => {
+const ServiceDetails = (props: ServiceDataInterface) => {
 
-    const [clientData, setClientData] = useState<ClientDataInterface>({
+    const [serviceData, setServiceData] = useState<ServiceDataInterface>({
         _id: props._id,
         name: props.name,
-        mobileNumber: props.mobileNumber,
-        age: props.age,
-        baseInformation: props.baseInformation,
-        allergies: props.allergies,
-        skinType: props.skinType,
-        usedCreams: props.usedCreams
+        category: props.category,
+        price: props.price,
+        time: props.time,
+        description: props.description,
+        steps: props.steps
     })
 
     const [showSavingAlert, setShowSavingAlert] = useState(false);
@@ -35,22 +34,20 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     // States for show or hide textfields
 
-    const [showAllergies, setShowAllergies] = useState(props.allergies ? true : false);
-    const [showSkinType, setShowSkinType] = useState(props.skinType ? true : false);
-    const [showUsedCreams, setShowUsedCreams] = useState(props.usedCreams ? true : false);
-    const [showBaseInformation, setShowBaseInformation] = useState(props.baseInformation ? true : false);
+    const [showDescription, setShowDescription] = useState(props.description ? true : false);
+    const [showSteps, setShowSteps] = useState(props.steps ? true : false);
 
-    const saveClient = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const saveService = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        saveModifiedData(clientData);
+        saveModifiedData(serviceData);
         setShowSaveButton(false);
     }
 
-    // Save client in database API
+    // Save service in database API
 
-    const saveModifiedData = async (newClientData: ClientDataInterface) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/save-modified-client-data";
-        const params = { newClientData: newClientData};
+    const saveModifiedData = async (newServiceData: ServiceDataInterface) => {
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/service/save-modified-service-data";
+        const params = { newServiceData: newServiceData};
         const response = await axios.put(url, params, { withCredentials: true });
         if(response.status === 200) {
             setShowSavingAlert(true);
@@ -60,12 +57,11 @@ const ClientDetails = (props: ClientDataInterface) => {
         }
     }
 
-    // Delete client API
-
-    const deleteClientRequest = async (clientId: string | undefined) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/delete-client";
+    // Delete service API
+    const deleteServiceRequest = async (serviceId: string | undefined) => {
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/service/delete-service";
         const config = {
-            data: { clientId },
+            data: { serviceId },
             withCredentials: true,
         }
         const response = await axios.delete(url, config);
@@ -78,12 +74,12 @@ const ClientDetails = (props: ClientDataInterface) => {
         }
     }
 
-    // Delete client
+    // Delete service
 
-    const deleteClient = () => {
-        deleteClientRequest(props._id);
+    const deleteService = () => {
+        deleteServiceRequest(props._id);
         setDeleteDialogOpen(false);
-        Router.push('/admin/clients');
+        Router.push('/admin/services');
     }
 
     // Dialogs + Alerts states
@@ -114,7 +110,7 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setClientData(prevData => {
+        setServiceData(prevData => {
             return {
                 ...prevData,
                 [name]: value
@@ -186,116 +182,100 @@ const ClientDetails = (props: ClientDataInterface) => {
             </Snackbar>
 
             <h1 className="page-title">{props.name}</h1>
-            <Box className="form" component="form" onSubmit={saveClient}>
+            <Box className="form" component="form" onSubmit={saveService}>
                 <Container>
                     <Row>
-                        <Col lg={4}>
+                        <Col lg={3}>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
                                 onChange={handleInputChange}
-                                value={clientData.name}
+                                value={serviceData.name}
+                                id="name"
                                 label="Név"
                                 name="name"
                             />
                         </Col>
-                        <Col lg={4}>
+                        <Col lg={3}>
                             <TextField
-                                className="age-input"
                                 margin="normal"
                                 required
                                 fullWidth
-                                value={clientData.age}
+                                value={serviceData.category}
                                 onChange={handleInputChange}
-                                label="Kor"
-                                name="age"
+                                id="category"
+                                label="Kategória"
+                                name="category"
                             />
                         </Col>
-                        <Col lg={4}>
+                        <Col lg={3}>
                             <TextField
                                 margin="normal"
                                 required
-                                type="tel"
                                 fullWidth
-                                value={clientData.mobileNumber}
+                                value={serviceData.price}
                                 onChange={handleInputChange}
-                                label="Telefonszám"
-                                name="mobileNumber"
+                                id="price"
+                                label="Ár"
+                                name="price"
+                                InputProps={{
+                                    endAdornment: <InputAdornment position="end">Ft</InputAdornment>,
+                                }}
+                            />
+                        </Col>
+                        <Col lg={3}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                value={serviceData.time}
+                                onChange={handleInputChange}
+                                id="time"
+                                label="Időtartam"
+                                name="time"
                             />
                         </Col>
                     </Row>
                     <Row>
                         <Col className="section-options-buttons">
-                            <Button 
-                                variant="contained" 
-                                onClick={() => setShowAllergies(!showAllergies)} 
-                                startIcon={!showAllergies ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Allergia
-                                </Button>
-                            <Button 
-                                variant="contained"
-                                onClick={() => setShowSkinType(!showSkinType)}
-                                startIcon={!showSkinType ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Bőrtípus
-                                </Button>
                             <Button
                                 variant="contained"
-                                onClick={() => setShowUsedCreams(!showUsedCreams)}
-                                startIcon={!showUsedCreams ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Otthon használt készítmények
+                                onClick={() => setShowSteps(!showSteps)}
+                                startIcon={!showSteps ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Otthon használt készítmények
                             </Button>
                             <Button
                                 variant="contained"
-                                onClick={() => setShowBaseInformation(!showBaseInformation)}
-                                startIcon={!showBaseInformation ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Általános információk
+                                onClick={() => setShowDescription(!showDescription)}
+                                startIcon={!showDescription ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Általános információk
                             </Button>
                         </Col>
                     </Row>
                     <div className="options-fields">
-                        <Collapse in={showAllergies}>
+                        <Collapse in={showDescription}>
                             <TextField
                                 margin="normal"
                                 minRows={4}
                                 fullWidth
                                 multiline
-                                value={clientData.allergies}
+                                value={serviceData.description}
                                 onChange={handleInputChange}
-                                label="Allergiák"
-                                name="allergies"
+                                id="description"
+                                label="Leírás"
+                                name="description"
                             />
                         </Collapse>
-                        <Collapse in={showSkinType}>
+                        <Collapse in={showSteps}>
                             <TextField
                                 margin="normal"
                                 minRows={4}
                                 fullWidth
                                 multiline
-                                value={clientData.skinType}
+                                value={serviceData.steps}
                                 onChange={handleInputChange}
-                                label="Bőrtípus"
-                                name="skinType"
-                            />
-                        </Collapse>
-                        <Collapse in={showUsedCreams}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.usedCreams}
-                                onChange={handleInputChange}
-                                label="Otthon használt készítmények"
-                                name="usedCreams"
-                            />
-                        </Collapse>
-                        <Collapse in={showBaseInformation}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.baseInformation}
-                                onChange={handleInputChange}
-                                label="Általános információk"
-                                name="baseInformation"
+                                id="steps"
+                                label="Lépések"
+                                name="steps"
                             />
                         </Collapse>
                     </div>
@@ -318,7 +298,7 @@ const ClientDetails = (props: ClientDataInterface) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleCloseDialog}>Nem</Button>
-                            <Button onClick={deleteClient} autoFocus>Igen</Button>
+                            <Button onClick={deleteService} autoFocus>Igen</Button>
                         </DialogActions>
                     </Dialog>
                 </div>
@@ -327,4 +307,4 @@ const ClientDetails = (props: ClientDataInterface) => {
     )
 }
 
-export default ClientDetails;
+export default ServiceDetails;

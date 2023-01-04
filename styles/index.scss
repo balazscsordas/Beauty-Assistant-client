@@ -16,3 +16,11 @@
 @import './admin/clients/clientDetails.scss';
 @import './admin/clients/addNewClient.scss';
 
+// Admin / Service
+@import './admin/services/serviceList.scss';
+
+// Admin / Appointments
+@import './admin/appointments/calendar.scss';
+@import './admin/appointments/week-picker.scss';
+@import './admin/appointments/popup.scss';
+

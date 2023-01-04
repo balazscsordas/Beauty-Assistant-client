@@ -16,7 +16,7 @@ const ClientCard = ({ name, age, _id }: ClientListInterface) => {
                         <AccountCircleIcon className="account-icon"/>
                     </IconButton>
                 </Link>
-                <h3 className="name-title">{name}</h3>
+                <h4 className="name-title">{name}</h4>
                 <Link href={url} className="hamburger-icon">
                     <IconButton aria-label="more data">
                         <AddCircleOutlineIcon />

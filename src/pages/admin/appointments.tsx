@@ -1,10 +1,11 @@
+import Calendar from "../../components/appointment/Calendar";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
 const AppointmentPage = () => {
     return (
         <>
             <NavbarLayout>
-                <h1>időpontok</h1>
+                <Calendar />
             </NavbarLayout>
         </>
     )

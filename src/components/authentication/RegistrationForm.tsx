@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -114,73 +112,69 @@ const RegistrationForm = () => {
 
   return (
       <section id="registration-section">
-        <Container component="main" maxWidth="xs">
-          <Box className="login-box">
-            <h2>Regisztráció</h2>
-            <Box className="form" component="form" onSubmit={handleSubmit}>
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Keresztnév"
-                  name="firstName"
-                  value={registrationData.firstName}
-                  onChange={changeData}
-                  autoComplete="first-name"
-                  autoFocus
-                  />
-              <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  name="email"
-                  value={registrationData.email}
-                  onChange={changeData}
-                  autoComplete="email"
-                  autoFocus
-                  />
-              <Collapse in={emailCheckMessage !== ""}>
-                <div className="error-div">
-                  <p className="error-text">{emailCheckMessage}</p>
-                </div>
-              </Collapse>
-              <TextField
+        <Container>
+          <h2>Regisztráció</h2>
+          <Box component="form" onSubmit={handleSubmit}>
+            <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Jelszó"
-                type="password"
-                id="password-registration"
-                value={registrationData.password}
+                id="firstName"
+                label="Keresztnév"
+                name="firstName"
+                value={registrationData.firstName}
                 onChange={changeData}
-                autoComplete="current-password"
-              />
-              <Collapse in={registrationData.password.length > 0}>
-                <ul className="password-requirements-block">
-                  <p className="title">Jelszónak a következő feltételeknek kell megfelelnie:</p>
-                  <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
-                  <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
-                  <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
-                </ul>
-              </Collapse>
-              <Box className="submit-button-div">
-                  <Button
-                    variant="contained"
-                    type='submit'
-                    className="submit-button global-button"
-                    disabled={loading}
-                  >
-                    Regisztráció
-                  </Button>
-                  {loading && (
-                    <CircularProgress size={24} className="loading-icon" />
-                  )}
-                </Box>
-            </Box>
+                autoComplete="first-name"
+                autoFocus
+                />
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Email"
+                name="email"
+                value={registrationData.email}
+                onChange={changeData}
+                autoComplete="email"
+                autoFocus
+                />
+            <Collapse in={emailCheckMessage !== ""}>
+              <div className="error-div">
+                <p className="error-text">{emailCheckMessage}</p>
+              </div>
+            </Collapse>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Jelszó"
+              type="password"
+              value={registrationData.password}
+              onChange={changeData}
+              autoComplete="current-password"
+            />
+            <Collapse in={registrationData.password.length > 0}>
+              <ul className="password-requirements-block">
+                <p className="title">Jelszónak a következő feltételeknek kell megfelelnie:</p>
+                <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
+                <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
+                <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
+              </ul>
+            </Collapse>
+            <Box className="submit-button-div">
+                <Button
+                  variant="contained"
+                  type='submit'
+                  className="submit-button global-button"
+                  disabled={loading}
+                >
+                  Regisztráció
+                </Button>
+                {loading && (
+                  <CircularProgress size={24} className="loading-icon" />
+                )}
+              </Box>
           </Box>
           <Zoom in={showRegistrationMessage}>
               <div className="message-block">

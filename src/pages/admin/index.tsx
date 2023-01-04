@@ -1,10 +1,17 @@
+import { useContext, useState } from "react";
+import ThemeContext from "../../context/ThemeProvider";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
 const MainIndexPage = () => {
+
+    const { theme, setTheme } = useContext(ThemeContext);
+
     return (
         <>
             <NavbarLayout>
-                <h1>Hello from the other side</h1>
+                <button onClick={() => {localStorage.setItem('theme', 'themeSky'); setTheme('themeSky')}}>Sky</button>
+                <button onClick={() => {localStorage.setItem('theme', 'themeRose'); setTheme('themeRose')}}>Rose</button>
+                <button onClick={() => {localStorage.setItem('theme', 'themeNeutral'); setTheme('themeNeutral')}}>Neutral</button>
             </NavbarLayout>
         </>
     )

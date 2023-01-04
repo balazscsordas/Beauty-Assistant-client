@@ -24,6 +24,16 @@ const AddNewService = () => {
     const timeRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const stepsRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
+
+    const [inputData, setInputData] = useState<ServiceDataInterface>({
+        name: "",
+        category: "",   
+        price: 0,
+        time: 0,
+        description: "",
+        steps: "",
+    })
+
     const [categories, setCategories] = useState<ServiceCategories[]>([
         {
             name: "Klasszikus kezelések"
@@ -93,7 +103,7 @@ const AddNewService = () => {
             </Snackbar>
 
             <>
-                <h1 className="section-title">Szolgáltatás hozzáadása</h1>
+                <h1 className="page-title">Szolgáltatás hozzáadása</h1>
                 <Box className="form" component="form" onSubmit={handleSubmit}>
                     <Container>
                         <Row>

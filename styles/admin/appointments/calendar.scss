@@ -1,0 +1,48 @@
+@import '../../themes.scss';
+@import '../../variables.scss';
+
+#calendar-section {
+    max-width: 1000px;
+    margin: auto;
+
+    table {
+        min-width: 800px;
+    }
+
+    .table-block {
+        background-color: var(--color-100);
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+
+    td, th {
+        border: 1px solid var(--color-200)
+    }
+
+    td {
+        height: 20px;
+        transition: all .3s ease-in-out;
+    }
+
+    td:hover {
+        background-color: var(--color-400);
+    }
+
+    table {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-row {
+        height: 60px;
+    }
+
+    .header-item {
+        text-align: center;
+        width: 12.5%;
+    }
+
+    .time-header {
+        width: 7%;
+    }
+}

@@ -10,23 +10,6 @@
         margin-top: 16px;
     }
 
-    .MuiFormControl-root {
-        background-color: var(--bgThemeColor4);
-        box-shadow: $box-shadow;
-    }
-
-    .MuiFormLabel-root {
-        color: var(--textThemeColor1);
-    }
-
-    .MuiInputBase-root {
-        color: var(--textThemeColor5);
-    }
-
-    .form {
-        margin-top: 8px;
-    }
-
     .submit-button-div {
         margin: 30px auto 20px;
         text-align: center;
@@ -77,6 +60,4 @@
             color: red;
         }
     }
-
-    
 }

@@ -1,0 +1,12 @@
+@import '../../themes.scss';
+@import '../../variables.scss';
+
+#dialog-section {
+        text-align: center;
+
+    // GOMBOK
+    .MuiDialogActions-root.MuiDialogActions-spacing.css-hlj6pa-MuiDialogActions-root {
+        justify-content: center;
+        width: 500px;
+    }
+}

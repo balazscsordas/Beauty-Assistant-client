@@ -1,13 +1,23 @@
+@import '../../themes.scss';
+@import '../../variables.scss';
 
-#client-card-section {
-    margin: 30px 20px;
+#client-list-section {
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+#client-card-section, #service-card-section {
+    margin: 15px auto;
 
     .head-block {
         display: flex;
         align-items: center;
         position: relative;
-        padding: 5px;
-        border-bottom: 1px solid grey;
+        padding: 7px;
+        background-color: var(--color-200);
+        border-radius: 10px;
+        color: var(--color-900);
 
         .hamburger-icon {
             margin-left: auto;

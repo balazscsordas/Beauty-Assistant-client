@@ -30,18 +30,16 @@ const ServiceList = ({ services }: ServicesListProps) => {
     }
 
     return (
-            <section id="services-list-section">
-                <h1 className="section-title">Szolgáltatások</h1>
-                <div className="button-block">
-                    <Link href="/admin/add-new-service" passHref>
-                        <Button
-                            className="add-new-client-button" 
-                            variant="outlined" 
-                            startIcon={<AddCircleOutlineIcon />}>
-                            Szolgáltatás hozzáadása
-                        </Button>
-                    </Link>
-                </div>
+            <section id="service-list-section">
+                <h1 className="page-title">Szolgáltatások</h1>
+                <Link href="/admin/add-new-service" passHref>
+                    <Button
+                        className="add-new-client-button" 
+                        variant="outlined" 
+                        startIcon={<AddCircleOutlineIcon />}>
+                        Szolgáltatás hozzáadása
+                    </Button>
+                </Link>
                 <div className="searchbar-section">
                     <TextField
                         onChange={changeSearchBarData}
@@ -54,7 +52,7 @@ const ServiceList = ({ services }: ServicesListProps) => {
                         label="Keresés"
                     />
                 </div>
-                <Container className="client-list">
+                <div>
                     {filteredArray.length === 0
                         ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
                         : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
@@ -75,7 +73,7 @@ const ServiceList = ({ services }: ServicesListProps) => {
                                 name={service.name}
                             />
                         ))}
-                </Container>
+                </div>
             </section>
     )
 }

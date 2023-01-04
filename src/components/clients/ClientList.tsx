@@ -1,18 +1,16 @@
 import { ClientListInterface } from "../../interfaces/ClientInterfaces"; 
 import ClientCard from "./ClientCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import { Container } from 'react-bootstrap';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
+import ClientContext from "../../context/ClientProvider";
 
-interface ClientListProps {
-    clients: ClientListInterface[]
-}
+const ClientList = () => {
 
-const ClientList = ({ clients }: ClientListProps) => {
-
+    const { clients } = useContext(ClientContext);
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ClientListInterface[]>([])
 
@@ -31,17 +29,15 @@ const ClientList = ({ clients }: ClientListProps) => {
 
     return (
             <section id="client-list-section">
-                <h1 className="section-title">Vendégek</h1>
-                <div className="button-block">
-                    <Link href="/admin/add-new-client" passHref>
-                        <Button 
-                            className="add-new-client-button" 
-                            variant="outlined" 
-                            startIcon={<AddCircleOutlineIcon />}>
-                            Vendég hozzáadása
-                        </Button>
-                    </Link>
-                </div>
+                <h1 className="page-title">Vendégek</h1>
+                <Link href="/admin/add-new-client" passHref>
+                    <Button 
+                        className="add-new-client-button" 
+                        variant="outlined" 
+                        startIcon={<AddCircleOutlineIcon />}>
+                        Vendég hozzáadása
+                    </Button>
+                </Link>
                 <div className="searchbar-section">
                 <TextField
                     onChange={changeSearchBarData}
@@ -54,7 +50,7 @@ const ClientList = ({ clients }: ClientListProps) => {
                     label="Keresés"
                 />
                 </div>
-                <Container className="client-list">
+                <div className="client-list">
                     {filteredArray.length === 0
                         ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
                         : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (
@@ -75,7 +71,7 @@ const ClientList = ({ clients }: ClientListProps) => {
                             name={client.name}
                         />
                     ))}
-                </Container>
+                </div>
             </section>
     )
 }

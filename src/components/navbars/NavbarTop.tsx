@@ -1,18 +1,12 @@
-import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import AvatarSection from '../avatars/AvatarSection';
+import Link from 'next/link';
+import AvatarMobile from '../avatars/AvatarMobile';
 
 const NavbarTop = () => {
     return (
-      <section id="navbar-top">
-        <Navbar bg="dark" variant="dark">
-          <Container fluid>
-            <Navbar.Brand href="/admin">Navbar</Navbar.Brand>
-            <AvatarSection />
-          </Container>
-        </Navbar>
-      </section>
+      <div id="navbar-top">
+        <Link href="/admin" className='brand' >Beauty Assistant</Link>
+        <AvatarMobile />
+      </div>
     )
 };
 

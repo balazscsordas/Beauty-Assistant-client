@@ -104,9 +104,8 @@ const AddClients = () => {
                     Vendég hozzáadása sikeres volt.
                 </MuiAlert>
             </Snackbar>
-
             <>
-                <h1 className="section-title">Vendég hozzáadása</h1>
+                <h1 className="page-title">Vendég hozzáadása</h1>
                 <Box className="form" component="form" onSubmit={handleSubmit}>
                     <Container>
                         <Row>
@@ -151,7 +150,7 @@ const AddClients = () => {
                                 />
                             </Col>
                         </Row>
-                        <Row className="section-options-buttons">
+                        <Row className="options-buttons">
                             <Col >
                                 <Button 
                                     variant="contained" 

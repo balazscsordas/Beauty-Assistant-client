@@ -1,40 +1,16 @@
-body {
-    padding: 0!important;
-}
+@import '../themes.scss';
+@import '../variables.scss';
 
-h1 {
-    font-size: 2rem;
+/* LAYOUT */
+.column-layout {
+    display: flex;
 }
-
-h2 {
-    font-size: 1.8rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-.section-title {
+.page-title {
     text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-// Layout
-
-.column-layout {
-    display: flex;
-}
-
-// Client and Services list TOP section
-
-#client-list-section, #services-list-section {
-    text-align: center;
-    max-width: 800px;
-    margin: auto;
-
-    .searchbar-section {
-        width: 600px;
-        margin: 40px auto 35px;
-    }
+.searchbar-section {
+    margin: 40px auto 35px;
 }

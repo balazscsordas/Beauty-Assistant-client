@@ -44,55 +44,50 @@ const LoginForm = () => {
     }
   }
 
-
   return (
     <section id="login-section">
-      <Container component="main" maxWidth="xs">
-        <Box className="login-box">
-              <h2>Bejelentkezés</h2>
-              <Box className="form" component="form" onSubmit={handleSubmit}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  inputRef={emailRef}
-                  id="email-login"
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Jelszó"
-                  type="password"
-                  id="password-login"
-                  inputRef={passwordRef}
-                  autoComplete="current-password"
-                />
-                <Box className="submit-button-div">
-                  <Button
-                    variant="contained"
-                    type='submit'
-                    className="submit-button global-button"
-                    disabled={loading}
-                  >
-                    Bejelentkezés
-                  </Button>
-                  {loading && (
-                    <CircularProgress size={24} className="loading-icon" />
-                  )}
-                </Box>
-              </Box>
-              <Zoom in={loginMessage !== ""}>
-                <div className="error-div">
-                  <p className="error-text">{loginMessage}</p>
-                </div>
-              </Zoom>
+      <Container>
+        <h2>Bejelentkezés</h2>
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            inputRef={emailRef}
+            label="Email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Jelszó"
+            type="password"
+            inputRef={passwordRef}
+            autoComplete="current-password"
+          />
+          <Box className="submit-button-div">
+            <Button
+              variant="contained"
+              type='submit'
+              className="submit-button global-button"
+              disabled={loading}
+            >
+              Bejelentkezés
+            </Button>
+            {loading && (
+              <CircularProgress size={24} className="loading-icon" />
+            )}
           </Box>
+        </Box>
+        <Zoom in={loginMessage !== ""}>
+          <div className="error-div">
+            <p className="error-text">{loginMessage}</p>
+          </div>
+        </Zoom>
       </Container>
     </section>
   );

@@ -8,9 +8,9 @@ const ServiceCard = ({ name, category, _id }: ServiceListInterface) => {
     const url = `/admin/services/${_id}`
 
     return (
-        <section id="client-card-section">
+        <section id="service-card-section">
             <div className="head-block">
-                <h3 className="name-title">{name}</h3>
+                <h4 className="name-title">{name}</h4>
                 <Link href={url} className="hamburger-icon">
                     <IconButton aria-label="more data">
                         <AddCircleOutlineIcon />
