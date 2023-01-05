@@ -7,7 +7,7 @@ const authMiddleware = (req: NextRequest, res: NextResponse) => {
 
     /* if(!jwt && url.includes('/admin')){
         return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/login`)
-    } */
+    } * /
 }
 
 export default authMiddleware;
