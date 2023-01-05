@@ -12,7 +12,6 @@ export const getServerSideProps = async () => {
     /* const response = await axios.get(url, { withCredentials: true , headers: { "Authorization": "Bearer abcd"}}); */
     const clientsList: ClientListInterface[] = response.data.foundClients;
 
-
     return {
         props: {
             clientsList

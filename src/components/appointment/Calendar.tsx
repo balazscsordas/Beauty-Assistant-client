@@ -43,84 +43,86 @@ const Calendar = () => {
             <WeekPicker />
             <div className='table-block'>
                 <table>
-                    <tr className='main-row'>
-                        <th></th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.monday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.monday) + getNumberedDay(currentWeek.monday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.tuesday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.tuesday) + getNumberedDay(currentWeek.tuesday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.wednesday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.wednesday) + getNumberedDay(currentWeek.wednesday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.thurstday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.thurstday) + getNumberedDay(currentWeek.thurstday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.friday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.saturday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
-                        </th>
-                        <th className='header-item'>
-                            {getNamedDay(currentWeek.sunday)}
-                            <br/>
-                            <span>{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
-                        </th>
-                    </tr>
+                    <thead >
+                        <tr className='main-row'>
+                            <th></th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.monday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.monday) + getNumberedDay(currentWeek.monday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.tuesday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.tuesday) + getNumberedDay(currentWeek.tuesday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.wednesday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.wednesday) + getNumberedDay(currentWeek.wednesday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.thurstday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.thurstday) + getNumberedDay(currentWeek.thurstday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.friday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.saturday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
+                            </th>
+                            <th className='header-item'>
+                                {getNamedDay(currentWeek.sunday)}
+                                <br/>
+                                <span>{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
+                            </th>
+                        </tr>
+                    </thead>
                     {hours.map((hour, index) => (
-                        <>
-                        <tr key={index}>
-                            <th className='time-header'>{hour + ':00'}</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr >
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr >
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr >
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </>
+                        <tbody key={index}>
+                            <tr >
+                                <th className='time-header'>{hour + ':00'}</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr >
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr >
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr >
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
                     ))}
                 </table>
             </div>
