@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { prevWeek, getNamedMonth, getWeekDates, nextWeek } from "./Utils";
+import { prevWeek, getNamedMonth, nextWeek } from "./Utils";
 import { IconButton } from '@mui/material';
 import AppointmentContext from '../../context/AppointmentProvider';
 
@@ -21,8 +21,8 @@ const WeekPicker = () => {
         <div id='week-picker'>
             <div className='year-block'>
                 {currentWeek.monday.getFullYear() === currentWeek.sunday.getFullYear()
-                    ? <h3>{currentWeek.monday.getFullYear()}</h3> 
-                    : <h3>{currentWeek.monday.getFullYear() + ' - ' + currentWeek.sunday.getFullYear()}</h3>
+                    ? <h4>{currentWeek.monday.getFullYear()}</h4> 
+                    : <h4>{currentWeek.monday.getFullYear() + ' - ' + currentWeek.sunday.getFullYear()}</h4>
                 }
             </div>
             <div className='month-day-block'>
@@ -30,7 +30,7 @@ const WeekPicker = () => {
                     <KeyboardArrowLeftIcon />
                 </IconButton> 
                 
-                <h3>{getNamedMonth(currentWeek.monday) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday) + ' ' + currentWeek.sunday.getDate()}</h3>
+                <h4>{getNamedMonth(currentWeek.monday) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday) + ' ' + currentWeek.sunday.getDate()}</h4>
                 <IconButton className='icon' onClick={goToNextWeek}>
                     <KeyboardArrowRightIcon />
                 </IconButton>

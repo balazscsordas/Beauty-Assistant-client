@@ -10,7 +10,7 @@ const ServiceCard = ({ name, category, _id }: ServiceListInterface) => {
     return (
         <section id="service-card-section">
             <div className="head-block">
-                <h4 className="name-title">{name}</h4>
+                <h5 className="name-title">{name}</h5>
                 <Link href={url} className="hamburger-icon">
                     <IconButton aria-label="more data">
                         <AddCircleOutlineIcon />

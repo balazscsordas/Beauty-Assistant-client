@@ -3,7 +3,7 @@ import ServiceList from "../../components/services/ServiceList";
 import { ServiceListInterface } from "../../interfaces/ServiceInterfaces";
 import { InferGetServerSidePropsType } from "next";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ServiceContext from "../../context/ServiceProvider";
 
 export const getServerSideProps = async () => {
@@ -21,12 +21,15 @@ export const getServerSideProps = async () => {
 const ServicesPage = ({ servicesList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const { setServices } = useContext(ServiceContext);
-    setServices(servicesList);
+
+    useEffect(() => {
+        setServices(servicesList);
+    }, [])
 
     return (
         <>
             <NavbarLayout>
-                <ServiceList/>
+                <ServiceList servicesList = {servicesList}/>
             </NavbarLayout>
         </>
     )

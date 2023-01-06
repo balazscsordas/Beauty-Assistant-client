@@ -178,7 +178,7 @@ const AddClients = () => {
                             <Collapse in={showAllergies}>
                                 <TextField
                                     margin="normal"
-                                    minRows={4}
+                                    minRows={2}
                                     fullWidth
                                     multiline
                                     inputRef={allergiesRef}
@@ -190,7 +190,7 @@ const AddClients = () => {
                             <Collapse in={showSkinType}>
                                 <TextField
                                     margin="normal"
-                                    minRows={4}
+                                    minRows={2}
                                     fullWidth
                                     multiline
                                     inputRef={skinTypeRef}
@@ -202,7 +202,7 @@ const AddClients = () => {
                             <Collapse in={showUsedCreams}>
                                 <TextField
                                     margin="normal"
-                                    minRows={4}
+                                    minRows={2}
                                     fullWidth
                                     multiline
                                     inputRef={usedCreamsRef}
@@ -214,7 +214,7 @@ const AddClients = () => {
                             <Collapse in={showBaseInformation}>
                                 <TextField
                                     margin="normal"
-                                    minRows={4}
+                                    minRows={2}
                                     fullWidth
                                     multiline
                                     inputRef={baseInformationRef}

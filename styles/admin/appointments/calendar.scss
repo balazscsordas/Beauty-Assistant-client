@@ -7,25 +7,33 @@
 
     table {
         min-width: 800px;
+        table-layout: fixed;
+    }
+
+    .hidden {
+        display: none;
     }
 
     .table-block {
         background-color: var(--color-100);
         overflow-y: scroll;
         overflow-x: scroll;
+        
     }
 
     td, th {
-        border: 1px solid var(--color-200)
+        border: 1px dotted var(--color-200);
     }
 
     td {
-        height: 20px;
-        transition: all .3s ease-in-out;
+        height: 35px;
     }
+
+    
 
     td:hover {
         background-color: var(--color-400);
+        cursor: pointer;
     }
 
     table {
@@ -35,14 +43,54 @@
 
     .main-row {
         height: 60px;
-    }
 
-    .header-item {
-        text-align: center;
-        width: 12.5%;
+        .header-item {
+            text-align: center;
+            font-size: 0.9rem;
+
+            span {
+                font-size: 0.8rem;
+                font-weight: 400;
+            }
+        }
     }
 
     .time-header {
-        width: 7%;
+        width: 50px;
+        font-size: 0.8rem;
+        border: none;
+        font-weight: 400;
     }
+
+    tr:nth-child(4n+1) th {
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .time-box {
+        position: relative;
+        bottom: 17.5px;
+    }
+
+    tr:nth-child(4n+0) td, .header-item{
+        border-bottom: 1px solid var(--color-300);
+    }
+
+
+    .appointmentCell {
+        border: 1px dotted var(--color-200)!important;
+        
+        div {
+            background-color: var(--color-300);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+    }
+    
+    
 }

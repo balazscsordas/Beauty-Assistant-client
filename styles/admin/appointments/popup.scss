@@ -9,4 +9,8 @@
         justify-content: center;
         width: 500px;
     }
+
+    .MuiDialogContent-root {
+        overflow-y: scroll;
+    }
 }

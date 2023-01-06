@@ -17,8 +17,18 @@ export interface AppointmentSearchResInterface {
 
 export interface NewAppointmentInterface {
     date: Date,
-    hour: number,
-    minute: number,
+    time: string,
     clientId: string,
     serviceId: string
+}
+
+export interface AppointmentInterface {
+    _id: string,
+    date: Date,
+    time: string,
+    clientId: string,
+    clientName: string,
+    serviceId: string,
+    serviceName: string,
+    serviceTime: number
 }

@@ -3,24 +3,22 @@ import ServiceCard from "./ServiceCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
-import { Container } from 'react-bootstrap';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
 import ServiceContext from "../../context/ServiceProvider";
 
-interface ServicesListProps {
-    services: ServiceListInterface[]
+interface Props {
+    servicesList: ServiceListInterface[]
 }
 
-const ServiceList = () => {
+const ServiceList = ({ servicesList }: Props) => {
 
-    const { services } = useContext(ServiceContext);
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ServiceListInterface[]>([])
 
     const changeSearchBarData = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputTextValue(e.target.value);
-        const result = services.filter((service: ServiceListInterface) => {
+        const result = servicesList.filter((service: ServiceListInterface) => {
             if (e.target.value === "") {
                 return service
             }
@@ -65,9 +63,9 @@ const ServiceList = () => {
                                 name={service.name}
                             />
                         ))}
-                    {services.length === 0 
+                    {servicesList.length === 0 
                         ? <p>Még nem adtál hozzá szolgáltatást!</p>
-                        : inputTextValue === "" && services.map((service: ServiceListInterface, index: number) => (
+                        : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
                             <ServiceCard
                                 key={index}
                                 _id={service._id}

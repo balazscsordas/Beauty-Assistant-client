@@ -1,22 +1,23 @@
 import { ClientListInterface } from "../../interfaces/ClientInterfaces"; 
 import ClientCard from "./ClientCard";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Container } from 'react-bootstrap';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
-import ClientContext from "../../context/ClientProvider";
 
-const ClientList = () => {
+interface Props {
+    clientsList: ClientListInterface[]
+}
 
-    const { clients } = useContext(ClientContext);
+const ClientList = ({ clientsList }: Props) => {
+
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ClientListInterface[]>([])
 
     const changeSearchBarData = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputTextValue(e.target.value);
-        const result = clients.filter((client: ClientListInterface) => {
+        const result = clientsList.filter((client: ClientListInterface) => {
             if (e.target.value === "") {
                 return client
             }
@@ -61,9 +62,9 @@ const ClientList = () => {
                             name={client.name}
                         />
                     ))}
-                    {clients.length === 0 
+                    {clientsList.length === 0 
                         ? <p>Még nem adtál hozzá vendéget!</p>
-                        : inputTextValue === "" && clients.map((client: ClientListInterface, index: number) => (
+                        : inputTextValue === "" && clientsList.map((client: ClientListInterface, index: number) => (
                         <ClientCard
                             key={index}
                             _id={client._id}

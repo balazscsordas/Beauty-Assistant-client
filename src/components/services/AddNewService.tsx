@@ -113,7 +113,6 @@ const AddNewService = () => {
                                     required
                                     fullWidth
                                     inputRef={nameRef}
-                                    id="name"
                                     label="Név"
                                     name="name"
                                     autoFocus

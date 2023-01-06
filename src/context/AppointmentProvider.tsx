@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useState } from "react";
 import { getWeekDates } from "../components/appointment/Utils";
 import { NewAppointmentInterface, WeekdaysInterface } from "../interfaces/AppointmentInterfaces";
 
@@ -21,8 +21,7 @@ export const AppointmentProvider = ({ children }: Props) => {
     const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(getWeekDates());
     const [newAppointmentData, setNewAppointmentData] = useState({
         date: new Date(),
-        hour: 0,
-        minute: 0,
+        time: "",
         clientId: "",
         serviceId: ""
     });

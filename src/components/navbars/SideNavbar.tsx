@@ -12,6 +12,9 @@ const sideNavbar = () => {
             <div className='navbar-header'>
                 <Link href="/admin">Beauty Assistant</Link>
             </div>
+            <div className='navbar-header-small'>
+                <Link href="/admin">BA</Link>
+            </div>
             <div className='navbar-body'>
                 <Link href="/admin/clients"><PeopleIcon /><span>Vendégek</span></Link>
                 <Link href="/admin/appointments"><CalendarMonthIcon /><span>Időpontok</span></Link>

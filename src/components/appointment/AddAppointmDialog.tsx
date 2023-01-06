@@ -4,7 +4,7 @@ import MuiAlert from '@mui/material/Alert';
 import { useContext, useState } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
 import { NewAppointmentInterface } from "../../interfaces/AppointmentInterfaces";
-import { combineMinuteWithHours, getNamedDay, getNamedMonth, getNumberedDay } from '../appointment/Utils';
+import { getNamedDay, getNamedMonth, getNumberedDay } from '../appointment/Utils';
 import ClientSearchbar from "./searchbars/ClientSearchbar";
 import ServiceSearchbar from "./searchbars/ServiceSearchbar";
 
@@ -17,6 +17,7 @@ const AddAppointmentDialog = () => {
     } = useContext(AppointmentContext);
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
     
     const sendNewAppointmentDataToServer = async (data: NewAppointmentInterface) => {
         try {
@@ -27,6 +28,7 @@ const AddAppointmentDialog = () => {
                 setShowSuccessAlert(true);
             }
         } catch(err) {
+            setShowErrorAlert(true);
             console.log(err);
         }
     }
@@ -53,17 +55,32 @@ const AddAppointmentDialog = () => {
                 </MuiAlert>
             </Snackbar>
 
+            <Snackbar 
+                open={showErrorAlert} 
+                autoHideDuration={3000} 
+                onClose={() => setShowErrorAlert}
+                >
+                <MuiAlert 
+                    onClose={() => setShowErrorAlert} 
+                    elevation={6}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}>
+                    A foglalás hozzáadása sajnos nem sikerült.
+                </MuiAlert>
+            </Snackbar>
+
             <Dialog open={openAddAppointmentDialog} onClose={() => setOpenAddAppointmentDialog(false)} id='dialog-section'>
                 <DialogTitle>Időpont hozzáadása</DialogTitle>
                 <DialogContent>
                 <DialogContentText className='dialog-context-text'>
-                    <p>{
+                    {
                         newAppointmentData.date.getFullYear() 
                         + '. ' + getNamedMonth(newAppointmentData.date) 
                         + ' ' + getNumberedDay(newAppointmentData.date) 
                         + '. ' + getNamedDay(newAppointmentData.date)
-                        + ' ' + combineMinuteWithHours(newAppointmentData.hour, newAppointmentData.minute)
-                    }</p>
+                        + ' ' + newAppointmentData.time
+                    }
                 </DialogContentText>
                     <ClientSearchbar/>
                     <ServiceSearchbar/>

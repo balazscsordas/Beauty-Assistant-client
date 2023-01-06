@@ -29,6 +29,10 @@
     padding: 30px;
     font-size: 1.2rem;
   }
+
+  .navbar-header-small {
+    display: none;
+  }
   
   .navbar-body {
     display: flex;
@@ -84,6 +88,18 @@
 
   #side-navbar {
     width: 80px;
+
+    .navbar-header {
+      display: none;
+    }
+
+    .navbar-header-small {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 6px 10px;
+      padding: 10px 15px;
+    }
 
     span {
       display: none;
