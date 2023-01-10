@@ -1,10 +1,11 @@
 import NavbarLayout from "../../Layouts/NavbarLayout";
+import Statistics from "../../components/statistics/Statistics";
 
 const StatisticsPage = () => {
     return (
         <>
             <NavbarLayout>
-                <h1>statisztikák</h1>
+                <Statistics/>
             </NavbarLayout>
         </>
     )

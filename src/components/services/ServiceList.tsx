@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
 import ServiceContext from "../../context/ServiceProvider";
+import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 
 interface Props {
     servicesList: ServiceListInterface[]
@@ -33,12 +34,7 @@ const ServiceList = ({ servicesList }: Props) => {
             <section id="service-list-section">
                 <h1 className="page-title">Szolgáltatások</h1>
                 <Link href="/admin/add-new-service" passHref>
-                    <Button
-                        className="add-new-client-button" 
-                        variant="outlined" 
-                        startIcon={<AddCircleOutlineIcon />}>
-                        Szolgáltatás hozzáadása
-                    </Button>
+                    <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
                 </Link>
                 <div className="searchbar-section">
                     <TextField
@@ -54,7 +50,7 @@ const ServiceList = ({ servicesList }: Props) => {
                 </div>
                 <div>
                     {filteredArray.length === 0
-                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>
                         : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
                             <ServiceCard
                                 key={index}
@@ -64,7 +60,7 @@ const ServiceList = ({ servicesList }: Props) => {
                             />
                         ))}
                     {servicesList.length === 0 
-                        ? <p>Még nem adtál hozzá szolgáltatást!</p>
+                        ? <p>Még nem adtál hozzá szolgáltatást.</p>
                         : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
                             <ServiceCard
                                 key={index}

@@ -1,36 +1,73 @@
-import { WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
+import { AppointmentInterface, WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
+
+/* FUNCTIONS */
+export const resetAllCells = () => {
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.rowSpan = 1;
+        cell.innerHTML = '';
+        cell.classList.remove('full');
+    })
+}
+
+export const addAppointmentToCell = (rowIndex: number, colIndex: number, appointmLength: number, appointment: AppointmentInterface) => {
+    const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex];
+    const rowSpanVal = appointmLength / 15;
+    hideUnusedCellsBeforeRowSpan(rowSpanVal, rowIndex, colIndex);
+    cell.rowSpan = rowSpanVal
+    cell.classList.add('full');
+    cell.classList.remove('empty');
+    cell.innerHTML += `<div>${appointment.clientName}</div>`;
+}
+
+export const hideUnusedCellsBeforeRowSpan = (rowSpanVal: number, rowIndex: number, colIndex: number) => {
+    for (let i = 1; i < rowSpanVal; i++) {
+        document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex].classList.add('hidden');
+    }
+}
+
+export const showAllCells = () => {
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.classList.remove('hidden');
+    });
+}
 
 export const prevWeek = (currentWeek: WeekdaysInterface) => {
-    const mondayDate = currentWeek.monday.getDate();
+    const year = currentWeek.monday.getFullYear();
+    const month = currentWeek.monday.getMonth();
+    const date = currentWeek.monday.getDate();
     const prevWeek: WeekdaysInterface = {
-        monday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 7)),
-        tuesday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 6)),
-        wednesday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 5)),
-        thurstday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 4)),
-        friday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 3)),
-        saturday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 2)),
-        sunday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() - 1)),
+        monday: new Date(year, month, (date - 7)),
+        tuesday: new Date(year, month, (date - 6)),
+        wednesday: new Date(year, month, (date - 5)),
+        thurstday: new Date(year, month, (date - 4)),
+        friday: new Date(year, month, (date - 3)),
+        saturday: new Date(year, month, (date - 2)),
+        sunday: new Date(year, month, (date - 1)),
     }
     return prevWeek;
 }
 
 export const nextWeek = (currentWeek: WeekdaysInterface) => {
-    const mondayDate = currentWeek.monday.getDate();
+    const year = currentWeek.monday.getFullYear();
+    const month = currentWeek.monday.getMonth();
+    const date = currentWeek.monday.getDate();
     const nextWeek: WeekdaysInterface = {
-        monday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 7)),
-        tuesday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 8)),
-        wednesday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 9)),
-        thurstday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 10)),
-        friday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 11)),
-        saturday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 12)),
-        sunday: new Date(currentWeek.monday.getFullYear(), currentWeek.monday.getMonth(), (currentWeek.monday.getDate() + 13)),
+        monday: new Date(year, month, (date + 7)),
+        tuesday: new Date(year, month, (date + 8)),
+        wednesday: new Date(year, month, (date + 9)),
+        thurstday: new Date(year, month, (date + 10)),
+        friday: new Date(year, month, (date + 11)),
+        saturday: new Date(year, month, (date + 12)),
+        sunday: new Date(year, month, (date + 13)),
     }
     return nextWeek;
 }
 
 export const getNamedMonth = (date: Date) => {
     const months = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
-    const month = date.getMonth();
+    const month = new Date(date).getMonth();
     return months[month];
 }
 
@@ -41,8 +78,7 @@ export const getNumberedMonth = (date: Date) => {
 }
 
 export const getNamedDay = (date: Date) => {
-    const days = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
-    switch (date.getDay()) {
+    switch (new Date(date).getDay()) {
         case 0:
             return 'Vasárnap';
         case 1:
@@ -63,10 +99,9 @@ export const getNamedDay = (date: Date) => {
     }
 }
 
-
 export const getNumberedDay = (date: Date) => {
     const days = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    const day = date.getDate();
+    const day = new Date(date).getDate();
     if (day < 10) {
         return days[day - 1];
     }
@@ -75,89 +110,6 @@ export const getNumberedDay = (date: Date) => {
     }
 }
 
-/* export const getMondayOfCurrentWeek = (date: Date) => {
-    const dateOfMonth = date.getDate();
-    switch (getNamedDay(date)) {
-        case 'Hétfő':
-            return date;
-        case 'Kedd':
-            date.setDate(dateOfMonth - 1)
-                return date
-        case 'Szerda':
-            date.setDate(dateOfMonth - 2)
-            return date
-        case 'Csütörtök':
-            date.setDate(dateOfMonth - 3)
-            return date
-        case 'Péntek':
-            date.setDate(dateOfMonth - 4)
-            return date
-        case 'Szombat':
-            date.setDate(dateOfMonth - 5)
-            return date
-        case 'Vasárnap':
-            date.setDate(dateOfMonth - 6)
-            return date
-    
-        default:
-            return date
-    }
-}
-
-export const getOtherDayOfCurrentWeek = (mondayDate: Date, day: String) => {
-    const dateOfMonth = mondayDate.getDate();
-    let addValue = 0;
-    switch (day) {
-        case 'Tuesday':
-            addValue = 1
-            break;
-        case 'Wednesday':
-            addValue = 2
-            break;
-        case 'Thurstday':
-            addValue = 3
-            break;
-        case 'Friday':
-            addValue = 4
-            break;
-        case 'Saturday':
-            addValue = 5
-            break;
-        case 'Sunday':
-            addValue = 6
-            break;
-    
-        default:
-            addValue = 0
-            break;
-    }
-    let returnDate = mondayDate;
-    returnDate.setDate(dateOfMonth + addValue);
-    return returnDate;
-}
-
-export const getCurrentWeek = () => {
-    const currentDay = new Date();
-    const mondayDate = getMondayOfCurrentWeek(currentDay);
-    const tuesdayDate = getOtherDayOfCurrentWeek(mondayDate, 'Tuesday');
-    const wednesdayDate = getOtherDayOfCurrentWeek(mondayDate, 'Wednesday');
-    const thurstdayDate = getOtherDayOfCurrentWeek(mondayDate, 'Thurstday');
-    const fridayDate = getOtherDayOfCurrentWeek(mondayDate, 'Friday');
-    const saturdayDate = getOtherDayOfCurrentWeek(mondayDate, 'Saturday');
-    const sundayDate = getOtherDayOfCurrentWeek(mondayDate, 'Sunday');
-    const weekdays = {
-        mondayDate,
-        tuesdayDate,
-        wednesdayDate,
-        thurstdayDate,
-        fridayDate,
-        saturdayDate,
-        sundayDate
-    }
-    return weekdays;
-} */
-
-
 export const getWeekDates = (): WeekdaysInterface => {
     const today = new Date();
     const currentDayOfMonth = today.getDate();
@@ -165,13 +117,13 @@ export const getWeekDates = (): WeekdaysInterface => {
     switch (today.getDay()) {
         case 0:
             weekdays = {
-                sunday: new Date(),
                 monday: new Date(new Date().setDate(currentDayOfMonth - 6)),
                 tuesday: new Date(new Date().setDate(currentDayOfMonth - 5)),
                 wednesday: new Date(new Date().setDate(currentDayOfMonth - 4)),
                 thurstday: new Date(new Date().setDate(currentDayOfMonth - 3)),
                 friday: new Date(new Date().setDate(currentDayOfMonth - 2)),
                 saturday: new Date(new Date().setDate(currentDayOfMonth - 1)),
+                sunday: new Date()
             }
             return weekdays;
         case 1:
@@ -231,7 +183,7 @@ export const getWeekDates = (): WeekdaysInterface => {
             return weekdays;
         case 6:
             weekdays = {
-                monday: new Date(),
+                monday: new Date(new Date().setDate(currentDayOfMonth - 5)),
                 tuesday: new Date(new Date().setDate(currentDayOfMonth - 4)),
                 wednesday: new Date(new Date().setDate(currentDayOfMonth - 3)),
                 thurstday: new Date(new Date().setDate(currentDayOfMonth - 2)),
@@ -275,23 +227,6 @@ export const getDayDataFromDayIndex = (dayIndex: number, currentWeek: WeekdaysIn
             return currentWeek.monday;
     }
 }
-
-
-/* export const appointmentLengthToRowSpan = (length: number) => {
-    switch (length) {
-        case 0:
-            return 1;
-        case 15:
-            return 2;
-        case 30:
-            return 3;
-        case 45:
-            return 4;
-    
-        default:
-            return 1;
-    }
-} */
 
 export const checkIfItsOnThisWeek = (appointmentDate: Date, currentWeek: WeekdaysInterface) => {
     const appointmDateStr = dateToString(appointmentDate);

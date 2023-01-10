@@ -1,0 +1,25 @@
+@import '../../variables.scss';
+@import '../../themes.scss';
+
+#settings-section {
+    margin: auto;
+    max-width: 600px;
+
+    h3 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    .setting-block {
+        display: flex;
+        margin: 15px auto;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .setting-name {
+            margin: 0;
+        }
+    }
+}

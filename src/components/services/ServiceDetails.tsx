@@ -12,6 +12,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
+import { AddIconOptionButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
+import { MultilineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
+import { Alert } from "../smallComponents/Alerts";
 
 const ServiceDetails = (props: ServiceDataInterface) => {
 
@@ -121,170 +124,67 @@ const ServiceDetails = (props: ServiceDataInterface) => {
 
     return (
         <section id="client-details-section">
-            <Snackbar 
-                open={showSavingAlert} 
-                autoHideDuration={3000} 
+            <Alert 
+                open={showSavingAlert}
                 onClose={handleCloseSavingAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseSavingAlert} 
-                    elevation={6}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A változtatások mentése sikeres volt.
-                </MuiAlert>
-            </Snackbar>
-
-            <Snackbar 
-                open={showSavingErrorAlert} 
-                autoHideDuration={3000} 
+                text="A változtatások mentése sikeres volt."
+                severity="success"
+            />
+            <Alert 
+                open={showSavingErrorAlert}
                 onClose={handleCloseSavingErrorAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseSavingErrorAlert} 
-                    elevation={6}
-                    severity="error"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később.
-                </MuiAlert>
-            </Snackbar>
+                text="A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később."
+                severity="error"
+            />
             
-            <Snackbar 
-                open={showDeleteAlert} 
-                autoHideDuration={3000} 
+            <Alert 
+                open={showDeleteAlert}
                 onClose={handleCloseDeleteAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseDeleteAlert} 
-                    elevation={6}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    {props.name} eltávolítása a klienseid közül sikeres volt.
-                </MuiAlert>
-            </Snackbar>
-
-            <Snackbar 
-                open={showDeleteErrorAlert} 
-                autoHideDuration={3000} 
+                text={`${props.name} eltávolítása a kliensek közül sikeres volt`}
+                severity="success"
+            />
+            <Alert 
+                open={showDeleteErrorAlert}
                 onClose={handleCloseDeleteErrorAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseDeleteErrorAlert} 
-                    elevation={6}
-                    severity="error"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A kliens adatbázisból történő törlése nem sikerült.
-                </MuiAlert>
-            </Snackbar>
+                text="A kliens adatbázisból történő törlése nem sikerült."
+                severity="error"
+            />
 
             <h1 className="page-title">{props.name}</h1>
             <Box className="form" component="form" onSubmit={saveService}>
                 <Container>
                     <Row>
                         <Col lg={3}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                onChange={handleInputChange}
-                                value={serviceData.name}
-                                id="name"
-                                label="Név"
-                                name="name"
-                            />
+                            <OneLineReqAutoFocusInput onChange={handleInputChange} value={serviceData.name} label="Név" nameVal="name"/>
                         </Col>
                         <Col lg={3}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                value={serviceData.category}
-                                onChange={handleInputChange}
-                                id="category"
-                                label="Kategória"
-                                name="category"
-                            />
+                            <OneLineReqInput onChange={handleInputChange} value={serviceData.category} label="Kategória" nameVal="category"/>
                         </Col>
                         <Col lg={3}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                value={serviceData.price}
-                                onChange={handleInputChange}
-                                id="price"
-                                label="Ár"
-                                name="price"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="end">Ft</InputAdornment>,
-                                }}
-                            />
+                            <OneLineReqInput onChange={handleInputChange} value={serviceData.price} label="Ár (Ft)" nameVal="price"/>
                         </Col>
                         <Col lg={3}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                value={serviceData.time}
-                                onChange={handleInputChange}
-                                id="time"
-                                label="Időtartam"
-                                name="time"
-                            />
+                            <OneLineReqInput onChange={handleInputChange} value={serviceData.time} label="Időtartam (Perc)" nameVal="time"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col className="section-options-buttons">
-                            <Button
-                                variant="contained"
-                                onClick={() => setShowSteps(!showSteps)}
-                                startIcon={!showSteps ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Otthon használt készítmények
-                            </Button>
-                            <Button
-                                variant="contained"
-                                onClick={() => setShowDescription(!showDescription)}
-                                startIcon={!showDescription ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Általános információk
-                            </Button>
+                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
+                            <AddIconOptionButton onClick={() => setShowDescription(!showDescription)} text="Leírás"/>
                         </Col>
                     </Row>
                     <div className="options-fields">
                         <Collapse in={showDescription}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={serviceData.description}
-                                onChange={handleInputChange}
-                                id="description"
-                                label="Leírás"
-                                name="description"
-                            />
+                            <MultilineNonReqInput value={serviceData.description} onChange={handleInputChange} nameVal="description" label="Leírás"/>
                         </Collapse>
                         <Collapse in={showSteps}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={serviceData.steps}
-                                onChange={handleInputChange}
-                                id="steps"
-                                label="Lépések"
-                                name="steps"
-                            />
+                            <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
                         </Collapse>
                     </div>
                 </Container>
                 <div className="buttons-block">
-                    <Zoom in={showSaveButton}>
-                        <Button type="submit" variant="outlined">Save</Button>
-                    </Zoom>
-                    <Button onClick={handleOpenDialog} variant="outlined">Delete</Button>
+                    <BasicSecondaryButton onClick={handleOpenDialog} text="Törlés"/>
+                    <BasicPrimaryButton type="submit" text="Mentés"/>
                     <Dialog
                         open={deleteDialogOpen}
                         onClose={handleCloseDialog}
@@ -293,12 +193,12 @@ const ServiceDetails = (props: ServiceDataInterface) => {
                         >
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                            Biztosan el szeretnéd távolítani {props.name}-t a klienseid közül?
+                                Biztosan törölni szeretnéd a kezelést?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleCloseDialog}>Nem</Button>
-                            <Button onClick={deleteService} autoFocus>Igen</Button>
+                            <BasicSecondaryButton onClick={handleCloseDialog} text="Nem"/>
+                            <BasicPrimaryButton onClick={deleteService} text="Igen"/>
                         </DialogActions>
                     </Dialog>
                 </div>

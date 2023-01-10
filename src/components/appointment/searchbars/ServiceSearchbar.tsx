@@ -4,6 +4,7 @@ import ServiceContext from "../../../context/ServiceProvider";
 import { ServiceListInterface } from "../../../interfaces/ServiceInterfaces";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AppointmentContext from "../../../context/AppointmentProvider";
+import { OneLineReqInput } from "../../smallComponents/InputFields";
 
 const ServiceSearchbar = () => {
 
@@ -41,22 +42,19 @@ const ServiceSearchbar = () => {
     }
 
     return (
-        <div className="searchbar-section">
-            <TextField
-                onChange={changeSearchBarData}
-                type="search"
-                variant="outlined"
-                value={serviceSearchbarValue}
-                fullWidth
+        <div className="appointment-searchbar-section">
+            <OneLineReqInput 
+                onChange={changeSearchBarData} 
+                type="search" value={serviceSearchbarValue} 
                 label="Kezelés neve"
             />
             <Collapse in={showFilteredServices}>
                 {filteredServiceList.length === 0
-                    ? serviceSearchbarValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                    ? serviceSearchbarValue !== "" && <p className='no-content-message'>Nincs a keresésnek megfelelő találat!</p>
                     : serviceSearchbarValue !== "" && filteredServiceList.map((service: ServiceListInterface, index: number) => (
-                        <section id="client-card-section" key={index}>
+                        <section id="card-section" key={index}>
                             <div className="head-block">
-                                <h4 className="name-title">{service.name}</h4>
+                                <h5 className="name-title">{service.name}</h5>
                                 <IconButton onClick={() => setService(service._id, service.name)} className="hamburger-icon" aria-label="add">
                                     <AddCircleOutlineIcon />
                                 </IconButton>

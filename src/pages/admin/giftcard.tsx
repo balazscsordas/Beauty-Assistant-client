@@ -1,10 +1,11 @@
+import Giftcard from "../../components/giftcard/Giftcard";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
 const GiftcardPage = () => {
     return (
         <>
             <NavbarLayout>
-                <h1>ajándékkártya</h1>
+                <Giftcard/>
             </NavbarLayout>
         </>
     )

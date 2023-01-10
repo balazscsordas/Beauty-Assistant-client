@@ -1,5 +1,6 @@
 @import './variables.scss';
 @import './globals.scss';
+@import './buttons.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Authentication 
@@ -23,4 +24,13 @@
 @import './admin/appointments/calendar.scss';
 @import './admin/appointments/week-picker.scss';
 @import './admin/appointments/popup.scss';
+
+// Admin / Settings
+@import './admin/settings/settings.scss';
+
+// Admin / Statistics
+@import './admin/statistics/statistics.scss';
+
+// Admin / Giftcard
+@import './admin/giftcard/giftcard.scss';
 

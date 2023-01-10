@@ -1,17 +1,18 @@
 import ClientList from "../../components/clients/ClientList";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 import { InferGetServerSidePropsType } from "next";
-import { ClientListInterface } from "../../interfaces/ClientInterfaces";
+import { ClientListInterface, ClientOptionNamesInterface } from "../../interfaces/ClientInterfaces";
 import axios from "axios";
 import ClientContext from "../../context/ClientProvider";
 import { useContext, useEffect } from "react";
 
-const ClientsPage = ({ clientsList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ClientsPage = ({ clientsList, clientOptionNames }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-    const { setClients } = useContext(ClientContext);
+    const { setClients, setClientOptionNames } = useContext(ClientContext);
 
     useEffect(() => {
         setClients(clientsList);
+        setClientOptionNames(clientOptionNames);
     }, [])
 
     return (
@@ -28,10 +29,12 @@ export const getServerSideProps = async () => {
     const response = await axios.get(url, { withCredentials: true });
     /* const response = await axios.get(url, { withCredentials: true , headers: { "Authorization": "Bearer abcd"}}); */
     const clientsList: ClientListInterface[] = response.data.foundClients;
+    const clientOptionNames: ClientOptionNamesInterface = response.data.clientOptionNamesWithoutId;
 
     return {
         props: {
-            clientsList
+            clientsList,
+            clientOptionNames
         }
     }
 }

@@ -9,6 +9,7 @@ import Settings from '@mui/icons-material/Settings';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import axios from 'axios';
 import Router from 'next/router';
+import Link from 'next/link';
 
 const AccountAvatar = () => {
 
@@ -53,12 +54,16 @@ const AccountAvatar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <ListItemIcon><ManageAccountsIcon fontSize="small"/></ListItemIcon>Adatok
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
-                </MenuItem>
+                <Link href="/admin/user-data" passHref>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                      <ListItemIcon><ManageAccountsIcon fontSize="small"/></ListItemIcon>Adatok
+                  </MenuItem>
+                </Link>
+                <Link href="/admin/settings" passHref>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                      <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
+                  </MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon><Logout fontSize="small"/></ListItemIcon>Kijelentkezés
                 </MenuItem>

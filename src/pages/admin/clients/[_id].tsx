@@ -26,10 +26,12 @@ const ClientDetailsPage = ({ clientDetails }: InferGetServerSidePropsType<typeof
                     name = {clientDetails.name}
                     age = {clientDetails.age}
                     mobileNumber = {clientDetails.mobileNumber}
-                    allergies = {clientDetails.allergies}
-                    skinType = {clientDetails.skinType}
-                    usedCreams = {clientDetails.usedCreams}
-                    baseInformation = {clientDetails.baseInformation}
+                    email = {clientDetails.email}
+                    option1Content = {clientDetails.option1Content}
+                    option2Content = {clientDetails.option2Content}
+                    option3Content = {clientDetails.option3Content}
+                    option4Content = {clientDetails.option4Content}
+                    option5Content = {clientDetails.option5Content}
                 />
             </NavbarLayout>
         </>

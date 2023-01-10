@@ -4,6 +4,7 @@ import ClientContext from "../../../context/ClientProvider";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ClientListInterface } from "../../../interfaces/ClientInterfaces";
 import AppointmentContext from "../../../context/AppointmentProvider";
+import { OneLineReqAutoFocusInput } from "../../smallComponents/InputFields";
 
 const ClientSearchbar = () => {
 
@@ -40,24 +41,21 @@ const ClientSearchbar = () => {
         setShowFilteredClients(false);
     }
 
-
     return (
-        <div className="searchbar-section">
-            <TextField
-                onChange={changeSearchBarData}
-                type="search"
-                variant="outlined"
-                value={clientSearchbarValue}
-                fullWidth
+        <div className="appointment-searchbar-section">
+            <OneLineReqAutoFocusInput 
+                onChange={changeSearchBarData} 
+                type="search" 
+                value={clientSearchbarValue} 
                 label="Vendég neve"
             />
             <Collapse in={showFilteredClients}>
                 {filteredClientList.length === 0
-                    ? clientSearchbarValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                    ? clientSearchbarValue !== "" && <p className='no-content-message'>Nincs a keresésnek megfelelő találat!</p>
                     : clientSearchbarValue !== "" && filteredClientList.map((client: ClientListInterface, index: number) => (
-                        <section id="client-card-section" key={index}>
+                        <section id="card-section" key={index}>
                             <div className="head-block">
-                                <h4 className="name-title">{client.name}</h4>
+                                <h5 className="name-title">{client.name}</h5>
                                 <IconButton onClick={() => setClient(client._id, client.name)} className="hamburger-icon" aria-label="add">
                                     <AddCircleOutlineIcon />
                                 </IconButton>

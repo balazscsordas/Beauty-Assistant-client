@@ -19,7 +19,10 @@ export interface NewAppointmentInterface {
     date: Date,
     time: string,
     clientId: string,
-    serviceId: string
+    serviceId: string,
+    discount: string,
+    commentForAdmin: string,
+    commentForClient: string,
 }
 
 export interface AppointmentInterface {
@@ -30,5 +33,8 @@ export interface AppointmentInterface {
     clientName: string,
     serviceId: string,
     serviceName: string,
-    serviceTime: number
+    discount: string,
+    serviceTime: number,
+    commentForAdmin: string,
+    commentForClient: string,
 }

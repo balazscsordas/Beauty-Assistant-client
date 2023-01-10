@@ -1,8 +1,9 @@
 import WeekPicker from "./WeekPicker";
 import React, { useContext, useEffect } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
-import { checkIfItsOnThisWeek, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth } from "./Utils";
+import { addAppointmentToCell, checkIfItsOnThisWeek, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells, showAllCells } from "./Utils";
 import AddAppointmentDialog from "./AddAppointmDialog";
+import EditAppointmentDialog from "./EditAppointmDialog";
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
@@ -16,7 +17,16 @@ const Calendar = ({ foundAppointments }: Props) => {
 
     const { clients, setClients } = useContext(ClientContext);
     const { services, setServices } = useContext(ServiceContext);
-    const { currentWeek, setNewAppointmentData, setOpenAddAppointmentDialog } = useContext(AppointmentContext);
+    const { 
+        currentWeek,
+        hideSaturday,
+        hideSunday,
+        setNewAppointmentData,
+        setOpenAddAppointmentDialog,
+        setOpenEditAppointmentDialog,
+        setEditAppointmentData
+    } = useContext(AppointmentContext);
+
     const hours = [
         '8:00', '8:15', '8:30', '8:45', 
         '9:00', '9:15', '9:30', '9:45',
@@ -32,11 +42,16 @@ const Calendar = ({ foundAppointments }: Props) => {
         '19:00', '19:15', '19:30', '19:45',
     ];
 
-    /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
     useEffect(() => {
+        /* CHANGES SATURDAY AND SUNDAY COLUMN VISIBILITY */
+        hideSunday === true && hideSundayCells();
+        hideSaturday === true && hideSaturdayCells();
+
+        /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
         clients.length === 0 && getClientListAPI();
         services.length === 0 && getServiceListAPI();
     }, [])
+
 
     /* TD ONCLICK EFFECT */
     useEffect(() => {
@@ -45,14 +60,29 @@ const Calendar = ({ foundAppointments }: Props) => {
             cell.addEventListener('click', () => {
                 const dayIndex = cell.cellIndex;
                 const rowIndex = cell.closest('tr').rowIndex
-                setNewAppointmentData(prevData => {
-                    return {
-                        ...prevData,
-                        date: getDayDataFromDayIndex(dayIndex, currentWeek),
-                        time: hours[rowIndex - 1],
-                    }
-                })
-                setOpenAddAppointmentDialog(true);
+                
+                if (cell.classList.contains('empty')) {
+                    setNewAppointmentData(prevData => {
+                        return {
+                            ...prevData,
+                            date: getDayDataFromDayIndex(dayIndex, currentWeek),
+                            time: hours[rowIndex - 1],
+                        }
+                    })
+                    setOpenAddAppointmentDialog(true);
+                }
+                else if (cell.classList.contains('full')) {
+                    foundAppointments.map(appointment => {
+                        if (checkIfItsOnThisWeek(appointment.date, currentWeek) === true) {
+                            const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
+                            const appointmentDayIndex = new Date(appointment.date).getDay();
+                            if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
+                                setEditAppointmentData(appointment);
+                            }
+                        }
+                    })
+                    setOpenEditAppointmentDialog(true);
+                }
             });
         })
     }, [currentWeek])
@@ -73,38 +103,6 @@ const Calendar = ({ foundAppointments }: Props) => {
             }
         })
     }, [currentWeek]);
-
-    /* FUNCTIONS */
-    const resetAllCells = () => {
-        const cells = document.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.rowSpan = 1;
-            cell.innerHTML = '';
-            cell.classList.remove('appointmentCell');
-        })
-    }
-
-    const addAppointmentToCell = (rowIndex: number, colIndex: number, appointmLength: number, appointment: AppointmentInterface) => {
-        const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex];
-        const rowSpanVal = appointmLength / 15;
-        hideUnusedCellsBeforeRowSpan(rowSpanVal, rowIndex, colIndex);
-        cell.rowSpan = rowSpanVal
-        cell.classList.add('appointmentCell');
-        cell.innerHTML += `<div>${appointment.clientName}</div>`;
-    }
-
-    const hideUnusedCellsBeforeRowSpan = (rowSpanVal: number, rowIndex: number, colIndex: number) => {
-        for (let i = 1; i < rowSpanVal; i++) {
-            document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex].classList.add('hidden');
-        }
-    }
-
-    const showAllCells = () => {
-        const cells = document.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.classList.remove('hidden');
-        });
-    }
     
     /* API */
     const getClientListAPI = async () => {
@@ -130,6 +128,7 @@ const Calendar = ({ foundAppointments }: Props) => {
     return (
         <section id='calendar-section'>
             <AddAppointmentDialog/>
+            <EditAppointmentDialog/>
             <h1 className='page-title'>Időpontok</h1>
             <WeekPicker />
             <div className='table-block'>
@@ -178,13 +177,13 @@ const Calendar = ({ foundAppointments }: Props) => {
                         {hours.map((hour, index) => (
                                 <tr key={index}>
                                     <th className='time-header'><div className='time-box'>{hour}</div></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
+                                    <td className='empty'></td>
                                 </tr>
                         ))}
                     </tbody>
@@ -195,3 +194,19 @@ const Calendar = ({ foundAppointments }: Props) => {
 }
 
 export default Calendar;
+
+/* FUNCTIONS */
+const hideSundayCells = () => {
+    const sundayCells = document.querySelectorAll('tr td:last-child, th:last-child');
+    sundayCells.forEach(cell => {
+        cell.classList.add('hidden');
+    });
+}
+
+const hideSaturdayCells = () => {
+    const saturdayCells = document.querySelectorAll('tr td:nth-child(7), th:nth-child(7)');
+    saturdayCells.forEach(cell => {
+        cell.classList.add('hidden');
+    });
+}
+

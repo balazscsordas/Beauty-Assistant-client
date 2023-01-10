@@ -1,22 +1,20 @@
 import React, { useState, useRef } from "react";
 import Container from 'react-bootstrap/Container';
-import { Button, Collapse, TextField, Snackbar } from '@mui/material';
-import Box from '@mui/material/Box';
-import MuiAlert from '@mui/material/Alert';
+import { Collapse, TextField, Box, MenuItem } from '@mui/material';
 import axios from "axios";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { ServiceCategories, ServiceDataInterface } from '../../interfaces/ServiceInterfaces';
 import Router from 'next/router';
-import InputAdornment from '@mui/material/InputAdornment';
-import MenuItem from '@mui/material/MenuItem';
+import { Alert } from "../smallComponents/Alerts";
+import { MultilineNonReqInput, OneLineReqAutoFocusInput } from "../smallComponents/InputFields";
+import { AddIconOptionButton, AddIconPrimaryButton } from "../smallComponents/Buttons";
 
 const AddNewService = () => {
 
     // States + Refs
-    const [showAlert, setShowAlert] = useState(false);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
     const nameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const descriptionRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const categoryRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -72,35 +70,36 @@ const AddNewService = () => {
             const response = await axios.post(url, params, { withCredentials: true });
             console.log(response.data.message);
             if (response.data.message = "Service has been added") {
-                setShowAlert(true);
+                setShowSuccessAlert(true);
                 Router.push('/admin/services');
+            } else {
+                setShowErrorAlert(true);
             }
         }
         catch (err) {
+            setShowErrorAlert(true);
             err instanceof Error && console.log(err.message);
         }
     }
 
     const handleCloseAlert = () => {
-        setShowAlert(false);
+        setShowSuccessAlert(false);
       };
 
     return (
         <section id="add-new-client-section">
-            <Snackbar 
-                open={showAlert} 
-                autoHideDuration={3000} 
-                onClose={handleCloseAlert}  
-                >
-                <MuiAlert 
-                    onClose={handleCloseAlert} 
-                    elevation={6}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    Szolgáltatás hozzáadása sikeres volt.
-                </MuiAlert>
-            </Snackbar>
+            <Alert 
+                open={showSuccessAlert}
+                onClose={handleCloseAlert}
+                text="Szolgáltatás hozzáadása sikeres volt."
+                severity="success"
+            />
+            <Alert 
+                open={showErrorAlert}
+                onClose={handleCloseAlert}
+                text="Szolgáltatás hozzáadása nem sikerült."
+                severity="error"
+            />
 
             <>
                 <h1 className="page-title">Szolgáltatás hozzáadása</h1>
@@ -108,15 +107,7 @@ const AddNewService = () => {
                     <Container>
                         <Row>
                             <Col lg={3}>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    inputRef={nameRef}
-                                    label="Név"
-                                    name="name"
-                                    autoFocus
-                                />
+                                <OneLineReqAutoFocusInput inputRef={nameRef} label="Név" nameVal="name"/>
                             </Col>
                             <Col lg={3}>
                                 <TextField
@@ -137,83 +128,30 @@ const AddNewService = () => {
                                     </TextField>
                             </Col>
                             <Col lg={3}>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    type="number"
-                                    inputRef={priceRef}
-                                    id="price"
-                                    label="Ár"
-                                    name="price"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">Ft</InputAdornment>,
-                                    }}
-                                />
+                                <OneLineReqAutoFocusInput inputRef={priceRef} label="Ár (Ft)" nameVal="price" type="number"/>
                             </Col>
                             <Col lg={3}>
-                                <TextField
-                                    margin="normal"
-                                    fullWidth
-                                    required
-                                    type="number"
-                                    inputRef={timeRef}
-                                    id="time"
-                                    label="Időtartam"
-                                    name="time"
-                                    InputProps={{
-                                        endAdornment: <InputAdornment position="end">Perc</InputAdornment>,
-                                    }}
-                                />
+                                <OneLineReqAutoFocusInput inputRef={timeRef} label="Időtartam (perc)" nameVal="time" type="number"/>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <TextField
-                                    margin="normal"
-                                    minRows={4}
-                                    fullWidth
-                                    required
-                                    multiline
-                                    inputRef={descriptionRef}
-                                    id="description"
-                                    label="Leírás"
-                                    name="description"
-                                />
+                                <MultilineNonReqInput inputRef={descriptionRef} label="Leírás" nameVal="description"/>
                             </Col>
                         </Row>
                         <Row className="section-options-buttons">
                             <Col >
-                                <Button 
-                                    variant="contained"
-                                    onClick={() => setShowSteps(!showSteps)}
-                                    startIcon={!showSteps ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Lépések
-                                </Button>
+                                <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
                             </Col>
                         </Row>
                         <div className="options-fields">
                             <Collapse in={showSteps}>
-                                <TextField
-                                    margin="normal"
-                                    minRows={4}
-                                    fullWidth
-                                    multiline
-                                    inputRef={stepsRef}
-                                    id="steps"
-                                    label="Lépések"
-                                    name="steps"
-                                />
+                                <MultilineNonReqInput inputRef={stepsRef} label="Lépések" nameVal="steps"/>
                             </Collapse>
                         </div>
                     </Container>
                         <div className="button-block">
-                            <Button 
-                                type="submit"
-                                className="add-new-client-button" 
-                                variant="outlined" 
-                                startIcon={<AddCircleOutlineIcon />}>
-                                Szolgáltatás hozzáadása
-                            </Button>
+                            <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
                         </div>
                 </Box>
             </>

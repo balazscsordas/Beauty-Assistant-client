@@ -1,29 +1,30 @@
-import React, { useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
-import TextField from '@mui/material/TextField';
-import Zoom from '@mui/material/Zoom';
-import { Button, Collapse } from '@mui/material';
+import { Collapse } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import { Container, Row, Col } from "react-bootstrap";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
+import { Alert } from "../smallComponents/Alerts";
+import { AddIconOptionButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
+import { MultilineNonReqInput, OneLineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
+import ClientContext from "../../context/ClientProvider";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
+    const { clientOptionNames } = useContext(ClientContext);
     const [clientData, setClientData] = useState<ClientDataInterface>({
         _id: props._id,
         name: props.name,
-        mobileNumber: props.mobileNumber,
         age: props.age,
-        baseInformation: props.baseInformation,
-        allergies: props.allergies,
-        skinType: props.skinType,
-        usedCreams: props.usedCreams
+        email: props.email,
+        mobileNumber: props.mobileNumber,
+        option1Content: props.option1Content,
+        option2Content: props.option2Content,
+        option3Content: props.option3Content,
+        option4Content: props.option4Content,
+        option5Content: props.option5Content,
     })
 
     const [showSavingAlert, setShowSavingAlert] = useState(false);
@@ -35,10 +36,11 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     // States for show or hide textfields
 
-    const [showAllergies, setShowAllergies] = useState(props.allergies ? true : false);
-    const [showSkinType, setShowSkinType] = useState(props.skinType ? true : false);
-    const [showUsedCreams, setShowUsedCreams] = useState(props.usedCreams ? true : false);
-    const [showBaseInformation, setShowBaseInformation] = useState(props.baseInformation ? true : false);
+    const [showOption1Content, setShowOption1Content] = useState(props.option1Content ? true : false)
+    const [showOption2Content, setShowOption2Content] = useState(props.option2Content ? true : false)
+    const [showOption3Content, setShowOption3Content] = useState(props.option3Content ? true : false)
+    const [showOption4Content, setShowOption4Content] = useState(props.option4Content ? true : false)
+    const [showOption5Content, setShowOption5Content] = useState(props.option5Content ? true : false)
 
     const saveClient = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -69,7 +71,6 @@ const ClientDetails = (props: ClientDataInterface) => {
             withCredentials: true,
         }
         const response = await axios.delete(url, config);
-        console.log(response);
         if(response.status === 200) {
             setShowDeleteAlert(true);
         } 
@@ -125,186 +126,79 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     return (
         <section id="client-details-section">
-            <Snackbar 
-                open={showSavingAlert} 
-                autoHideDuration={3000} 
+            <Alert 
+                open={showSavingAlert}
                 onClose={handleCloseSavingAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseSavingAlert} 
-                    elevation={6}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A változtatások mentése sikeres volt.
-                </MuiAlert>
-            </Snackbar>
-
-            <Snackbar 
-                open={showSavingErrorAlert} 
-                autoHideDuration={3000} 
+                text="A változtatások mentése sikeres volt."
+                severity="success"
+            />
+            <Alert 
+                open={showSavingErrorAlert}
                 onClose={handleCloseSavingErrorAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseSavingErrorAlert} 
-                    elevation={6}
-                    severity="error"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később.
-                </MuiAlert>
-            </Snackbar>
+                text="A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később."
+                severity="error"
+            />
             
-            <Snackbar 
-                open={showDeleteAlert} 
-                autoHideDuration={3000} 
+            <Alert 
+                open={showDeleteAlert}
                 onClose={handleCloseDeleteAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseDeleteAlert} 
-                    elevation={6}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    {props.name} eltávolítása a klienseid közül sikeres volt.
-                </MuiAlert>
-            </Snackbar>
-
-            <Snackbar 
-                open={showDeleteErrorAlert} 
-                autoHideDuration={3000} 
+                text={`${props.name} eltávolítása a kliensek közül sikeres volt`}
+                severity="success"
+            />
+            <Alert 
+                open={showDeleteErrorAlert}
                 onClose={handleCloseDeleteErrorAlert}
-                >
-                <MuiAlert 
-                    onClose={handleCloseDeleteErrorAlert} 
-                    elevation={6}
-                    severity="error"
-                    variant="filled"
-                    sx={{ width: '100%' }}>
-                    A kliens adatbázisból történő törlése nem sikerült.
-                </MuiAlert>
-            </Snackbar>
-
+                text="A kliens adatbázisból történő törlése nem sikerült."
+                severity="error"
+            />
+            
             <h1 className="page-title">{props.name}</h1>
             <Box className="form" component="form" onSubmit={saveClient}>
                 <Container>
                     <Row>
-                        <Col lg={4}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                onChange={handleInputChange}
-                                value={clientData.name}
-                                label="Név"
-                                name="name"
-                            />
+                        <Col lg={3}>
+                            <OneLineReqAutoFocusInput value={clientData.name} onChange={handleInputChange} label="Név" nameVal="name"/>
                         </Col>
-                        <Col lg={4}>
-                            <TextField
-                                className="age-input"
-                                margin="normal"
-                                required
-                                fullWidth
-                                value={clientData.age}
-                                onChange={handleInputChange}
-                                label="Kor"
-                                name="age"
-                            />
+                        <Col lg={3}>
+                            <OneLineReqInput onChange={handleInputChange} value={clientData.mobileNumber} label="Telefonszám" nameVal="tel"/>
                         </Col>
-                        <Col lg={4}>
-                            <TextField
-                                margin="normal"
-                                required
-                                type="tel"
-                                fullWidth
-                                value={clientData.mobileNumber}
-                                onChange={handleInputChange}
-                                label="Telefonszám"
-                                name="mobileNumber"
-                            />
+                        <Col lg={3}>
+                            <OneLineNonReqInput onChange={handleInputChange} value={clientData.age} label="Kor" nameVal="age"/>
+                        </Col>
+                        <Col lg={3}>
+                            <OneLineNonReqInput onChange={handleInputChange} value={clientData.email} label="E-mail" nameVal="email"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col className="section-options-buttons">
-                            <Button 
-                                variant="contained" 
-                                onClick={() => setShowAllergies(!showAllergies)} 
-                                startIcon={!showAllergies ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Allergia
-                                </Button>
-                            <Button 
-                                variant="contained"
-                                onClick={() => setShowSkinType(!showSkinType)}
-                                startIcon={!showSkinType ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Bőrtípus
-                                </Button>
-                            <Button
-                                variant="contained"
-                                onClick={() => setShowUsedCreams(!showUsedCreams)}
-                                startIcon={!showUsedCreams ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Otthon használt készítmények
-                            </Button>
-                            <Button
-                                variant="contained"
-                                onClick={() => setShowBaseInformation(!showBaseInformation)}
-                                startIcon={!showBaseInformation ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}>Általános információk
-                            </Button>
+                            {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
+                            {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setShowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
+                            {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
+                            {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
+                            {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
                         </Col>
                     </Row>
                     <div className="options-fields">
-                        <Collapse in={showAllergies}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.allergies}
-                                onChange={handleInputChange}
-                                label="Allergiák"
-                                name="allergies"
-                            />
+                        <Collapse in={showOption1Content}>
+                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option1Content} label={clientOptionNames.option1Name} nameVal={clientOptionNames.option1Name}/>
                         </Collapse>
-                        <Collapse in={showSkinType}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.skinType}
-                                onChange={handleInputChange}
-                                label="Bőrtípus"
-                                name="skinType"
-                            />
+                        <Collapse in={showOption2Content}>
+                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option2Content} label={clientOptionNames.option2Name} nameVal={clientOptionNames.option2Name}/>
                         </Collapse>
-                        <Collapse in={showUsedCreams}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.usedCreams}
-                                onChange={handleInputChange}
-                                label="Otthon használt készítmények"
-                                name="usedCreams"
-                            />
+                        <Collapse in={showOption3Content}>
+                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option3Content} label={clientOptionNames.option3Name} nameVal={clientOptionNames.option3Name}/>
                         </Collapse>
-                        <Collapse in={showBaseInformation}>
-                            <TextField
-                                margin="normal"
-                                minRows={4}
-                                fullWidth
-                                multiline
-                                value={clientData.baseInformation}
-                                onChange={handleInputChange}
-                                label="Általános információk"
-                                name="baseInformation"
-                            />
+                        <Collapse in={showOption4Content}>
+                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option4Content} label={clientOptionNames.option4Name} nameVal={clientOptionNames.option4Name}/>
+                        </Collapse>
+                        <Collapse in={showOption5Content}>
+                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option5Content} label={clientOptionNames.option5Name}  nameVal={clientOptionNames.option5Name}/>
                         </Collapse>
                     </div>
                 </Container>
                 <div className="buttons-block">
-                    <Zoom in={showSaveButton}>
-                        <Button type="submit" variant="outlined">Save</Button>
-                    </Zoom>
-                    <Button onClick={handleOpenDialog} variant="outlined">Delete</Button>
+                        <BasicSecondaryButton onClick={handleOpenDialog} text="Törlés"/>
+                        <BasicPrimaryButton type="submit" text="Mentés"/>
                     <Dialog
                         open={deleteDialogOpen}
                         onClose={handleCloseDialog}
@@ -313,12 +207,12 @@ const ClientDetails = (props: ClientDataInterface) => {
                         >
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                            Biztosan el szeretnéd távolítani {props.name}-t a klienseid közül?
+                                Biztosan el szeretnéd távolítani {props.name}-t a klienseid közül?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleCloseDialog}>Nem</Button>
-                            <Button onClick={deleteClient} autoFocus>Igen</Button>
+                            <BasicSecondaryButton onClick={handleCloseDialog} text="Nem"/>
+                            <BasicPrimaryButton onClick={deleteClient} text="Igen"/>
                         </DialogActions>
                     </Dialog>
                 </div>

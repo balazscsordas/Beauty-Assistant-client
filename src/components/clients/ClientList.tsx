@@ -1,10 +1,9 @@
 import { ClientListInterface } from "../../interfaces/ClientInterfaces"; 
 import ClientCard from "./ClientCard";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
+import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 
 interface Props {
     clientsList: ClientListInterface[]
@@ -32,12 +31,7 @@ const ClientList = ({ clientsList }: Props) => {
             <section id="client-list-section">
                 <h1 className="page-title">Vendégek</h1>
                 <Link href="/admin/add-new-client" passHref>
-                    <Button 
-                        className="add-new-client-button" 
-                        variant="outlined" 
-                        startIcon={<AddCircleOutlineIcon />}>
-                        Vendég hozzáadása
-                    </Button>
+                    <AddIconPrimaryButton text='vendég hozzáadása' />
                 </Link>
                 <div className="searchbar-section">
                 <TextField

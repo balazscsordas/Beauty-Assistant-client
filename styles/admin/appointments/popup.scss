@@ -2,15 +2,46 @@
 @import '../../variables.scss';
 
 #dialog-section {
-        text-align: center;
+    text-align: center;
+
+    .dialog-context-text {
+        margin-bottom: 20px;
+    }
+
+    .no-content-message {
+        margin: 15px;
+    }
+
+    #card-section {
+        .head-block {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 7px;
+            border-radius: 10px;
+    
+            .hamburger-icon {
+                margin-left: auto;
+            }
+        }
+    
+        .name-title {
+            display: inline-block;
+            margin-bottom: 0;
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+    }
 
     // GOMBOK
     .MuiDialogActions-root.MuiDialogActions-spacing.css-hlj6pa-MuiDialogActions-root {
         justify-content: center;
         width: 500px;
+        margin: 20px auto;
+        display: flex;
     }
 
-    .MuiDialogContent-root {
+    .MuiBox-root {
         overflow-y: scroll;
     }
 }

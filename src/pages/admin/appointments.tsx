@@ -15,6 +15,7 @@ const AppointmentPage = ({ foundAppointments }: InferGetServerSidePropsType<type
 }
 
 export const getServerSideProps = async () => {
+
     const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
     const response = await axios.get(url, { withCredentials: true });
     const foundAppointments: AppointmentInterface[] = response.data.foundAppointments;
