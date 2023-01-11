@@ -1,11 +1,8 @@
 import { ServiceListInterface } from "../../interfaces/ServiceInterfaces";
 import ServiceCard from "./ServiceCard";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useContext, useState } from 'react';
-import Button from '@mui/material/Button';
+import { useState } from 'react';
 import Link from "next/link";
 import TextField from '@mui/material/TextField';
-import ServiceContext from "../../context/ServiceProvider";
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 
 interface Props {

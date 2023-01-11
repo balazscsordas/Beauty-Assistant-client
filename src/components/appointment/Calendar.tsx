@@ -2,19 +2,13 @@ import WeekPicker from "./WeekPicker";
 import React, { useContext, useEffect } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
 import { addAppointmentToCell, checkIfItsOnThisWeek, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells, showAllCells } from "./Utils";
-import AddAppointmentDialog from "./AddAppointmDialog";
-import EditAppointmentDialog from "./EditAppointmDialog";
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
-import { AppointmentInterface } from "../../interfaces/AppointmentInterfaces";
 
-interface Props {
-    foundAppointments: AppointmentInterface[]
-}
+const Calendar = () => {
 
-const Calendar = ({ foundAppointments }: Props) => {
-
+    const { currentWeekAppointments, setEmptyRowsForServiceLength } = useContext(AppointmentContext);
     const { clients, setClients } = useContext(ClientContext);
     const { services, setServices } = useContext(ServiceContext);
     const { 
@@ -42,11 +36,33 @@ const Calendar = ({ foundAppointments }: Props) => {
         '19:00', '19:15', '19:30', '19:45',
     ];
 
+    /* APPOINTMENT VISUALIZATION */
+    useEffect(() => {
+        resetAllCells();
+        currentWeekAppointments && currentWeekAppointments.map(appointment => {
+            if (checkIfItsOnThisWeek(appointment.date, currentWeek) === true) {
+                const time = appointment.time;
+                const appointmLength = appointment.serviceTime;
+                const rowIndex = hours.indexOf(time) + 1;
+                const colIndex = new Date(appointment.date).getUTCDay();
+                addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
+            } else {
+                showAllCells();
+            }
+        })
+    }, [currentWeekAppointments, currentWeek]);
+
     useEffect(() => {
         /* CHANGES SATURDAY AND SUNDAY COLUMN VISIBILITY */
         hideSunday === true && hideSundayCells();
         hideSaturday === true && hideSaturdayCells();
+    }, [currentWeek])
 
+    useEffect(() => {
+        console.log("Current week changed");
+    }, [currentWeek]);
+
+    useEffect(() => {
         /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
         clients.length === 0 && getClientListAPI();
         services.length === 0 && getServiceListAPI();
@@ -60,7 +76,7 @@ const Calendar = ({ foundAppointments }: Props) => {
             cell.addEventListener('click', () => {
                 const dayIndex = cell.cellIndex;
                 const rowIndex = cell.closest('tr').rowIndex
-                
+
                 if (cell.classList.contains('empty')) {
                     setNewAppointmentData(prevData => {
                         return {
@@ -70,40 +86,25 @@ const Calendar = ({ foundAppointments }: Props) => {
                         }
                     })
                     setOpenAddAppointmentDialog(true);
+                    setEmptyRowsForServiceLength(countEmptyRows(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
                 }
                 else if (cell.classList.contains('full')) {
-                    foundAppointments.map(appointment => {
-                        if (checkIfItsOnThisWeek(appointment.date, currentWeek) === true) {
-                            const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
-                            const appointmentDayIndex = new Date(appointment.date).getDay();
-                            if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
-                                setEditAppointmentData(appointment);
-                            }
+                    currentWeekAppointments && currentWeekAppointments.map(appointment => {
+                        const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
+                        const appointmentDayIndex = new Date(appointment.date).getUTCDay();
+
+                        if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
+                            setEditAppointmentData(appointment);
                         }
                     })
                     setOpenEditAppointmentDialog(true);
                 }
             });
         })
-    }, [currentWeek])
+    }, [currentWeek, currentWeekAppointments])
 
 
-    /* APPOINTMENT VISUALIZATION */
-    useEffect(() => {
-        resetAllCells();
-        foundAppointments.map(appointment => {
-            if (checkIfItsOnThisWeek(appointment.date, currentWeek) === true) {
-                const time = appointment.time;
-                const appointmLength = appointment.serviceTime;
-                const rowIndex = hours.indexOf(time) + 1;
-                const colIndex = new Date(appointment.date).getDay() - 1;
-                addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
-            } else {
-                showAllCells();
-            }
-        })
-    }, [currentWeek]);
-    
+
     /* API */
     const getClientListAPI = async () => {
         try {
@@ -125,10 +126,22 @@ const Calendar = ({ foundAppointments }: Props) => {
         }
     }
 
+    // returns the number of 15 minutes before the next appointment begin
+    function countEmptyRows(rowIndex: number, colIndex: number) {
+        let numberOfEmptyCells = 0;
+        for (let index = 0; index < 10; index++) {
+            const cell = document.getElementsByTagName('tr')[rowIndex + index].getElementsByTagName('td')[colIndex - 1];
+            if (cell.classList.contains('full')) {
+                break;
+            } else {
+                numberOfEmptyCells++;
+            }
+        }
+        return numberOfEmptyCells;
+    }
+
     return (
         <section id='calendar-section'>
-            <AddAppointmentDialog/>
-            <EditAppointmentDialog/>
             <h1 className='page-title'>Időpontok</h1>
             <WeekPicker />
             <div className='table-block'>

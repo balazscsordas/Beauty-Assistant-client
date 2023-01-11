@@ -9,29 +9,43 @@ import { OneLineReqInput } from "../../smallComponents/InputFields";
 const ServiceSearchbar = () => {
 
     const { services } = useContext(ServiceContext);
-    const { setNewAppointmentData } = useContext(AppointmentContext);
+    const { setEditAppointmentData, editAppointmentData, emptyRowsForServiceLength } = useContext(AppointmentContext);
 
-    const [serviceSearchbarValue, setServiceSearchbarValue] = useState("");
-    const [filteredServiceList, setFilteredServiceList] = useState<ServiceListInterface[]>([])
+    const [serviceSearchbarValue, setServiceSearchbarValue] = useState(editAppointmentData.serviceName);
+    const [filteredServiceList, setFilteredServiceList] = useState<ServiceListInterface[]>([]);
     const [showFilteredServices, setShowFilteredServices] = useState(false);
 
     const changeSearchBarData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setServiceSearchbarValue(e.target.value);
+        const value = e.target.value;
+        setServiceSearchbarValue(value);
         const result = services.filter((service: ServiceListInterface) => {
-            if (e.target.value === "") {
+            if (value === "") {
                 setShowFilteredServices(false);
                 return service
             }
             else {
                 setShowFilteredServices(true);
-                return service.name.toLowerCase().includes(e.target.value.toLowerCase());
+                if (emptyRowsForServiceLength) {
+                    return checkServiceLengthAndName(service, value, emptyRowsForServiceLength);
+                }
             }
         })
         setFilteredServiceList(result);
     }
 
+    function checkServiceLengthAndName (service: ServiceListInterface, value: string, numberOfEmptyRows: number) {
+        if (service.time) {
+            const serviceLengthNumber = parseInt(service.time);
+            if (service.name.toLowerCase().includes(value.toLowerCase()) && serviceLengthNumber <= (numberOfEmptyRows * 15)) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
     const setService = (_id: string | undefined, name: string) => {
-        _id && setNewAppointmentData(prevData => {
+        _id && setEditAppointmentData(prevData => {
             return {
                 ...prevData,
                 serviceId: _id,

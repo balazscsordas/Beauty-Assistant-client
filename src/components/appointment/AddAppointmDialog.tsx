@@ -1,19 +1,25 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from "@mui/material";
+import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import axios from "axios";
-import MuiAlert from '@mui/material/Alert';
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
 import { NewAppointmentInterface } from "../../interfaces/AppointmentInterfaces";
 import { getNamedDay, getNamedMonth, getNumberedDay } from '../appointment/Utils';
-import ClientSearchbar from "./searchbars/ClientSearchbar";
-import ServiceSearchbar from "./searchbars/ServiceSearchbar";
+import ClientSearchbar from "./addNewAppointmSearchbars/ClientSearchbar";
+import ServiceSearchbar from "./addNewAppointmSearchbars/ServiceSearchbar";
 import { Alert } from "../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../smallComponents/InputFields";
 
 const AddAppointmentDialog = () => {
 
-    const { newAppointmentData, openAddAppointmentDialog, setOpenAddAppointmentDialog, setNewAppointmentData } = useContext(AppointmentContext);
+    const { 
+        newAppointmentData, 
+        setNewAppointmentData,
+        openAddAppointmentDialog, 
+        setOpenAddAppointmentDialog, 
+        setCurrentWeekAppointments
+    } = useContext(AppointmentContext);
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     
@@ -24,7 +30,8 @@ const AddAppointmentDialog = () => {
             const response = await axios.post(url, params, { withCredentials: true });
             if (response?.status === 200) {
                 setShowSuccessAlert(true);
-                console.log(response.data.savedAppointment);
+                const savedAppointment = response.data.savedAppointment;
+                setCurrentWeekAppointments(prevValues => [...prevValues, savedAppointment])
             }
         } catch(err) {
             setShowErrorAlert(true);
@@ -36,6 +43,18 @@ const AddAppointmentDialog = () => {
         e.preventDefault();
         setOpenAddAppointmentDialog(false);
         sendNewAppointmentDataToServer(newAppointmentData);
+        resetNewAppointmentData();
+    }
+
+    const resetNewAppointmentData = () => {
+        setNewAppointmentData(prevValues => {
+            return {
+                ...prevValues,
+                discount: "",
+                commentForAdmin: "",
+                commentForClient: "",
+            }
+        })
     }
 
     const handleCloseAlert = () => {
@@ -53,6 +72,11 @@ const AddAppointmentDialog = () => {
         })
     }
 
+    const closeDialog = () => {
+        setOpenAddAppointmentDialog(false);
+        resetNewAppointmentData();
+    }
+
     return (
         <>
             <Alert 
@@ -68,7 +92,7 @@ const AddAppointmentDialog = () => {
                 severity="error"
             />
 
-            <Dialog open={openAddAppointmentDialog} onClose={() => setOpenAddAppointmentDialog(false)} id='dialog-section'>
+            <Dialog open={openAddAppointmentDialog} onClose={closeDialog} id='dialog-section'>
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>Időpont hozzáadása</DialogTitle>
                     <DialogContent>
@@ -88,7 +112,7 @@ const AddAppointmentDialog = () => {
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
                     </DialogContent>
                     <DialogActions>
-                        <BasicSecondaryButton onClick={() => setOpenAddAppointmentDialog(false)} text="Mégse"/>
+                        <BasicSecondaryButton onClick={closeDialog} text="Mégse"/>
                         <AddIconPrimaryButton text="Hozzáadás" type="submit"/>
                     </DialogActions>
                 </Box>

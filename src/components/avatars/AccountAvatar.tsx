@@ -15,7 +15,6 @@ const AccountAvatar = () => {
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        console.log(event.currentTarget);
         setAnchorElUser(event.currentTarget);
     };
 

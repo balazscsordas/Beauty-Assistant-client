@@ -1,5 +1,6 @@
 export interface ServiceListInterface {
     _id?: string;
+    time?: string;
     name: string;
     category: string;
 }

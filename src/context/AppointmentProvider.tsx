@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { getWeekDates } from "../components/appointment/Utils";
+import { getCurrentWeekDates } from "../components/appointment/Utils";
 import { AppointmentInterface, NewAppointmentInterface, WeekdaysInterface } from "../interfaces/AppointmentInterfaces";
 
 type Props = {
@@ -13,20 +13,24 @@ interface AppointmentContextInterface {
     hideSaturday: boolean;
     hideSunday: boolean;
     editAppointmentData: AppointmentInterface,
-    setCurrentWeek: React.Dispatch<React.SetStateAction<WeekdaysInterface>>;
-    setNewAppointmentData: React.Dispatch<React.SetStateAction<NewAppointmentInterface>>;
-    setOpenAddAppointmentDialog: React.Dispatch<React.SetStateAction<boolean>>;
-    setOpenEditAppointmentDialog: React.Dispatch<React.SetStateAction<boolean>>;
-    setHideSaturday: React.Dispatch<React.SetStateAction<boolean>>;
-    setHideSunday: React.Dispatch<React.SetStateAction<boolean>>;
-    setEditAppointmentData: React.Dispatch<React.SetStateAction<AppointmentInterface>>;
+    currentWeekAppointments: AppointmentInterface[] | null,
+    emptyRowsForServiceLength: number | null,
+    setCurrentWeek: React.Dispatch<React.SetStateAction<WeekdaysInterface>>,
+    setNewAppointmentData: React.Dispatch<React.SetStateAction<NewAppointmentInterface>>,
+    setOpenAddAppointmentDialog: React.Dispatch<React.SetStateAction<boolean>>,
+    setOpenEditAppointmentDialog: React.Dispatch<React.SetStateAction<boolean>>,
+    setHideSaturday: React.Dispatch<React.SetStateAction<boolean>>,
+    setHideSunday: React.Dispatch<React.SetStateAction<boolean>>,
+    setEditAppointmentData: React.Dispatch<React.SetStateAction<AppointmentInterface>>,
+    setCurrentWeekAppointments: React.Dispatch<React.SetStateAction<AppointmentInterface[] | null>>,
+    setEmptyRowsForServiceLength: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 const AppointmentContext = createContext<AppointmentContextInterface>({} as AppointmentContextInterface);
 
 export const AppointmentProvider = ({ children }: Props) => {
 
-    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(getWeekDates());
+    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(getCurrentWeekDates());
     const [newAppointmentData, setNewAppointmentData] = useState({
         date: new Date(),
         time: "",
@@ -53,6 +57,8 @@ export const AppointmentProvider = ({ children }: Props) => {
     const [openEditAppointmentDialog, setOpenEditAppointmentDialog] = useState(false);
     const [hideSaturday, setHideSaturday] = useState(false);
     const [hideSunday, setHideSunday] = useState(false);
+    const [currentWeekAppointments, setCurrentWeekAppointments] = useState<AppointmentInterface[] | null>(null)
+    const [emptyRowsForServiceLength, setEmptyRowsForServiceLength] = useState<number | null>(null);
 
     useEffect(() => {
         if (!localStorage.getItem('hideSaturday')) {
@@ -89,13 +95,17 @@ export const AppointmentProvider = ({ children }: Props) => {
                                             hideSaturday,
                                             hideSunday,
                                             editAppointmentData,
+                                            currentWeekAppointments,
+                                            emptyRowsForServiceLength,
                                             setCurrentWeek, 
                                             setOpenAddAppointmentDialog,
                                             setNewAppointmentData,
                                             setOpenEditAppointmentDialog,
                                             setHideSaturday,
                                             setHideSunday,
-                                            setEditAppointmentData
+                                            setEditAppointmentData,
+                                            setCurrentWeekAppointments,
+                                            setEmptyRowsForServiceLength
                                             }}>
             {children}
         </AppointmentContext.Provider>

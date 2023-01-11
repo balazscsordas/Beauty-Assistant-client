@@ -1,5 +1,6 @@
 import { AppointmentInterface, WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
 
+ 
 /* FUNCTIONS */
 export const resetAllCells = () => {
     const cells = document.querySelectorAll('td');
@@ -7,14 +8,15 @@ export const resetAllCells = () => {
         cell.rowSpan = 1;
         cell.innerHTML = '';
         cell.classList.remove('full');
+        cell.classList.add('empty');
     })
 }
 
 export const addAppointmentToCell = (rowIndex: number, colIndex: number, appointmLength: number, appointment: AppointmentInterface) => {
-    const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex];
+    const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex - 1];
     const rowSpanVal = appointmLength / 15;
     hideUnusedCellsBeforeRowSpan(rowSpanVal, rowIndex, colIndex);
-    cell.rowSpan = rowSpanVal
+    cell.rowSpan = rowSpanVal;
     cell.classList.add('full');
     cell.classList.remove('empty');
     cell.innerHTML += `<div>${appointment.clientName}</div>`;
@@ -37,14 +39,15 @@ export const prevWeek = (currentWeek: WeekdaysInterface) => {
     const year = currentWeek.monday.getFullYear();
     const month = currentWeek.monday.getMonth();
     const date = currentWeek.monday.getDate();
+    const hour = 11; // Random, for the timezone differences
     const prevWeek: WeekdaysInterface = {
-        monday: new Date(year, month, (date - 7)),
-        tuesday: new Date(year, month, (date - 6)),
-        wednesday: new Date(year, month, (date - 5)),
-        thurstday: new Date(year, month, (date - 4)),
-        friday: new Date(year, month, (date - 3)),
-        saturday: new Date(year, month, (date - 2)),
-        sunday: new Date(year, month, (date - 1)),
+        monday: new Date(year, month, (date - 7), hour),
+        tuesday: new Date(year, month, (date - 6), hour),
+        wednesday: new Date(year, month, (date - 5), hour),
+        thurstday: new Date(year, month, (date - 4), hour),
+        friday: new Date(year, month, (date - 3), hour),
+        saturday: new Date(year, month, (date - 2), hour),
+        sunday: new Date(year, month, (date - 1), hour),
     }
     return prevWeek;
 }
@@ -53,14 +56,15 @@ export const nextWeek = (currentWeek: WeekdaysInterface) => {
     const year = currentWeek.monday.getFullYear();
     const month = currentWeek.monday.getMonth();
     const date = currentWeek.monday.getDate();
+    const hour = 11; // Random, for the timezone differences
     const nextWeek: WeekdaysInterface = {
-        monday: new Date(year, month, (date + 7)),
-        tuesday: new Date(year, month, (date + 8)),
-        wednesday: new Date(year, month, (date + 9)),
-        thurstday: new Date(year, month, (date + 10)),
-        friday: new Date(year, month, (date + 11)),
-        saturday: new Date(year, month, (date + 12)),
-        sunday: new Date(year, month, (date + 13)),
+        monday: new Date(year, month, (date + 7), hour),
+        tuesday: new Date(year, month, (date + 8), hour),
+        wednesday: new Date(year, month, (date + 9), hour),
+        thurstday: new Date(year, month, (date + 10), hour),
+        friday: new Date(year, month, (date + 11), hour),
+        saturday: new Date(year, month, (date + 12), hour),
+        sunday: new Date(year, month, (date + 13), hour),
     }
     return nextWeek;
 }
@@ -106,11 +110,11 @@ export const getNumberedDay = (date: Date) => {
         return days[day - 1];
     }
     else {
-        return day;
+        return day.toString();
     }
 }
 
-export const getWeekDates = (): WeekdaysInterface => {
+export const getCurrentWeekDates = (): WeekdaysInterface => {
     const today = new Date();
     const currentDayOfMonth = today.getDate();
     let weekdays: WeekdaysInterface;
@@ -252,9 +256,9 @@ export const checkIfItsOnThisWeek = (appointmentDate: Date, currentWeek: Weekday
 }
 
 const dateToString = (date: Date) => {
-    const year = new Date(date).getFullYear();
-    const month = new Date(date).getMonth();
-    const day = new Date(date).getDate();
+    const year = new Date(date).getUTCFullYear();
+    const month = new Date(date).getUTCMonth();
+    const day = new Date(date).getUTCDate();
     const string =`${year} + ${month} + ${day}`;
     return string;
 }

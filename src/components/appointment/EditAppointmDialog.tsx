@@ -4,22 +4,29 @@ import React, { useContext, useState } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
 import { AppointmentInterface } from "../../interfaces/AppointmentInterfaces";
 import { getNamedDay, getNamedMonth, getNumberedDay } from './Utils';
-import ClientSearchbar from "./searchbars/ClientSearchbar";
-import ServiceSearchbar from "./searchbars/ServiceSearchbar";
+import ClientSearchbar from "./editAppointmSearchbars/ClientSearchbar";
+import ServiceSearchbar from "./editAppointmSearchbars/ServiceSearchbar";
 import { Alert } from "../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../smallComponents/InputFields";
 
 const EditAppointmentDialog = () => {
 
-    const { editAppointmentData, openEditAppointmentDialog, setOpenEditAppointmentDialog, setEditAppointmentData } = useContext(AppointmentContext);
+    const { 
+        editAppointmentData, 
+        setEditAppointmentData,
+        openEditAppointmentDialog, 
+        setOpenEditAppointmentDialog,
+        setCurrentWeekAppointments,
+        currentWeekAppointments
+    } = useContext(AppointmentContext);
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
 
     const [showDeleteSuccessAlert, setShowDeleteSuccessAlert] = useState(false);
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
 
     const sendEditedAppointmentDataToServer = async (data: AppointmentInterface) => {
         try {
@@ -45,6 +52,8 @@ const EditAppointmentDialog = () => {
             const response = await axios.delete(url, config);
             if (response.status === 200) {
                 setShowDeleteSuccessAlert(true);
+                const updatedAppointmentList = currentWeekAppointments?.filter(appointment => appointment._id !== appointmentId);
+                updatedAppointmentList && setCurrentWeekAppointments(updatedAppointmentList);
             }
         } catch (err) {
             setShowDeleteErrorAlert(true);

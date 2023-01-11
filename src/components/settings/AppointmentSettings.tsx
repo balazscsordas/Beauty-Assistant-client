@@ -22,13 +22,13 @@ const AppearanceSettings = () => {
             <div className='setting-block'>
                 <p className='setting-name'>Szombat elrejtése</p>
                 <div>
-                    <input type="checkbox" name="saturday" onClick={changeSaturday} checked={hideSaturday}/>
+                    <input type="checkbox" name="saturday" onClick={changeSaturday} defaultChecked={hideSaturday}/>
                 </div>
             </div>
             <div className='setting-block'>
                 <p className='setting-name'>Vasárnap elrejtése</p>
                 <div>
-                    <input type="checkbox" name="sunday" onClick={changeSunday} checked={hideSunday}/>
+                    <input type="checkbox" name="sunday" onClick={changeSunday} defaultChecked={hideSunday}/>
                 </div>
             </div>
             

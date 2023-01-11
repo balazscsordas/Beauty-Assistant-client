@@ -1,30 +1,38 @@
 import axios from "axios";
-import { InferGetServerSidePropsType } from "next";
+import { useContext, useEffect, useState } from "react";
+import AddAppointmentDialog from "../../components/appointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
-import { AppointmentInterface } from "../../interfaces/AppointmentInterfaces";
+import EditAppointmentDialog from "../../components/appointment/EditAppointmDialog";
+import AppointmentContext from "../../context/AppointmentProvider";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
-const AppointmentPage = ({ foundAppointments }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const AppointmentPage = () => {
+
+    const { currentWeek, setCurrentWeekAppointments } = useContext(AppointmentContext);
+
+    useEffect(() => {
+        fetchWeekData();
+    }, [currentWeek])
+ 
+    const fetchWeekData = async () => {
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
+        const options = {
+            params: { currentWeek },
+            withCredentials: true
+        }
+        const response = await axios.get(url, options);
+        setCurrentWeekAppointments(response.data.currentWeekAppointments);
+    }
+
     return (
         <>
             <NavbarLayout>
-                <Calendar foundAppointments = {foundAppointments}/>
+                <Calendar/>
+                <AddAppointmentDialog/>
+                <EditAppointmentDialog/>
             </NavbarLayout>
         </>
     )
-}
-
-export const getServerSideProps = async () => {
-
-    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
-    const response = await axios.get(url, { withCredentials: true });
-    const foundAppointments: AppointmentInterface[] = response.data.foundAppointments;
-
-    return {
-        props: {
-            foundAppointments
-        }
-    }
 }
 
 export default AppointmentPage;

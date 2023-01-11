@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Link from "next/link";
 
-const ServiceCard = ({ name, category, _id }: ServiceListInterface) => {
+const ServiceCard = ({ name, _id }: ServiceListInterface) => {
 
     const url = `/admin/services/${_id}`
 
