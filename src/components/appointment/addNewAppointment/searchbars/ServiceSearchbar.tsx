@@ -1,18 +1,18 @@
 import { Collapse, IconButton, TextField } from "@mui/material";
 import { useState, useContext } from "react";
-import ServiceContext from "../../../context/ServiceProvider";
-import { ServiceListInterface } from "../../../interfaces/ServiceInterfaces";
+import ServiceContext from "../../../../context/ServiceProvider";
+import { ServiceListInterface } from "../../../../interfaces/ServiceInterfaces";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import AppointmentContext from "../../../context/AppointmentProvider";
-import { OneLineReqInput } from "../../smallComponents/InputFields";
+import AppointmentContext from "../../../../context/AppointmentProvider";
+import { OneLineReqInput } from "../../../smallComponents/InputFields";
 
 const ServiceSearchbar = () => {
 
     const { services } = useContext(ServiceContext);
-    const { setEditAppointmentData, editAppointmentData, emptyRowsForServiceLength } = useContext(AppointmentContext);
+    const { setNewAppointmentData, emptyRowsForServiceLength } = useContext(AppointmentContext);
 
-    const [serviceSearchbarValue, setServiceSearchbarValue] = useState(editAppointmentData.serviceName);
-    const [filteredServiceList, setFilteredServiceList] = useState<ServiceListInterface[]>([]);
+    const [serviceSearchbarValue, setServiceSearchbarValue] = useState("");
+    const [filteredServiceList, setFilteredServiceList] = useState<ServiceListInterface[]>([])
     const [showFilteredServices, setShowFilteredServices] = useState(false);
 
     const changeSearchBarData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ const ServiceSearchbar = () => {
     }
 
     const setService = (_id: string | undefined, name: string) => {
-        _id && setEditAppointmentData(prevData => {
+        _id && setNewAppointmentData(prevData => {
             return {
                 ...prevData,
                 serviceId: _id,

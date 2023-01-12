@@ -1,10 +1,10 @@
 import { Collapse, IconButton } from "@mui/material";
 import { useState, useContext } from "react";
-import ClientContext from "../../../context/ClientProvider";
+import ClientContext from "../../../../context/ClientProvider";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { ClientListInterface } from "../../../interfaces/ClientInterfaces";
-import AppointmentContext from "../../../context/AppointmentProvider";
-import { OneLineReqAutoFocusInput } from "../../smallComponents/InputFields";
+import { ClientListInterface } from "../../../../interfaces/ClientInterfaces";
+import AppointmentContext from "../../../../context/AppointmentProvider";
+import { OneLineReqAutoFocusInput } from "../../../smallComponents/InputFields";
 
 const ClientSearchbar = () => {
 

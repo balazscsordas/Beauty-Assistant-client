@@ -1,14 +1,15 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import AppointmentContext from "../../context/AppointmentProvider";
-import { AppointmentInterface } from "../../interfaces/AppointmentInterfaces";
-import { getNamedDay, getNamedMonth, getNumberedDay } from './Utils';
+import AppointmentContext from "../../../context/AppointmentProvider";
+import { AppointmentInterface } from "../../../interfaces/AppointmentInterfaces";
+import { getNamedDay, getNamedMonth, getNumberedDay } from '../Utils';
 import ClientSearchbar from "./editAppointmSearchbars/ClientSearchbar";
 import ServiceSearchbar from "./editAppointmSearchbars/ServiceSearchbar";
-import { Alert } from "../smallComponents/Alerts";
-import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
-import { MultilineNonReqInput, OneLineNonReqInput } from "../smallComponents/InputFields";
+import { Alert } from "../../smallComponents/Alerts";
+import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
+import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
+import StatusChanger from "./StatusChanger";
 
 const EditAppointmentDialog = () => {
 
@@ -23,7 +24,6 @@ const EditAppointmentDialog = () => {
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
-
     const [showDeleteSuccessAlert, setShowDeleteSuccessAlert] = useState(false);
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -32,7 +32,7 @@ const EditAppointmentDialog = () => {
         try {
             const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/edit-appointment";
             const params = { data };
-            const response = await axios.post(url, params, { withCredentials: true });
+            const response = await axios.put(url, params, { withCredentials: true });
             if (response?.status === 200) {
                 setShowSuccessAlert(true);
             }
@@ -64,6 +64,7 @@ const EditAppointmentDialog = () => {
     const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setOpenEditAppointmentDialog(false);
+        console.log(editAppointmentData);
         sendEditedAppointmentDataToServer(editAppointmentData);
     }
 
@@ -130,9 +131,10 @@ const EditAppointmentDialog = () => {
                                 + ' ' + editAppointmentData.time
                             }
                         </DialogContentText>
+                            <StatusChanger/>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény' nameVal="discount" value={editAppointmentData.discount}/>
+                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény (%)' nameVal="discount" value={editAppointmentData.discount}/>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés (vendég nem látja)' nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
                     </DialogContent>

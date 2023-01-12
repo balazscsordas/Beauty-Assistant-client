@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import AddAppointmentDialog from "../../components/appointment/AddAppointmDialog";
+import { useContext, useEffect } from "react";
+import AddAppointmentDialog from "../../components/appointment/addNewAppointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
-import EditAppointmentDialog from "../../components/appointment/EditAppointmDialog";
+import EditAppointmentDialog from "../../components/appointment/editAppointment/EditAppointmDialog";
 import AppointmentContext from "../../context/AppointmentProvider";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 

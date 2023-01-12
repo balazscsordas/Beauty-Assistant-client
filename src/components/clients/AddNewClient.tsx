@@ -70,7 +70,6 @@ const AddClients = () => {
             const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/add-new-client";
             const params = {clientData: clientData};
             const response = await axios.post(url, params, { withCredentials: true });
-            console.log(response.data.message);
             if (response.data.message = "Client has been added") {
                 setShowSuccessAlert(true);
                 Router.push('/admin/clients');

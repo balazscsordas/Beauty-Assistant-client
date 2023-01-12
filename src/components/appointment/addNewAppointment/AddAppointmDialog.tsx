@@ -1,14 +1,14 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import AppointmentContext from "../../context/AppointmentProvider";
-import { NewAppointmentInterface } from "../../interfaces/AppointmentInterfaces";
-import { getNamedDay, getNamedMonth, getNumberedDay } from '../appointment/Utils';
-import ClientSearchbar from "./addNewAppointmSearchbars/ClientSearchbar";
-import ServiceSearchbar from "./addNewAppointmSearchbars/ServiceSearchbar";
-import { Alert } from "../smallComponents/Alerts";
-import { AddIconPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
-import { MultilineNonReqInput, OneLineNonReqInput } from "../smallComponents/InputFields";
+import AppointmentContext from "../../../context/AppointmentProvider";
+import { NewAppointmentInterface } from "../../../interfaces/AppointmentInterfaces";
+import { getNamedDay, getNamedMonth, getNumberedDay } from '../Utils';
+import ClientSearchbar from "./searchbars/ClientSearchbar";
+import ServiceSearchbar from "./searchbars/ServiceSearchbar";
+import { Alert } from "../../smallComponents/Alerts";
+import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
+import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
 
 const AddAppointmentDialog = () => {
 
@@ -107,7 +107,7 @@ const AddAppointmentDialog = () => {
                         </DialogContentText>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény' nameVal="discount" value={newAppointmentData.discount}/>
+                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény (%)' nameVal="discount" value={newAppointmentData.discount}/>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés (vendég nem látja)' nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
                     </DialogContent>

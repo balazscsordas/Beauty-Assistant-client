@@ -9,6 +9,7 @@ export const resetAllCells = () => {
         cell.innerHTML = '';
         cell.classList.remove('full');
         cell.classList.add('empty');
+        cell.classList.remove('hidden');
     })
 }
 
@@ -24,16 +25,10 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
 
 export const hideUnusedCellsBeforeRowSpan = (rowSpanVal: number, rowIndex: number, colIndex: number) => {
     for (let i = 1; i < rowSpanVal; i++) {
-        document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex].classList.add('hidden');
+        document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex - 1].classList.add('hidden');
     }
 }
 
-export const showAllCells = () => {
-    const cells = document.querySelectorAll('td');
-    cells.forEach(cell => {
-        cell.classList.remove('hidden');
-    });
-}
 
 export const prevWeek = (currentWeek: WeekdaysInterface) => {
     const year = currentWeek.monday.getFullYear();
@@ -114,11 +109,11 @@ export const getNumberedDay = (date: Date) => {
     }
 }
 
-export const getCurrentWeekDates = (): WeekdaysInterface => {
+export const getCurrentWeekDates = (todayGetDate: number): WeekdaysInterface => {
     const today = new Date();
     const currentDayOfMonth = today.getDate();
     let weekdays: WeekdaysInterface;
-    switch (today.getDay()) {
+    switch (todayGetDate) {
         case 0:
             weekdays = {
                 monday: new Date(new Date().setDate(currentDayOfMonth - 6)),
@@ -230,35 +225,4 @@ export const getDayDataFromDayIndex = (dayIndex: number, currentWeek: WeekdaysIn
         default:
             return currentWeek.monday;
     }
-}
-
-export const checkIfItsOnThisWeek = (appointmentDate: Date, currentWeek: WeekdaysInterface) => {
-    const appointmDateStr = dateToString(appointmentDate);
-    const sundayStr = dateToString(currentWeek.sunday);
-    const mondayStr = dateToString(currentWeek.monday);
-    const tuesdayStr = dateToString(currentWeek.tuesday);
-    const wednesdayStr = dateToString(currentWeek.wednesday);
-    const thurstdayStr = dateToString(currentWeek.thurstday);
-    const fridayStr = dateToString(currentWeek.friday);
-    const saturdayStr = dateToString(currentWeek.saturday);
-
-    if (appointmDateStr === sundayStr || 
-        appointmDateStr === mondayStr || 
-        appointmDateStr === tuesdayStr || 
-        appointmDateStr === wednesdayStr || 
-        appointmDateStr === thurstdayStr || 
-        appointmDateStr === fridayStr || 
-        appointmDateStr === saturdayStr) {
-        return true
-    } else {
-        return false
-    }
-}
-
-const dateToString = (date: Date) => {
-    const year = new Date(date).getUTCFullYear();
-    const month = new Date(date).getUTCMonth();
-    const day = new Date(date).getUTCDate();
-    const string =`${year} + ${month} + ${day}`;
-    return string;
 }

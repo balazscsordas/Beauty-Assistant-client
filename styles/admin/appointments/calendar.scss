@@ -19,6 +19,8 @@
         table {
             min-width: 800px;
             table-layout: fixed;
+            text-align: center;
+            width: 100%;
         }
     }
 
@@ -27,17 +29,12 @@
     }
 
     td {
-        height: 35px;
+        height: 40px;
     }
     
     td:hover {
         background-color: var(--color-400);
         cursor: pointer;
-    }
-
-    table {
-        width: 100%;
-        text-align: center;
     }
 
     .main-row {

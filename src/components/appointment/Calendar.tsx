@@ -1,26 +1,27 @@
 import WeekPicker from "./WeekPicker";
 import React, { useContext, useEffect } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
-import { addAppointmentToCell, checkIfItsOnThisWeek, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells, showAllCells } from "./Utils";
+import { addAppointmentToCell, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells } from "./Utils";
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
 
 const Calendar = () => {
 
-    const { currentWeekAppointments, setEmptyRowsForServiceLength } = useContext(AppointmentContext);
     const { clients, setClients } = useContext(ClientContext);
     const { services, setServices } = useContext(ServiceContext);
     const { 
         currentWeek,
+        currentWeekAppointments,
         hideSaturday,
         hideSunday,
         setNewAppointmentData,
         setOpenAddAppointmentDialog,
         setOpenEditAppointmentDialog,
-        setEditAppointmentData
+        setEditAppointmentData,
+        setEmptyRowsForServiceLength
     } = useContext(AppointmentContext);
-
+ 
     const hours = [
         '8:00', '8:15', '8:30', '8:45', 
         '9:00', '9:15', '9:30', '9:45',
@@ -40,27 +41,14 @@ const Calendar = () => {
     useEffect(() => {
         resetAllCells();
         currentWeekAppointments && currentWeekAppointments.map(appointment => {
-            if (checkIfItsOnThisWeek(appointment.date, currentWeek) === true) {
-                const time = appointment.time;
-                const appointmLength = appointment.serviceTime;
-                const rowIndex = hours.indexOf(time) + 1;
-                const colIndex = new Date(appointment.date).getUTCDay();
-                addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
-            } else {
-                showAllCells();
-            }
+            const time = appointment.time;
+            const appointmLength = appointment.serviceTime;
+            const rowIndex = hours.indexOf(time) + 1;
+            const colIndex = new Date(appointment.date).getUTCDay();
+            addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
         })
-    }, [currentWeekAppointments, currentWeek]);
+    }, [currentWeekAppointments]);
 
-    useEffect(() => {
-        /* CHANGES SATURDAY AND SUNDAY COLUMN VISIBILITY */
-        hideSunday === true && hideSundayCells();
-        hideSaturday === true && hideSaturdayCells();
-    }, [currentWeek])
-
-    useEffect(() => {
-        console.log("Current week changed");
-    }, [currentWeek]);
 
     useEffect(() => {
         /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
@@ -101,7 +89,7 @@ const Calendar = () => {
                 }
             });
         })
-    }, [currentWeek, currentWeekAppointments])
+    }, [currentWeekAppointments])
 
 
 
@@ -174,12 +162,12 @@ const Calendar = () => {
                                 <br/>
                                 <span>{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='header-item' hidden={hideSaturday}>
                                 {getNamedDay(currentWeek.saturday)}
                                 <br/>
                                 <span>{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='header-item' hidden={hideSunday}>
                                 {getNamedDay(currentWeek.sunday)}
                                 <br/>
                                 <span>{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
@@ -195,8 +183,8 @@ const Calendar = () => {
                                     <td className='empty'></td>
                                     <td className='empty'></td>
                                     <td className='empty'></td>
-                                    <td className='empty'></td>
-                                    <td className='empty'></td>
+                                    <td className='empty' hidden={hideSaturday}></td>
+                                    <td className='empty' hidden={hideSunday}></td>
                                 </tr>
                         ))}
                     </tbody>
@@ -207,19 +195,4 @@ const Calendar = () => {
 }
 
 export default Calendar;
-
-/* FUNCTIONS */
-const hideSundayCells = () => {
-    const sundayCells = document.querySelectorAll('tr td:last-child, th:last-child');
-    sundayCells.forEach(cell => {
-        cell.classList.add('hidden');
-    });
-}
-
-const hideSaturdayCells = () => {
-    const saturdayCells = document.querySelectorAll('tr td:nth-child(7), th:nth-child(7)');
-    saturdayCells.forEach(cell => {
-        cell.classList.add('hidden');
-    });
-}
 

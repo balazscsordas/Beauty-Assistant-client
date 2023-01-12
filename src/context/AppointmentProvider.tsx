@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { getCurrentWeekDates } from "../components/appointment/Utils";
 import { AppointmentInterface, NewAppointmentInterface, WeekdaysInterface } from "../interfaces/AppointmentInterfaces";
 
@@ -30,10 +30,14 @@ const AppointmentContext = createContext<AppointmentContextInterface>({} as Appo
 
 export const AppointmentProvider = ({ children }: Props) => {
 
-    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(getCurrentWeekDates());
+    const todayGetDay = (new Date()).getDay();
+    const current = useMemo(() => getCurrentWeekDates(todayGetDay), [todayGetDay])
+    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(current);
+    
     const [newAppointmentData, setNewAppointmentData] = useState({
         date: new Date(),
         time: "",
+        status: "pending",
         clientId: "",
         serviceId: "",
         discount: "",
@@ -42,6 +46,7 @@ export const AppointmentProvider = ({ children }: Props) => {
     });
     const [editAppointmentData, setEditAppointmentData] = useState({
         _id: "",
+        status: "",
         date: new Date(),
         time: "",
         clientId: "",

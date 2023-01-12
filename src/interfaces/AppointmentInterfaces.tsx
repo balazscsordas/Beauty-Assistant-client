@@ -1,4 +1,3 @@
-import { SetStateAction } from "react"
 
 export interface WeekdaysInterface {
     sunday: Date,
@@ -18,6 +17,7 @@ export interface AppointmentSearchResInterface {
 export interface NewAppointmentInterface {
     date: Date,
     time: string,
+    status: string,
     clientId: string,
     serviceId: string,
     discount: string,
@@ -27,6 +27,7 @@ export interface NewAppointmentInterface {
 
 export interface AppointmentInterface {
     _id: string,
+    status: string,
     date: Date,
     time: string,
     clientId: string,
