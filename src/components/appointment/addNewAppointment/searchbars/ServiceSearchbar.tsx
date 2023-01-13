@@ -35,8 +35,7 @@ const ServiceSearchbar = () => {
 
     function checkServiceLengthAndName (service: ServiceListInterface, value: string, numberOfEmptyRows: number) {
         if (service.time) {
-            const serviceLengthNumber = parseInt(service.time);
-            if (service.name.toLowerCase().includes(value.toLowerCase()) && serviceLengthNumber <= (numberOfEmptyRows * 15)) {
+            if (service.name.toLowerCase().includes(value.toLowerCase()) && service.time <= (numberOfEmptyRows * 15)) {
                 return true;
             }
         } else {
