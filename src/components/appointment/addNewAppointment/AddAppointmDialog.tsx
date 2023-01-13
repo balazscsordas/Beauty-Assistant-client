@@ -31,7 +31,7 @@ const AddAppointmentDialog = () => {
             if (response?.status === 200) {
                 setShowSuccessAlert(true);
                 const savedAppointment = response.data.savedAppointment;
-                setCurrentWeekAppointments(prevValues => [...prevValues, savedAppointment])
+                setCurrentWeekAppointments(prevValues => prevValues && [...prevValues, savedAppointment])  // ezzel lehet hiba lesz
             }
         } catch(err) {
             setShowErrorAlert(true);
