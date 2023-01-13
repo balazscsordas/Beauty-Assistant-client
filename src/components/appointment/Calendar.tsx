@@ -1,5 +1,5 @@
 import WeekPicker from "./WeekPicker";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
 import { addAppointmentToCell, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells } from "./Utils";
 import ClientContext from "../../context/ClientProvider";
@@ -22,7 +22,7 @@ const Calendar = () => {
         setEmptyRowsForServiceLength
     } = useContext(AppointmentContext);
  
-    const hours = [
+    const hours = useMemo(() => [
         '8:00', '8:15', '8:30', '8:45', 
         '9:00', '9:15', '9:30', '9:45',
         '10:00', '10:15', '10:30', '10:45',
@@ -35,7 +35,7 @@ const Calendar = () => {
         '17:00', '17:15', '17:30', '17:45',
         '18:00', '18:15', '18:30', '18:45',
         '19:00', '19:15', '19:30', '19:45',
-    ];
+    ], [])
 
     /* APPOINTMENT VISUALIZATION */
     useEffect(() => {
@@ -47,6 +47,7 @@ const Calendar = () => {
             const colIndex = new Date(appointment.date).getUTCDay();
             addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeekAppointments]);
 
 
@@ -54,6 +55,7 @@ const Calendar = () => {
         /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
         clients.length === 0 && getClientListAPI();
         services.length === 0 && getServiceListAPI();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -89,6 +91,7 @@ const Calendar = () => {
                 }
             });
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeekAppointments])
 
 

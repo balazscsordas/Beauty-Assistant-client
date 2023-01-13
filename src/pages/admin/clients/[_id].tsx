@@ -1,13 +1,20 @@
 import NavbarLayout from "../../../Layouts/NavbarLayout";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
 import axios from "axios";
 import ClientDetails from "../../../components/clients/ClientDetails";
 
-export const getServerSideProps: GetServerSideProps<{ clientDetails: ClientDataInterface }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ clientDetails: ClientDataInterface }> = async ( context: GetServerSidePropsContext) => {
+    const jwtCookie = context.req.headers.cookie;
+    const options = {
+        headers: {
+            withCredentials: true,
+            cookie: jwtCookie
+        }
+    }
     const _id = context.params?._id;
     const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/get-client-details/" + _id;
-    const response = await axios.get(url, { withCredentials: true });
+    const response = await axios.get(url, options);
     const clientDetails: ClientDataInterface = response.data.foundClient;
 
     return {

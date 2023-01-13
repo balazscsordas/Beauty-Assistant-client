@@ -7,10 +7,11 @@ interface Props {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     label?: string,
     nameVal?: string
-    type?: HTMLInputTypeAttribute
+    type?: HTMLInputTypeAttribute,
+    autoComplete?: string,
 }
 
-export const OneLineReqAutoFocusInput = ({ inputRef, value, onChange, nameVal, label, type }: Props) => {
+export const OneLineReqAutoFocusInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete }: Props) => {
     return (
         <TextField
             margin="normal"
@@ -22,13 +23,13 @@ export const OneLineReqAutoFocusInput = ({ inputRef, value, onChange, nameVal, l
             label={label}
             name={nameVal}
             autoFocus
-            autoComplete={nameVal}
+            autoComplete={autoComplete ? autoComplete : nameVal}
             type={type}
         />
     )
 }
 
-export const OneLineReqInput = ({ inputRef, value, onChange, nameVal, label, type }: Props) => {
+export const OneLineReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete }: Props) => {
     return (
         <TextField
             margin="normal"
@@ -39,13 +40,13 @@ export const OneLineReqInput = ({ inputRef, value, onChange, nameVal, label, typ
             value={value}
             label={label}
             name={nameVal}
-            autoComplete={nameVal}
+            autoComplete={autoComplete ? autoComplete : nameVal}
             type={type}
         />
     )
 }
 
-export const OneLineNonReqInput = ({ inputRef, value, onChange, nameVal, label, type }: Props) => {
+export const OneLineNonReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete }: Props) => {
     return (
         <TextField
             margin="normal"
@@ -55,7 +56,7 @@ export const OneLineNonReqInput = ({ inputRef, value, onChange, nameVal, label, 
             value={value}
             label={label}
             name={nameVal}
-            autoComplete={nameVal}
+            autoComplete={autoComplete ? autoComplete : nameVal}
             type={type}
         />
     )

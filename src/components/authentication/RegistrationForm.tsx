@@ -10,6 +10,8 @@ import validator from 'validator';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
+import { OneLineReqAutoFocusInput, OneLineReqInput } from '../smallComponents/InputFields';
+import { BasicPrimaryButton } from '../smallComponents/Buttons';
 
 const RegistrationForm = () => {
 
@@ -115,45 +117,16 @@ const RegistrationForm = () => {
         <Container>
           <h2>Regisztráció</h2>
           <Box component="form" onSubmit={handleSubmit}>
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="firstName"
-                label="Keresztnév"
-                name="firstName"
-                value={registrationData.firstName}
-                onChange={changeData}
-                autoComplete="first-name"
-                autoFocus
-                />
-            <TextField
-                margin="normal"
-                required
-                fullWidth
-                label="Email"
-                name="email"
-                value={registrationData.email}
-                onChange={changeData}
-                autoComplete="email"
-                autoFocus
-                />
+            <OneLineReqAutoFocusInput onChange={changeData} value={registrationData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
+            <OneLineReqInput onChange={changeData} value={registrationData.email} label="Email" nameVal="email"/>
+            
             <Collapse in={emailCheckMessage !== ""}>
               <div className="error-div">
                 <p className="error-text">{emailCheckMessage}</p>
               </div>
             </Collapse>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Jelszó"
-              type="password"
-              value={registrationData.password}
-              onChange={changeData}
-              autoComplete="current-password"
-            />
+            <OneLineReqInput onChange={changeData} value={registrationData.password} label="Jelszó" nameVal="password" type="password"/>
+            
             <Collapse in={registrationData.password.length > 0}>
               <ul className="password-requirements-block">
                 <p className="title">Jelszónak a következő feltételeknek kell megfelelnie:</p>
@@ -163,18 +136,13 @@ const RegistrationForm = () => {
               </ul>
             </Collapse>
             <Box className="submit-button-div">
-                <Button
-                  variant="contained"
-                  type='submit'
-                  className="submit-button global-button"
-                  disabled={loading}
-                >
-                  Regisztráció
-                </Button>
-                {loading && (
+              <BasicPrimaryButton text="Regisztráció" type="submit" disabled={loading}/>
+              {loading && (
+                <div>
                   <CircularProgress size={24} className="loading-icon" />
-                )}
-              </Box>
+                </div>
+              )}
+            </Box>
           </Box>
           <Zoom in={showRegistrationMessage}>
               <div className="message-block">

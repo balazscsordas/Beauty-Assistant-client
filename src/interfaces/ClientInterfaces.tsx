@@ -4,6 +4,10 @@ export interface ClientListInterface {
     age: string;
 }
 
+// NewClientInterface
+// ClientInterface
+// ClientOptionNamesInterface
+
 export interface ClientDataInterface {
     _id?: string;
     name: string;

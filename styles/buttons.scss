@@ -30,6 +30,10 @@
     color: white;
 }
 
+.primary:disabled, .primary[disabled] {
+    background-image: radial-gradient(100% 100% at 100% 0, #b8f0ff 0, #5f5f5f 100%);
+}
+
 .base:hover {
     transform: scale(1.02);
   }

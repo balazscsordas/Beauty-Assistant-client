@@ -25,17 +25,9 @@ export interface NewAppointmentInterface {
     commentForClient: string,
 }
 
-export interface AppointmentInterface {
+export interface AppointmentInterface extends NewAppointmentInterface{
     _id: string,
-    status: string,
-    date: Date,
-    time: string,
-    clientId: string,
     clientName: string,
-    serviceId: string,
     serviceName: string,
-    discount: string,
     serviceTime: number,
-    commentForAdmin: string,
-    commentForClient: string,
 }

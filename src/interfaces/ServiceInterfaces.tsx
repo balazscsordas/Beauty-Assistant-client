@@ -5,12 +5,8 @@ export interface ServiceListInterface {
     category: string;
 }
 
-export interface ServiceDataInterface {
-    _id?: string;
-    name: string;
-    category: string;
+export interface ServiceDataInterface extends ServiceListInterface{
     price: number;
-    time: number;
     description: string;
     steps: string;
 }

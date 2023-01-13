@@ -1,28 +1,21 @@
 import { createContext, ReactNode, useState } from "react";
+import { AuthInterface } from "../interfaces/AuthInterfaces";
 
 type Props = {
     children: ReactNode
 }
 
 interface AuthContextInterface {
-    auth: {
-        firstName?: string;
-        email?: string;
-        accessToken?: string;
-    }
-    setAuth: React.Dispatch<React.SetStateAction<object>>;
+    auth: AuthInterface | null;
+    setAuth: React.Dispatch<React.SetStateAction<AuthInterface | null>>;
 }
 
-type AuthType = {
-    firstName?: string;
-    email?: string;
-    accessToken?: string;
-  }
 
 const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface);
 
 export const AuthProvider = ({children}: Props) => {
-    const [auth, setAuth] = useState<AuthType>({});
+
+    const [auth, setAuth] = useState<AuthInterface | null>(null);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
