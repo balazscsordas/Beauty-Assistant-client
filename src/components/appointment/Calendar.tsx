@@ -65,7 +65,7 @@ const Calendar = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
                 const dayIndex = cell.cellIndex;
-                const rowIndex = cell.closest('tr').rowIndex
+                const rowIndex = cell.closest('tr')!.rowIndex
 
                 if (cell.classList.contains('empty')) {
                     setNewAppointmentData(prevData => {
