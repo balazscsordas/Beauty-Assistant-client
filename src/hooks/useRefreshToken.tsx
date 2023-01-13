@@ -10,11 +10,7 @@ const useRefreshToken = () => {
         const response = await axios.get(url, {
             withCredentials: true // This allows us to send cookies with our request
         });
-        setAuth(prev => {
-            console.log(JSON.stringify(prev));
-            console.log(response.data.accessToken);
-            return { ...prev, accessToken: response.data.accessToken }
-        });
+        setAuth(prev => prev && {...prev, accessToken: response.data.accessToken });
         return response.data.accessToken;
     }
     return refresh
