@@ -33,18 +33,20 @@ const ServiceList = ({ servicesList }: Props) => {
                 <Link href="/admin/add-new-service" passHref>
                     <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
                 </Link>
-                <div className="searchbar-section">
-                    <TextField
-                        onChange={changeSearchBarData}
-                        type="search"
-                        variant="outlined"
-                        name="searchbar"
-                        value={inputTextValue}
-                        id="searchbar"
-                        fullWidth
-                        label="Keresés"
-                    />
-                </div>
+                { servicesList.length !== 0
+                    && <div className="searchbar-section">
+                        <TextField
+                            onChange={changeSearchBarData}
+                            type="search"
+                            variant="outlined"
+                            name="searchbar"
+                            value={inputTextValue}
+                            id="searchbar"
+                            fullWidth
+                            label="Keresés"
+                        />
+                    </div>
+                }
                 <div>
                     {filteredArray.length === 0
                         ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>

@@ -1,0 +1,57 @@
+@import './variables.scss';
+
+#header-section {
+    background-color: green;
+}
+
+#homepage-welcome-section {
+    .title {
+        text-align: center;
+        padding: 30px;
+        font-weight: 600;
+        font-size: 2.2rem;
+        color:rgba(0, 0, 0, 0.8);
+    }
+    #feature-list {
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 50px;
+            font-weight: 600;
+        }
+
+        #feature-li {
+            background-color: #F7F7F7;
+            box-shadow: $box-shadow-1;
+            padding: 8px;
+            border-radius: 10px;
+            margin: 20px;
+
+            .feature-list-li-title-block {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                p {
+                    margin-bottom: 0;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                }
+
+                button {
+                    margin-right: 10px;
+                    svg {
+                        font-size: 1.3rem;
+                        color: #e5966b;
+                    }
+                }
+            }
+
+            .description {
+                margin-left: 45px;
+                margin-bottom: 0;
+                padding: 15px 0 5px;
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import AddAppointmentDialog from "../../components/appointment/addNewAppointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
 import EditAppointmentDialog from "../../components/appointment/editAppointment/EditAppointmDialog";
@@ -13,7 +13,7 @@ const AppointmentPage = () => {
     useEffect(() => {
         fetchWeekData();
     }, [currentWeek])
- 
+
     const fetchWeekData = async () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
         const options = {

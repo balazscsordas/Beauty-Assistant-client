@@ -15,22 +15,25 @@ import AddNewClientOptionDialog from "./AddNewClientOptionDialog";
 const AddClients = () => {
 
     const { clientOptionNames, setOpenAddClientOptionDialog } = useContext(ClientContext);
-    // States + Refs
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
-    const nameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const mobileNumberRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const [inputData, setInputData] = useState({
+    const [inputData, setInputData] = useState<ClientDataInterface>({
+        name: "",
         age: "",
+        email: "",
+        mobileNumber: "",
+        option1Content: "",
+        option2Content: "",
+        option3Content: "",
+        option4Content: "",
+        option5Content: "",
     })
-    
-    const option1ContentRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const option3ContentRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const option2ContentRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const option4ContentRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const option5ContentRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    
+
+    const [showNameError, setShowNameError] = useState(false);
+    const [showAgeError, setShowAgeError] = useState(false);
+    const [showMobileNumberError, setShowMobileNumberError] = useState(false);
+
 
     // States for show or hide textfields
     const [showOption1Content, setShowOption1Content] = useState(false);
@@ -41,28 +44,20 @@ const AddClients = () => {
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const newClient: ClientDataInterface = {
-            name: nameRef.current.value,
-            age: inputData.age,
-            email: emailRef.current.value,
-            mobileNumber: mobileNumberRef.current.value,
-            option1Content: option1ContentRef.current.value,
-            option2Content: option2ContentRef.current.value,
-            option3Content: option3ContentRef.current.value,
-            option4Content: option4ContentRef.current.value,
-            option5Content: option5ContentRef.current.value,
+        if (!showNameError && !showAgeError) {
+            addNewClientToDatabase(inputData);
+            setInputData({
+                name: "",
+                age: "",
+                email: "",
+                mobileNumber: "",
+                option1Content: "",
+                option2Content: "",
+                option3Content: "",
+                option4Content: "",
+                option5Content: "",
+            });
         }
-        addNewClientToDatabase(newClient);
-        setInputData({
-            age: ""
-        })
-        nameRef.current.value = "";
-        option1ContentRef.current.value = "";
-        option2ContentRef.current.value = "";
-        option3ContentRef.current.value = "";
-        option4ContentRef.current.value = "";
-        option5ContentRef.current.value = "";
-        mobileNumberRef.current.value = "";
     }
 
     const addNewClientToDatabase = async (clientData: ClientDataInterface) => {
@@ -83,17 +78,25 @@ const AddClients = () => {
         }
     }
 
-    const changeInputData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        if(!value || ( value[value.length-1].match('[0-9]') && value[0].match('[1-9]'))) {
-            if (value.length < 3) {
-                setInputData(prevData => {
-                    return {
-                        ...prevData,
-                        [name]: value
-                    }
-                })
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        
+        setInputData(prevVal => {
+            return {
+                ...prevVal,
+                [name]: value,
             }
+        })
+
+        if (name === 'name') {
+            nameValidator(value) ? setShowNameError(true): setShowNameError(false);
+        }
+        
+        if (name === 'age') {
+            ageValidator(value) ? setShowAgeError(true) : setShowAgeError(false);
+        }
+        if (name === 'mobileNumber') {
+            mobileNumberValidator(value) ? setShowMobileNumberError(true) : setShowMobileNumberError(false);
         }
     }
 
@@ -101,6 +104,28 @@ const AddClients = () => {
         setShowSuccessAlert(false);
         setShowErrorAlert(false);
       };
+
+    // returns true if string contains number
+    const nameValidator = (value: string) => {
+        return /\d/.test(value); 
+    }
+
+    // returns true if format of age is not valid
+    const ageValidator = (value: string) => {
+        if(!value || ( value[value.length-1].match('[0-9]') && value[0].match('[1-9]'))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    const mobileNumberValidator = (value: string) => {
+        if (value.charAt(0) !== '+' && value.length > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     return (
         <section id="add-new-client-section">
@@ -123,17 +148,25 @@ const AddClients = () => {
                     <Container>
                         <Row>
                             <Col lg={3}>
-                                <OneLineReqAutoFocusInput inputRef={nameRef} label="Név" nameVal="name"/>
+                                <OneLineReqAutoFocusInput value={inputData.name} onChange={handleChange} label="Név" nameVal="name"/>
+                                <Collapse in={showNameError}>
+                                    <p className="input-error-text">Nem tartalmazhat számot!</p>
+                                </Collapse>
                             </Col>
                             <Col lg={3}>
-                                <OneLineReqInput inputRef={mobileNumberRef} label="Telefonszám" nameVal="tel"/>
-                                
+                                <OneLineReqInput value={inputData.mobileNumber} onChange={handleChange} label="Telefonszám" nameVal="mobileNumber" />
+                                <Collapse in={showMobileNumberError}>
+                                    <p className="input-error-text">Helyes formátum: +3677777777</p>
+                                </Collapse>
                             </Col>
                             <Col lg={3}>
-                                <OneLineNonReqInput onChange={changeInputData} value={inputData.age} label="Kor" nameVal="age"/>
+                                <OneLineNonReqInput onChange={handleChange} value={inputData.age} label="Kor" nameVal="age"/>
+                                <Collapse in={showAgeError}>
+                                    <p className="input-error-text">Kizárólag nullánál nagyobb szám lehet!</p>
+                                </Collapse>
                             </Col>
                             <Col lg={3}>
-                                <OneLineNonReqInput inputRef={emailRef} label="E-mail" nameVal="email"/>
+                                <OneLineNonReqInput value={inputData.email} onChange={handleChange} label="E-mail" nameVal="email"/>
                             </Col>
                         </Row>
                         <Row className="options-buttons">
@@ -152,19 +185,19 @@ const AddClients = () => {
                         </Row>
                         <div className="options-fields">
                             <Collapse in={showOption1Content}>
-                                <MultilineNonReqInput inputRef={option1ContentRef} label={clientOptionNames.option1Name} nameVal={clientOptionNames.option1Name}/>
+                                <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal={clientOptionNames.option1Name}/>
                             </Collapse>
                             <Collapse in={showOption2Content}>
-                                <MultilineNonReqInput inputRef={option2ContentRef} label={clientOptionNames.option2Name} nameVal={clientOptionNames.option2Name}/>
+                                <MultilineNonReqInput value={inputData.option2Content} onChange={handleChange} nameVal={clientOptionNames.option2Name}/>
                             </Collapse>
                             <Collapse in={showOption3Content}>
-                                <MultilineNonReqInput inputRef={option3ContentRef} label={clientOptionNames.option3Name} nameVal={clientOptionNames.option3Name}/>
+                                <MultilineNonReqInput value={inputData.option3Content} onChange={handleChange} nameVal={clientOptionNames.option3Name}/>
                             </Collapse>
                             <Collapse in={showOption4Content}>
-                                <MultilineNonReqInput inputRef={option4ContentRef} label={clientOptionNames.option4Name} nameVal={clientOptionNames.option4Name}/>
+                                <MultilineNonReqInput value={inputData.option4Content} onChange={handleChange} nameVal={clientOptionNames.option4Name}/>
                             </Collapse>
                             <Collapse in={showOption5Content}>
-                                <MultilineNonReqInput inputRef={option5ContentRef} label={clientOptionNames.option5Name}  nameVal={clientOptionNames.option5Name}/>
+                                <MultilineNonReqInput value={inputData.option5Content} onChange={handleChange}  nameVal={clientOptionNames.option5Name}/>
                             </Collapse>
                         </div>
                     </Container>

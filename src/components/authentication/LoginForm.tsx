@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
@@ -12,40 +12,43 @@ import { Alert } from '../smallComponents/Alerts';
 const LoginForm = () => {
 
   const { setAuth } = useContext(AuthContext);
-  const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const [loginMessage, setLoginMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [inputData, setInputData] = useState({
+    email: "",
+    password: "",
+  })
   
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendLoginData(emailRef.current.value, passwordRef.current.value);
+    sendLoginData(inputData);
   };
 
-  const sendLoginData = async (email: string, password: string) => {
+  const sendLoginData = async (data: {email: string, password: string}) => {
     try {
       setLoading(true);
       const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/login";
-      const params = {email: email, password: password};
+      const params = { data };
       const response = await axios.post(url, params, { withCredentials: true });
-      console.log(response.data);
       setLoading(false);
-      if (response.status == 401) {
-        setShowErrorAlert(true);
-        console.log("Unathorized");
-      }
-      else if(response.data.message === "Success") {
+      if(response.status === 200) {
         setShowSuccessAlert(true);
-        setLoginMessage(response.data.message);
         setAuth(response.data.authData);
+        localStorage.setItem('firstName', response.data.authData.firstName);
+        setInputData({
+          email: "",
+          password: "",
+        })
         Router.push('/admin');
       }
-    } 
+    }
     catch(err) {
-      console.log(err);
-      err instanceof Error && console.log(err.message);
+      if (err instanceof Error && err.response.status == 401) {
+        setShowErrorAlert(true);
+        console.log(err.message);
+      }
+      setLoading(false);
     }
   }
 
@@ -53,6 +56,16 @@ const LoginForm = () => {
     setShowSuccessAlert(false);
     setShowErrorAlert(false);
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputData(prevValues => {
+      return {
+        ...prevValues,
+        [name]: value,
+      }
+    })
+  }
 
 
   return (
@@ -66,15 +79,15 @@ const LoginForm = () => {
       <Alert 
           open={showErrorAlert}
           onClose={handleCloseAlert}
-          text="Vendég hozzáadása nem sikerült."
+          text="Hibás email cím vagy jelszó."
           severity="error"
       />
 
       <Container>
         <h2>Bejelentkezés</h2>
         <Box component="form" onSubmit={handleSubmit}>
-          <OneLineReqAutoFocusInput inputRef={emailRef} label="Email" nameVal="name"/>
-          <OneLineReqInput inputRef={passwordRef} label="Jelszó" nameVal="password" type="password" />
+          <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete="email"/>
+          <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete="password"/>
           <Box className="submit-button-div">
             <BasicPrimaryButton text="Bejelentkezés" type="submit" disabled={loading}/>
             {loading && (

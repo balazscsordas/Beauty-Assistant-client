@@ -33,18 +33,20 @@ const ClientList = ({ clientsList }: Props) => {
                 <Link href="/admin/add-new-client" passHref>
                     <AddIconPrimaryButton text='vendég hozzáadása' />
                 </Link>
-                <div className="searchbar-section">
-                <TextField
-                    onChange={changeSearchBarData}
-                    type="search"
-                    variant="outlined"
-                    name="searchbar"
-                    value={inputTextValue}
-                    id="searchbar"
-                    fullWidth
-                    label="Keresés"
-                />
-                </div>
+                { clientsList.length !== 0 
+                    && <div className="searchbar-section">
+                        <TextField
+                            onChange={changeSearchBarData}
+                            type="search"
+                            variant="outlined"
+                            name="searchbar"
+                            value={inputTextValue}
+                            id="searchbar"
+                            fullWidth
+                            label="Keresés"
+                        />
+                    </div> 
+                }
                 <div className="client-list">
                     {filteredArray.length === 0
                         ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>

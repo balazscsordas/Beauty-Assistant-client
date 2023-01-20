@@ -2,6 +2,7 @@
 @import './globals.scss';
 @import './buttons.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import './homepage.scss';
 
 // Authentication 
 @import './authentication/authentication.scss';
@@ -33,4 +34,5 @@
 
 // Admin / Giftcard
 @import './admin/giftcard/giftcard.scss';
+@import './admin/giftcard/addNewGiftcard.scss';
 

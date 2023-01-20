@@ -11,7 +11,8 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
     const options = {
         headers: {
             withCredentials: true,
-            cookie: jwtCookie
+            cookie: jwtCookie,
+            laci: 'ja'
         }
     }
     const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/service/get-service-list";

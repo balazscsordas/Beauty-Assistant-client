@@ -20,7 +20,15 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
     cell.rowSpan = rowSpanVal;
     cell.classList.add('full');
     cell.classList.remove('empty');
-    cell.innerHTML += `<div>${appointment.clientName}</div>`;
+    if (appointment.status === 'success') {
+        cell.innerHTML += `<div class='success'>${appointment.clientName}</div>`;
+    } 
+    else if (appointment.status === 'failure') {
+        cell.innerHTML += `<div class='failure'>${appointment.clientName}</div>`;
+    } 
+    else {
+        cell.innerHTML += `<div class='pending'>${appointment.clientName}</div>`;
+    }
 }
 
 export const hideUnusedCellsBeforeRowSpan = (rowSpanVal: number, rowIndex: number, colIndex: number) => {
@@ -70,6 +78,12 @@ export const getNamedMonth = (date: Date) => {
     return months[month];
 }
 
+export const getShortNamedMonth = (date: Date) => {
+    const months = ['Jan', 'Febr', 'Márc', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szept', 'Okt', 'Nov', 'Dec'];
+    const month = new Date(date).getMonth();
+    return months[month];
+}
+
 export const getNumberedMonth = (date: Date) => {
     const months = ['01. ', '02. ', '03. ', '04. ', '05. ', '06. ', '07. ', '08. ', '09. ', '10. ', '11. ', '12. '];
     const month = date.getMonth();
@@ -110,6 +124,7 @@ export const getNumberedDay = (date: Date) => {
 }
 
 export const getCurrentWeekDates = (todayGetDate: number): WeekdaysInterface => {
+
     const today = new Date();
     const currentDayOfMonth = today.getDate();
     let weekdays: WeekdaysInterface;

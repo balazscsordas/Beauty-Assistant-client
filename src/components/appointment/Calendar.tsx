@@ -19,6 +19,7 @@ const Calendar = () => {
         setOpenAddAppointmentDialog,
         setOpenEditAppointmentDialog,
         setEditAppointmentData,
+        editAppointmentData,
         setEmptyRowsForServiceLength
     } = useContext(AppointmentContext);
  
@@ -39,7 +40,17 @@ const Calendar = () => {
 
     /* APPOINTMENT VISUALIZATION */
     useEffect(() => {
-        resetAllCells();
+        if (currentWeekAppointments) {
+            visualizeAppointments();
+
+            return () => {
+                resetAllCells();
+            }
+        }
+    }, [currentWeekAppointments]);
+
+
+    const visualizeAppointments = () => {
         currentWeekAppointments && currentWeekAppointments.map(appointment => {
             const time = appointment.time;
             const appointmLength = appointment.serviceTime;
@@ -47,53 +58,58 @@ const Calendar = () => {
             const colIndex = new Date(appointment.date).getUTCDay();
             addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentWeekAppointments]);
-
+    }
 
     useEffect(() => {
         /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
         clients.length === 0 && getClientListAPI();
         services.length === 0 && getServiceListAPI();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     /* TD ONCLICK EFFECT */
     useEffect(() => {
-        const cells = document.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.addEventListener('click', () => {
-                const dayIndex = cell.cellIndex;
-                const rowIndex = cell.closest('tr')!.rowIndex // Check if it is ok with !
+        if (currentWeekAppointments) {
+            const cells = document.querySelectorAll('td');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => handleTdClick(cell));
+            });
+            return () => {
+                cells.forEach(cell => {
+                    cell.removeEventListener('click', () => handleTdClick(cell));
+                });
+            };
+        }
+    }, [currentWeekAppointments]);
+    
 
-                if (cell.classList.contains('empty')) {
-                    setNewAppointmentData(prevData => {
-                        return {
-                            ...prevData,
-                            date: getDayDataFromDayIndex(dayIndex, currentWeek),
-                            time: hours[rowIndex - 1],
-                        }
-                    })
-                    setOpenAddAppointmentDialog(true);
-                    setEmptyRowsForServiceLength(countEmptyRows(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
+    const handleTdClick = (cell: HTMLTableCellElement) => {
+        const dayIndex = cell.cellIndex;
+        const rowIndex = cell.closest('tr')!.rowIndex // Check if it is ok with !
+
+        if (cell.classList.contains('empty')) {
+            setNewAppointmentData(prevData => {
+                return {
+                    ...prevData,
+                    date: getDayDataFromDayIndex(dayIndex, currentWeek),
+                    time: hours[rowIndex - 1],
                 }
-                else if (cell.classList.contains('full')) {
-                    currentWeekAppointments && currentWeekAppointments.map(appointment => {
-                        const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
-                        const appointmentDayIndex = new Date(appointment.date).getUTCDay();
+            })
+            setOpenAddAppointmentDialog(true);
+            setEmptyRowsForServiceLength(countEmptyRows(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
+        }
+        else if (cell.classList.contains('full')) {
+            currentWeekAppointments && currentWeekAppointments.map(appointment => {
+                const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
+                const appointmentDayIndex = new Date(appointment.date).getUTCDay();
 
-                        if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
-                            setEditAppointmentData(appointment);
-                        }
-                    })
+                if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
+                    setEditAppointmentData(appointment);
                     setOpenEditAppointmentDialog(true);
                 }
-            });
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentWeekAppointments])
-
+            })
+        }
+    }
 
 
     /* API */

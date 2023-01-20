@@ -13,12 +13,12 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider>
       <AuthProvider>
         <ClientProvider>
-           <ServiceProvider>
-            <AppointmentProvider>
-              <NextNProgress />
-              <Component {...pageProps} />
-            </AppointmentProvider>
-          </ServiceProvider> 
+            <ServiceProvider>
+             <AppointmentProvider>
+               <NextNProgress />
+               <Component {...pageProps} />
+             </AppointmentProvider>
+            </ServiceProvider> 
         </ClientProvider>
       </AuthProvider>
     </ThemeProvider>

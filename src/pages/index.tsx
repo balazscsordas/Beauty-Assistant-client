@@ -4,6 +4,7 @@ import RegistrationForm from '../components/authentication/RegistrationForm';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import WelcomeSection from '../components/homepage/WelcomeSection';
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
+        <WelcomeSection />
         <Container>
+          <Row>
+          </Row>
           <Row>
             <Col lg={6}>
               <RegistrationForm />

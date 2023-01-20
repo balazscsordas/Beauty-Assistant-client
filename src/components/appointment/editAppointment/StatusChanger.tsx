@@ -4,12 +4,10 @@ import AppointmentContext from "../../../context/AppointmentProvider";
 const StatusChanger = () => {
 
     const { editAppointmentData, setEditAppointmentData } = useContext(AppointmentContext);
-    const appointmentStatus: string = editAppointmentData.status;
 
-    const [failureChecked, setFailureChecked] = useState(appointmentStatus === 'failure' ? true : false)
-    const [pendingChecked, setPendingChecked] = useState(appointmentStatus === 'pending' ? true : false)
-    const [successChecked, setSuccessChecked] = useState(appointmentStatus === 'success' ? true : false)
-
+    const [failureChecked, setFailureChecked] = useState(editAppointmentData.status === 'failure' ? true : false)
+    const [pendingChecked, setPendingChecked] = useState(editAppointmentData.status === 'pending' ? true : false)
+    const [successChecked, setSuccessChecked] = useState(editAppointmentData.status === 'success' ? true : false)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target;

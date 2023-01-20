@@ -34,6 +34,14 @@ const EditAppointmentDialog = () => {
             const params = { data };
             const response = await axios.put(url, params, { withCredentials: true });
             if (response?.status === 200) {
+                const updatedAppointmentList = currentWeekAppointments?.map((appointment) => {
+                    if (appointment._id === data._id) {
+                        return data
+                    } else {
+                        return appointment;
+                    }
+                });
+                updatedAppointmentList && setCurrentWeekAppointments(updatedAppointmentList);
                 setShowSuccessAlert(true);
             }
         } catch(err) {
@@ -64,7 +72,6 @@ const EditAppointmentDialog = () => {
     const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setOpenEditAppointmentDialog(false);
-        console.log(editAppointmentData);
         sendEditedAppointmentDataToServer(editAppointmentData);
     }
 

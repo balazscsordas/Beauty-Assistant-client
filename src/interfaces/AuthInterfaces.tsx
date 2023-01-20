@@ -3,3 +3,9 @@ export interface AuthInterface {
     firstName: string;
     accessToken: string;
 }
+
+export interface RegistrationDataInterface {
+    firstName: string;
+    email: string;
+    password: string;
+}

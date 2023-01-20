@@ -33,7 +33,7 @@ export const AppointmentProvider = ({ children }: Props) => {
     const todayGetDay = (new Date()).getDay();
     const current = useMemo(() => getCurrentWeekDates(todayGetDay), [todayGetDay])
     const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(current);
-    
+
     const [newAppointmentData, setNewAppointmentData] = useState({
         date: new Date(),
         time: "",

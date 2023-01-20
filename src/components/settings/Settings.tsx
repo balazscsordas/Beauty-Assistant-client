@@ -1,5 +1,6 @@
 import AppearanceSettings from "./AppearanceSettings";
 import AppointmentSettings from "./AppointmentSettings";
+import OpeningHoursSettings from "./OpeningHoursSettings";
 
 const Settings = () => {
 
@@ -8,6 +9,7 @@ const Settings = () => {
             <h1 className="page-title">Beállítások</h1>
             <AppearanceSettings />
             <AppointmentSettings />
+            <OpeningHoursSettings />
         </section>
     )
 }

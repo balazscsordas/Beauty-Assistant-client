@@ -5,6 +5,18 @@
     margin: auto;
     max-width: 600px;
 
+    #opening-hours-section {
+        .input-fields {
+            display: flex;
+            flex-direction: row;
+
+            input {
+                width: 80px;
+            }
+
+        }
+    }
+
     h3 {
         text-align: center;
         margin-top: 40px;

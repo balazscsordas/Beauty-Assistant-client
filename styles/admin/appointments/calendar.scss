@@ -4,7 +4,6 @@
 #calendar-section {
     max-width: 1000px;
     margin: auto auto 30px auto;
-    
 
     .hidden {
         display: none;
@@ -25,7 +24,7 @@
     }
 
     td, th {
-        border: 1px dotted var(--color-200);
+        border: 1px dotted var(--color-300);
     }
 
     td {
@@ -33,7 +32,7 @@
     }
     
     td:hover {
-        background-color: var(--color-400);
+        background-color: var(--color-300);
         cursor: pointer;
     }
 
@@ -42,7 +41,7 @@
 
         .header-item {
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
 
             span {
                 font-size: 0.8rem;
@@ -75,17 +74,32 @@
 
     .full {
         border: 1px dotted var(--color-200)!important;
+        position: relative;
+
+        .pending {
+            background-color: yellow;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        .failure {
+            background-color: red;
+        }
         
         div {
-            background-color: var(--color-300);
             border-radius: 10px;
             font-size: 0.9rem;
-            height: 100%;
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5px;
-            margin: 2px;
+            margin: 3px;
             box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
         }
     }
