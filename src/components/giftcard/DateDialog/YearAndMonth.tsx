@@ -22,11 +22,11 @@ const YearAndMonth = ({ giftcardDate, setGiftcardDate }: Props) => {
     }
 
     return (
-        <div className="year-and-month-block">
-            <div className="year-and-month">
-                <p>{formatYearAndMonth(giftcardDate)}</p>
+        <div className="flex flex-row p-1 border-b-2 border-black">
+            <div className="flex items-center font-semibold">
+                <p className="m-0">{formatYearAndMonth(giftcardDate)}</p>
             </div>
-            <div className="buttons-block">
+            <div className="flex ml-auto items-center">
                 <IconButton onClick={changeStartDateToPrevMonth}>
                     <ArrowLeftIcon/>
                 </IconButton>

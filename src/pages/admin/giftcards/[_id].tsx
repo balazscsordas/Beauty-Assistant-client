@@ -27,8 +27,6 @@ export const getServerSideProps: GetServerSideProps<{ giftcardDetails: GiftcardI
 
 const ClientDetailsPage = ({ giftcardDetails }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-    console.log(giftcardDetails);
-
     return (
         <>
             <GiftcardProvider>

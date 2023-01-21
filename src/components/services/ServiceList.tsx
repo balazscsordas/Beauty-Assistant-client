@@ -29,7 +29,7 @@ const ServiceList = ({ servicesList }: Props) => {
     }
 
     return (
-            <section id="service-list-section">
+            <section className="text-center max-w-3xl m-auto">
                 <h1 className="page-title">Szolgáltatások</h1>
                 <Link href="/admin/add-new-service" passHref>
                     <AddIconPrimaryButton text='szolgáltatás hozzáadása' />

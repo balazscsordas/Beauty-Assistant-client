@@ -26,13 +26,13 @@ const DatePickerDialog = ({ label, showDateDialog, setShowDateDialog, setGiftcar
     return (
         <section>
             <Dialog id="date-dialog" open={showDateDialog} onClose={() => setShowDateDialog(false)}>
-                <DialogTitle className="title">{label}</DialogTitle>
+                <DialogTitle className="text-center">{label}</DialogTitle>
                 <DialogContent>
                     <DateBlock giftcardDate={giftcardDate} setGiftcardDate={setGiftcardDate} setShowDateDialog={setShowDateDialog}/>
                 </DialogContent>
-                <DialogActions className="dialog-buttons">
+                <DialogActions className="flex flex-row justify-start py-4 px-6">
                     <button onClick={closeDateDialog}>Mégse</button>
-                    <button className="right-button" onClick={setTodayAsDate}>Mai nap</button>
+                    <button className="ml-auto" onClick={setTodayAsDate}>Mai nap</button>
                 </DialogActions>
             </Dialog>
         </section>

@@ -5,7 +5,7 @@ import OpeningHoursSettings from "./OpeningHoursSettings";
 const Settings = () => {
 
     return (
-        <section id="settings-section">
+        <section className="m-auto max-w-2xl">
             <h1 className="page-title">Beállítások</h1>
             <AppearanceSettings />
             <AppointmentSettings />

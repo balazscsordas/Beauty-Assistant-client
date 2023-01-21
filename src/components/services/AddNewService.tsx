@@ -191,20 +191,20 @@ const AddNewService = () => {
                                 <MultilineNonReqInput onChange={handleChange} value={inputData.description} label="Leírás" nameVal="description"/>
                             </Col>
                         </Row>
-                        <Row className="options-buttons">
+                        <Row className="text-center m-4">
                             <Col >
                                 <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
                             </Col>
                         </Row>
-                        <div className="options-fields">
+                        <div className="text-center m-4">
                             <Collapse in={showSteps}>
                                 <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label="Lépések" nameVal="steps"/>
                             </Collapse>
                         </div>
-                    </Container>
-                        <div className="button-block">
+                        <div className="text-center m-4">
                             <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
                         </div>
+                    </Container>
                 </Box>
             </>
         </section>

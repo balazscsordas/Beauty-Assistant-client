@@ -2,7 +2,7 @@ import RegistrationForm from '../components/authentication/RegistrationForm';
 
 const RegistrationPage = () => {
     return (
-        <section id="registration-section">
+        <section className="max-w-xl min-h-screen min-w-full flex justify-center items-center">
             <RegistrationForm />
         </section>
     )

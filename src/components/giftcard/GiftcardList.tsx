@@ -29,7 +29,7 @@ const GiftcardList = ({ giftcardList }: Props) => {
     }
 
     return (
-        <section id="client-list-section">
+        <section className="text-center max-w-3xl m-auto">
             <h1 className="page-title">Ajándékutalvány</h1>
             <Link href="/admin/add-new-giftcard" passHref>
                 <AddIconPrimaryButton text='ajándékutalvány hozzáadása' />
@@ -43,6 +43,7 @@ const GiftcardList = ({ giftcardList }: Props) => {
                         : inputTextValue !== "" && filteredArray.map((giftcard: GiftcardInterface, index: number) => (
                         <ListComponent
                             key={index}
+                            status={giftcard.status}
                             name={giftcard.identifier}
                             url={`/admin/giftcards/${giftcard._id}`}
                             icon={<CardGiftcardIcon/>}
@@ -53,6 +54,7 @@ const GiftcardList = ({ giftcardList }: Props) => {
                         : inputTextValue === "" && giftcardList.map((giftcard: GiftcardInterface, index: number) => (
                         <ListComponent
                             key={index}
+                            status={giftcard.status}
                             name={giftcard.identifier}
                             url={`/admin/giftcards/${giftcard._id}`}
                             icon={<CardGiftcardIcon/>}

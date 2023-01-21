@@ -21,15 +21,14 @@ const DaysOfMonth = ({ giftcardDate, setGiftcardDate, setShowDateDialog }: Props
     }
 
     return (
-        <div className="days">
+        <div className="flex flex-wrap flex-row min-h-max">
             <>
                 {emptySpanNumber.map((index) => (
-                    <span key={index}></span>
+                    <span className="flex p-0 items-center text-sm w-[14.28%] h-10 rounded-full" key={index}></span>
                 ))}
                 {daysOfMonthArray.map((element, index) => (
-                    <Button 
+                    <Button className="flex p-0 items-center text-sm w-[14.28%] h-10 rounded-full"
                         id={element}
-                        className="day-button"
                         variant="text" 
                         onClick={handleClick}
                         key={index}>

@@ -1,9 +1,5 @@
 import Head from 'next/head';
-import LoginForm from '../components/authentication/LoginForm';
-import RegistrationForm from '../components/authentication/RegistrationForm';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import AuthenticationSection from '../components/homepage/AuthenticationSection';
 import WelcomeSection from '../components/homepage/WelcomeSection';
 
 export default function Home() {
@@ -17,18 +13,7 @@ export default function Home() {
       </Head>
       <section>
         <WelcomeSection />
-        <Container>
-          <Row>
-          </Row>
-          <Row>
-            <Col lg={6}>
-              <RegistrationForm />
-            </Col>
-            <Col lg={6}>
-              <LoginForm />
-            </Col>
-          </Row>
-        </Container>
+        <AuthenticationSection />
       </section>
     </>
   )

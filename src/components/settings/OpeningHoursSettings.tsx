@@ -2,7 +2,7 @@ import HourBlock from "./HourBlock";
 
 const OpeningHoursSettings = () => {
     return (
-        <section id="opening-hours-section"  className="section-bubble">
+        <section id="opening-hours-section" className="section-bubble">
             <h3>Nyitvatartás</h3>
             <HourBlock day="Hétfő"/>
             <HourBlock day="Kedd"/>

@@ -1,19 +1,17 @@
-import { Box, Collapse, Dialog, DialogActions, DialogContent, DialogContentText } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 import axios from "axios";
-import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import { Alert } from "../smallComponents/Alerts";
-import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
 import DeleteDialog from "../smallComponents/DeleteDialog";
 import { OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
 import { containsOnlyNumbers } from "./DateDialog/Utils";
 import DatePicker from "./DatePicker";
 
-const GiftcardDetails = ({ _id, identifier, amount, startDate, endDate  }: GiftcardInterface) => {
+const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  }: GiftcardInterface) => {
     const { 
         giftcardStartDate,
         setGiftcardStartDate,
@@ -24,10 +22,13 @@ const GiftcardDetails = ({ _id, identifier, amount, startDate, endDate  }: Giftc
         showEndDateDialog,
         setShowEndDateDialog 
     } = useContext(GiftcardContext);
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showEditSuccessAlert, setShowEditSuccessAlert] = useState(false);
+    const [showEditErrorAlert, setShowEditErrorAlert] = useState(false);
+    const [showDeleteSuccessAlert, setShowDeleteSuccessAlert] = useState(false);
+    const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [inputData, setInputData] = useState<GiftcardInterface>({
         _id: _id,
+        status: status,
         identifier: identifier,
         amount: amount,
         startDate: startDate,
@@ -41,30 +42,7 @@ const GiftcardDetails = ({ _id, identifier, amount, startDate, endDate  }: Giftc
         setGiftcardEndDate(endDate);
     }, [startDate, endDate])
 
-    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!showAmountError) {
-            modifyGiftcard(inputData);
-        }
-    }
-
-    const modifyGiftcard = async (newGiftcardData: GiftcardInterface) => {
-        try {
-            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/edit-giftcard";
-            const params = {newGiftcardData: newGiftcardData};
-            const response = await axios.put(url, params, { withCredentials: true });
-            if (response.status == 200) {
-                setShowSuccessAlert(true);
-            } else {
-                setShowErrorAlert(true);
-            }
-        }
-        catch (err) {
-            err instanceof Error && console.log(err.message);
-            setShowErrorAlert(true);
-        }
-    }
-
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setInputData(prevVal => {
@@ -96,34 +74,85 @@ const GiftcardDetails = ({ _id, identifier, amount, startDate, endDate  }: Giftc
         })
     }, [giftcardEndDate])
 
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!showAmountError) {
+            editGiftcardAPI(inputData);
+        }
+    }
+
     const deleteGiftcard = () => {
-        console.log("ja");
+        _id && deleteGiftcardAPI(_id);
+    }
+
+    // API
+    const editGiftcardAPI = async (newGiftcardData: GiftcardInterface) => {
+      try {
+          const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/edit-giftcard";
+          const params = {newGiftcardData: newGiftcardData};
+          const response = await axios.put(url, params, { withCredentials: true });
+          if (response.status == 200) {
+              setShowEditSuccessAlert(true);
+          } else {
+              setShowEditErrorAlert(true);
+          }
+      }
+      catch (err) {
+          err instanceof Error && console.log(err.message);
+          setShowEditErrorAlert(true);
+      }
+    }
+
+    const deleteGiftcardAPI = async (giftcardId: string) => {
+        try {
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/delete-giftcard";
+            const options = {
+                withCredentials: true,
+                params: {giftcardId: giftcardId},
+            }
+            const response = await axios.delete(url, options);
+            if (response.status == 200) {
+                setShowDeleteSuccessAlert(true);
+            } else {
+                setShowDeleteErrorAlert(true);
+            }
+        }
+        catch (err) {
+            err instanceof Error && console.log(err.message);
+            setShowDeleteErrorAlert(true);
+        }
     }
 
 
-    const handleCloseAlert = () => {
-        setShowSuccessAlert(false);
-        setShowErrorAlert(false);
-      };
-
-
     return (
-        <section id="add-new-client-section">
+        <section id="data-details-section">
             <Alert 
-                open={showSuccessAlert}
-                onClose={handleCloseAlert}
+                open={showEditSuccessAlert}
+                onClose={() => setShowEditSuccessAlert(false)}
                 text="Ajándékutalvány módosítása sikeres volt."
                 severity="success"
             />
             <Alert 
-                open={showErrorAlert}
-                onClose={handleCloseAlert}
+                open={showEditErrorAlert}
+                onClose={() => setShowEditErrorAlert(false)}
                 text="Ajándékutalvány módosítása nem sikerült."
+                severity="error"
+            />
+            <Alert 
+                open={showDeleteSuccessAlert}
+                onClose={() => setShowDeleteSuccessAlert(false)}
+                text="Ajándékutalvány törlése sikeres volt."
+                severity="success"
+            />
+            <Alert 
+                open={showDeleteErrorAlert}
+                onClose={() => setShowDeleteErrorAlert(false)}
+                text="Ajándékutalvány törlése nem sikerült."
                 severity="error"
             />
             
             <>
-                <h1 className="page-title">Ajándékutalvány hozzáadása</h1>
+                <h1 className="page-title">Ajándékutalvány</h1>
                 <Box className="form" component="form" onSubmit={handleSubmit}>
                     <Container>
                         <Row>

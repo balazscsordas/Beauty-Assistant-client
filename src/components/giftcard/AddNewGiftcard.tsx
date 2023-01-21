@@ -29,6 +29,7 @@ const AddGiftcard = () => {
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [inputData, setInputData] = useState<GiftcardInterface>({
+        status: "pending",
         identifier: "",
         amount: "",
         startDate: giftcardStartDate,
@@ -42,8 +43,8 @@ const AddGiftcard = () => {
         e.preventDefault();
         if (!showIdentifierError && !showAmountError) {
             addNewGiftcardToDatabase(inputData);
-            console.log(inputData);
             setInputData({
+                status: "pending",
                 identifier: "",
                 amount: "",
                 startDate: giftcardStartDate,
@@ -161,7 +162,7 @@ const AddGiftcard = () => {
                             </Col>
                         </Row>
                     </Container>
-                        <div className="button-block">
+                        <div className="text-center m-4">
                             <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
                         </div>
                 </Box>

@@ -169,7 +169,7 @@ const AddClients = () => {
                                 <OneLineNonReqInput value={inputData.email} onChange={handleChange} label="E-mail" nameVal="email"/>
                             </Col>
                         </Row>
-                        <Row className="options-buttons">
+                        <Row className="text-center m-4">
                             <Col >
                                 {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
                                 {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setshowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
@@ -178,12 +178,12 @@ const AddClients = () => {
                                 {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
                             </Col>
                         </Row>
-                        <Row className="options-buttons">
+                        <Row className="text-center my-4">
                             <Col >
                                 <AddIconPrimaryButton onClick={() => setOpenAddClientOptionDialog(true)} text="új mező"/>
                             </Col>
                         </Row>
-                        <div className="options-fields">
+                        <div>
                             <Collapse in={showOption1Content}>
                                 <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal={clientOptionNames.option1Name}/>
                             </Collapse>
@@ -200,10 +200,10 @@ const AddClients = () => {
                                 <MultilineNonReqInput value={inputData.option5Content} onChange={handleChange}  nameVal={clientOptionNames.option5Name}/>
                             </Collapse>
                         </div>
-                    </Container>
-                        <div className="button-block">
+                        <div className="text-center m-4">
                             <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
                         </div>
+                    </Container>
                 </Box>
             </>
             <AddNewClientOptionDialog />

@@ -29,7 +29,7 @@ const ClientList = ({ clientsList }: Props) => {
     }
 
     return (
-        <section id="client-list-section">
+        <section className="text-center max-w-3xl m-auto">
             <h1 className="page-title">Vendégek</h1>
             <Link href="/admin/add-new-client" passHref>
                 <AddIconPrimaryButton text='vendég hozzáadása' />
@@ -37,7 +37,7 @@ const ClientList = ({ clientsList }: Props) => {
             { clientsList.length !== 0 
                 && <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
             }
-            <div className="client-list">
+            <div>
                 {filteredArray.length === 0
                     ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
                     : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (

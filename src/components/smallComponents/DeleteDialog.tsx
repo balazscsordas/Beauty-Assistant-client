@@ -17,7 +17,7 @@ const DeleteDialog = ({ deleteLabel, deleteFunction }: Props) => {
     }
 
     return (
-        <div className="buttons-block">
+        <div className="text-center mt-4">
             <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text="Törlés"/>
             <BasicPrimaryButton type="submit" text="Mentés"/>
             <Dialog

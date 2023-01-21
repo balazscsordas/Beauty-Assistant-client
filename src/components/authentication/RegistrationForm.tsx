@@ -13,6 +13,8 @@ import { RegistrationDataInterface } from '../../interfaces/AuthInterfaces';
 import { Alert } from '../smallComponents/Alerts';
 import { emailValidationCheck, passwordValidationCheck } from './Utils';
 import validator from 'validator';
+import Router from 'next/router';
+import Link from 'next/link';
 
 const RegistrationForm = () => {
 
@@ -36,7 +38,6 @@ const RegistrationForm = () => {
       !emailValidationCheck(inputData.email) ? setShowEmailErrorMessage(true): setShowEmailErrorMessage(false);
       if (emailValidationCheck(inputData.email) && passwordValidationCheck(inputData.password)) {
         sendRegistrationData(inputData);
-        console.log(inputData);
         setInputData({
           firstName: "",
           email: "",
@@ -55,6 +56,7 @@ const RegistrationForm = () => {
         setLoading(false);
         if (response.status === 201 ) {
           setShowSuccessAlert(true);
+          Router.push('/login');
         }
       } catch(err) {
           setShowErrorAlert(true);
@@ -96,7 +98,7 @@ const RegistrationForm = () => {
   };
 
   return (
-      <section id="registration-section">
+      <>
         <Alert 
             open={showSuccessAlert}
             onClose={handleCloseAlert}
@@ -110,43 +112,48 @@ const RegistrationForm = () => {
             severity="error"
         />
       
-        <Container>
-          <h2>Regisztráció</h2>
+        <div className="max-w-lg bg-orange-100 px-6 py-12 text-center m-3 bg-gradient-to-t from-purple-300 to-purple-500 rounded-xl shadow-lg text-white">
+          <h3 className="font-bold font mb-4">Regisztráció</h3>
           <Box component="form" onSubmit={handleSubmit}>
             <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
             <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete='email'/>
             
             <Collapse in={showEmailErrorMessage}>
-              <div className="error-div">
-                <p className="error-text">Nem megfelelő email</p>
+              <div>
+                <p className="input-error-text">Nem megfelelő email</p>
               </div>
             </Collapse>
             <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete='password'/>
             
             <Collapse in={inputData.password.length > 0}>
-              <ul className="password-requirements-block">
-                <p className="title">Jelszónak a következő feltételeknek kell megfelelnie:</p>
+              <ul className="input-error-text">
+                <p className="input-error-text mb-2 mt-1">Jelszónak a következő feltételeknek kell megfelelnie:</p>
                 <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
                 <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
                 <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
               </ul>
             </Collapse>
-            <Box className="submit-button-div">
+            <Box className="mt-6 mb-4">
               <BasicPrimaryButton text="Regisztráció" type="submit" disabled={loading}/>
               {loading && (
                 <div>
-                  <CircularProgress size={24} className="loading-icon" />
+                  <CircularProgress size={24}/>
                 </div>
               )}
             </Box>
           </Box>
           <Zoom in={showRegistrationMessage}>
-              <div className="message-block">
+              <div>
                   <p>{registrationMessage}</p>
               </div>
           </Zoom>
-        </Container>
-      </section>
+          <p className="mt-4 font-medium text-sm">Van már fiókod? Jelentkezz be 
+            <Link className="underline text-slate-600" passHref href="/login">
+              <button>ide kattintva!</button>
+            </Link>
+          </p>
+        </div>
+      </>
   );
 }
 

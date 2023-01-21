@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const sideNavbar = () => {
     return (
-        <div id='side-navbar'>
+        <div id='side-navbar' className="fixed flex flex-col top-0 left-0 bottom-0 w-60">
             <div className='navbar-header'>
                 <Link href="/admin">Beauty Assistant</Link>
             </div>

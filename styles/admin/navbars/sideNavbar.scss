@@ -6,12 +6,6 @@
 }
 
 #side-navbar {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  bottom: 0;
-  width: 240px;
   background-color: var(--color-100);
 
   a, button {

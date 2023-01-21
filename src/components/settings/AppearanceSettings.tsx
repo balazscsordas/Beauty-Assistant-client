@@ -1,5 +1,4 @@
-import { MenuItem, TextField } from "@mui/material";
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import ThemeContext from "../../context/ThemeProvider";
 
 
@@ -15,7 +14,7 @@ const AppearanceSettings = () => {
     }
  
     return (
-        <section id="appearance-settings-section" className="section-bubble">
+        <section className="section-bubble">
             <h3>Megjelenés</h3>
             <div className='setting-block'>
                 <p className='setting-name'>Téma</p>

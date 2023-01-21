@@ -95,7 +95,7 @@ const ClientDetails = (props: ClientDataInterface) => {
     }
 
     return (
-        <section id="client-details-section">
+        <section id="client-details-section data-details-section">
             <Alert 
                 open={showSavingAlert}
                 onClose={() => setShowSavingAlert(false)}

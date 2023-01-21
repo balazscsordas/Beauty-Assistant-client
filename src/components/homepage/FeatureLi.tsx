@@ -8,16 +8,16 @@ const FeatureList = ({ title, description }: FeatureLi) => {
     const [showDescription, setShowDescription] = useState(false);
 
     return (
-        <section id="feature-li">
+        <section className="bg-orange-100 shadow-md p-1 m-4 rounded-md">
             <div className="feature-list-li">
-                <div className='feature-list-li-title-block'>
-                    <IconButton onClick={() => setShowDescription(prev => !prev)}>
+                <div className="flex flex-row items-center">
+                    <IconButton className="mr-2" onClick={() => setShowDescription(prev => !prev)}>
                         <AddCircleOutlineIcon />
                     </IconButton>
-                    <p>{title}</p>
+                    <p className="mb-0 text-sm font-semibold" >{title}</p>
                 </div>
                 <Collapse in={showDescription}>
-                    { <p className='description'>{description}</p> }
+                    { <p className="ml-11 my-2 text-sm">{description}</p> }
                 </Collapse>
             </div>
         </section>

@@ -12,7 +12,7 @@ interface Props {
 const DateBlock = ({ giftcardDate, setGiftcardDate, setShowDateDialog }: Props) => {
 
     return (
-        <section id="date-block-section">
+        <section>
             <YearAndMonth giftcardDate={giftcardDate} setGiftcardDate={setGiftcardDate}/>
             <WeekdaysName/>
             <DaysOfMonth giftcardDate={giftcardDate} setGiftcardDate={setGiftcardDate} setShowDateDialog={setShowDateDialog}/>

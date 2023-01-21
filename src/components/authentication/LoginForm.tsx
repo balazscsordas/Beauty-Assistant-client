@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { OneLineReqAutoFocusInput, OneLineReqInput } from '../smallComponents/InputFields';
 import { BasicPrimaryButton } from '../smallComponents/Buttons';
 import { Alert } from '../smallComponents/Alerts';
+import Link from 'next/link';
 
 const LoginForm = () => {
 
@@ -83,21 +84,26 @@ const LoginForm = () => {
           severity="error"
       />
 
-      <Container>
-        <h2>Bejelentkezés</h2>
+      <div className="max-w-lg bg-orange-100 px-6 p-12 text-center m-3 bg-gradient-to-t from-purple-300 to-purple-500 rounded-xl shadow-lg text-white">
+        <h3 className="font-bold font">Bejelentkezés</h3>
         <Box component="form" onSubmit={handleSubmit}>
           <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete="email"/>
           <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete="password"/>
-          <Box className="submit-button-div">
+          <Box className="mt-6 mb-4">
             <BasicPrimaryButton text="Bejelentkezés" type="submit" disabled={loading}/>
             {loading && (
               <div>
-                <CircularProgress size={24} className="loading-icon" />
+                <CircularProgress size={24}/>
               </div>
             )}
           </Box>
         </Box>
-      </Container>
+        <p className="mt-4 font-medium text-sm">Nincs még fiókod? Regisztrálj 
+          <Link className="underline text-slate-600" passHref href="/registration">
+            <button>ide kattintva!</button>
+          </Link>
+        </p>
+      </div>
     </section>
   );
 }

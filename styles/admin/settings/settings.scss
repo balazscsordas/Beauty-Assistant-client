@@ -1,9 +1,6 @@
 @import '../../variables.scss';
 @import '../../themes.scss';
 
-#settings-section {
-    margin: auto;
-    max-width: 600px;
 
     .section-bubble {
         background-color: var(--color-100);
@@ -25,6 +22,7 @@
 
     h3 {
         text-align: center;
+        font-weight: 500;
         margin-bottom: 20px;
     }
 
@@ -39,4 +37,3 @@
             margin: 0;
         }
     }
-}
