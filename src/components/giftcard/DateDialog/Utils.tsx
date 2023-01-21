@@ -1,4 +1,13 @@
 import { getNamedMonth } from "../../appointment/Utils";
+
+// RETURNS TRUE IF STRING CONTAINS ONLY NUMBERS
+export const containsOnlyNumbers = (str: string) => {
+    if (str === "") {
+        return true
+    } else {
+        return /^[0-9]+$/.test(str);
+    }
+  }
   
 export const generateRandomIdentifier = () => {
     const length = 10;
@@ -8,7 +17,6 @@ export const generateRandomIdentifier = () => {
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    console.log(result);
     return result;
 }
 

@@ -19,7 +19,7 @@ const sideNavbar = () => {
                 <Link href="/admin/clients"><PeopleIcon /><span>Vendégek</span></Link>
                 <Link href="/admin/appointments"><CalendarMonthIcon /><span>Időpontok</span></Link>
                 <Link href="/admin/services"><BusinessCenterIcon /><span>Szolgáltatások</span></Link>
-                <Link href="/admin/giftcard"><RedeemIcon /><span>Ajándékutalvány</span></Link>
+                <Link href="/admin/giftcards"><RedeemIcon /><span>Ajándékutalvány</span></Link>
                 <Link href="/admin/statistics"><BarChartIcon /><span>Statisztikák</span></Link>
             </div>
             <div className='navbar-footer'>

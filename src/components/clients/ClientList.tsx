@@ -1,9 +1,10 @@
 import { ClientListInterface } from "../../interfaces/ClientInterfaces"; 
-import ClientCard from "./ClientCard";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
 import Link from "next/link";
-import TextField from '@mui/material/TextField';
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
+import { Searchbar } from "../smallComponents/Searchbars";
+import ListComponent from "../smallComponents/ListComponent";
 
 interface Props {
     clientsList: ClientListInterface[]
@@ -28,48 +29,37 @@ const ClientList = ({ clientsList }: Props) => {
     }
 
     return (
-            <section id="client-list-section">
-                <h1 className="page-title">Vendégek</h1>
-                <Link href="/admin/add-new-client" passHref>
-                    <AddIconPrimaryButton text='vendég hozzáadása' />
-                </Link>
-                { clientsList.length !== 0 
-                    && <div className="searchbar-section">
-                        <TextField
-                            onChange={changeSearchBarData}
-                            type="search"
-                            variant="outlined"
-                            name="searchbar"
-                            value={inputTextValue}
-                            id="searchbar"
-                            fullWidth
-                            label="Keresés"
-                        />
-                    </div> 
-                }
-                <div className="client-list">
-                    {filteredArray.length === 0
-                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
-                        : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (
-                        <ClientCard
-                            key={index}
-                            _id={client._id}
-                            age={client.age}
-                            name={client.name}
-                        />
-                    ))}
-                    {clientsList.length === 0 
-                        ? <p>Még nem adtál hozzá vendéget!</p>
-                        : inputTextValue === "" && clientsList.map((client: ClientListInterface, index: number) => (
-                        <ClientCard
-                            key={index}
-                            _id={client._id}
-                            age={client.age}
-                            name={client.name}
-                        />
-                    ))}
-                </div>
-            </section>
+        <section id="client-list-section">
+            <h1 className="page-title">Vendégek</h1>
+            <Link href="/admin/add-new-client" passHref>
+                <AddIconPrimaryButton text='vendég hozzáadása' />
+            </Link>
+            { clientsList.length !== 0 
+                && <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
+            }
+            <div className="client-list">
+                {filteredArray.length === 0
+                    ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                    : inputTextValue !== "" && filteredArray.map((client: ClientListInterface, index: number) => (
+                    <ListComponent
+                        key={index}
+                        name={client.name}
+                        url={`/admin/clients/${client._id}`}
+                        icon={<AccountCircleIcon/>}
+                    />
+                ))}
+                {clientsList.length === 0 
+                    ? <p>Még nem adtál hozzá vendéget!</p>
+                    : inputTextValue === "" && clientsList.map((client: ClientListInterface, index: number) => (
+                    <ListComponent
+                        key={index}
+                        name={client.name}
+                        url={`/admin/clients/${client._id}`}
+                        icon={<AccountCircleIcon/>}
+                    />
+                ))}
+            </div>
+        </section>
     )
 }
 

@@ -18,6 +18,7 @@ const DatePickerDialog = ({ label, showDateDialog, setShowDateDialog, setGiftcar
 
     const setTodayAsDate = () => {
         const today = new Date();
+        today.setHours(12);
         setGiftcardDate(today);
         setShowDateDialog(false);
     }

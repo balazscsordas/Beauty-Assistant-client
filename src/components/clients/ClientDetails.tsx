@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
 import { Collapse } from '@mui/material';
-import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 import { Container, Row, Col } from "react-bootstrap";
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import { Alert } from "../smallComponents/Alerts";
-import { AddIconOptionButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
+import { AddIconOptionButton } from "../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
 import ClientContext from "../../context/ClientProvider";
+import DeleteDialog from "../smallComponents/DeleteDialog";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
@@ -31,7 +31,6 @@ const ClientDetails = (props: ClientDataInterface) => {
     const [showSavingErrorAlert, setShowSavingErrorAlert] = useState(false);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [showSaveButton, setShowSaveButton] = useState(false);
 
     // States for show or hide textfields
@@ -49,7 +48,6 @@ const ClientDetails = (props: ClientDataInterface) => {
     }
 
     // Save client in database API
-
     const saveModifiedData = async (newClientData: ClientDataInterface) => {
         const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/save-modified-client-data";
         const params = { newClientData: newClientData};
@@ -79,38 +77,10 @@ const ClientDetails = (props: ClientDataInterface) => {
         }
     }
 
-    // Delete client
-
+    // DELETE CLIENT
     const deleteClient = () => {
         deleteClientRequest(props._id);
-        setDeleteDialogOpen(false);
         Router.push('/admin/clients');
-    }
-
-    // Dialogs + Alerts states
-
-    const handleCloseSavingAlert = () => {
-        setShowSavingAlert(false);
-      };
-
-    const handleCloseSavingErrorAlert = () => {
-        setShowSavingErrorAlert(false);
-    }
-
-    const handleCloseDeleteAlert = () => {
-        setShowDeleteAlert(false);
-      };
-
-    const handleCloseDeleteErrorAlert = () => {
-      setShowDeleteErrorAlert(false);
-    };
-
-    const handleCloseDialog = () => {
-        setDeleteDialogOpen(false);
-    }
-
-    const handleOpenDialog = () => {
-        setDeleteDialogOpen(true);
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,26 +98,26 @@ const ClientDetails = (props: ClientDataInterface) => {
         <section id="client-details-section">
             <Alert 
                 open={showSavingAlert}
-                onClose={handleCloseSavingAlert}
+                onClose={() => setShowSavingAlert(false)}
                 text="A változtatások mentése sikeres volt."
                 severity="success"
             />
             <Alert 
                 open={showSavingErrorAlert}
-                onClose={handleCloseSavingErrorAlert}
+                onClose={() => setShowSavingErrorAlert(false)}
                 text="A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később."
                 severity="error"
             />
             
             <Alert 
                 open={showDeleteAlert}
-                onClose={handleCloseDeleteAlert}
+                onClose={() => setShowDeleteAlert(false)}
                 text={`${props.name} eltávolítása a kliensek közül sikeres volt`}
                 severity="success"
             />
             <Alert 
                 open={showDeleteErrorAlert}
-                onClose={handleCloseDeleteErrorAlert}
+                onClose={() => setShowDeleteErrorAlert(false)}
                 text="A kliens adatbázisból történő törlése nem sikerült."
                 severity="error"
             />
@@ -196,26 +166,10 @@ const ClientDetails = (props: ClientDataInterface) => {
                         </Collapse>
                     </div>
                 </Container>
-                <div className="buttons-block">
-                        <BasicSecondaryButton onClick={handleOpenDialog} text="Törlés"/>
-                        <BasicPrimaryButton type="submit" text="Mentés"/>
-                    <Dialog
-                        open={deleteDialogOpen}
-                        onClose={handleCloseDialog}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                        >
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                                Biztosan el szeretnéd távolítani {props.name}-t a klienseid közül?
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <BasicSecondaryButton onClick={handleCloseDialog} text="Nem"/>
-                            <BasicPrimaryButton onClick={deleteClient} text="Igen"/>
-                        </DialogActions>
-                    </Dialog>
-                </div>
+                <DeleteDialog 
+                    deleteLabel={`Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?`}
+                    deleteFunction={deleteClient}
+                />
             </Box>
         </section>
     )

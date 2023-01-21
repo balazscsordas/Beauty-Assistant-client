@@ -15,7 +15,7 @@ const AppearanceSettings = () => {
     }
  
     return (
-        <section id="appearance-settings-section">
+        <section id="appearance-settings-section" className="section-bubble">
             <h3>Megjelenés</h3>
             <div className='setting-block'>
                 <p className='setting-name'>Téma</p>

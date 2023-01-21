@@ -203,7 +203,7 @@ const AddNewService = () => {
                         </div>
                     </Container>
                         <div className="button-block">
-                            <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
+                            <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
                         </div>
                 </Box>
             </>

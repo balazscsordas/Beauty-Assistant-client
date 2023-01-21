@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import Container from 'react-bootstrap/Container';
-import { Collapse, Box } from '@mui/material';
+import { Box, Collapse, Dialog, DialogActions, DialogContent, DialogContentText } from "@mui/material";
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Router from 'next/router';
-import { Alert } from "../smallComponents/Alerts";
-import { OneLineReqAutoFocusInputWithAdornment, OneLineReqInput } from "../smallComponents/InputFields";
-import { AddIconPrimaryButton } from "../smallComponents/Buttons";
-import DatePicker from "./DatePicker";
+import Router from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
+import { Alert } from "../smallComponents/Alerts";
+import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
+import DeleteDialog from "../smallComponents/DeleteDialog";
+import { OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
-import { containsOnlyNumbers, generateRandomIdentifier } from "./DateDialog/Utils";
+import { containsOnlyNumbers } from "./DateDialog/Utils";
+import DatePicker from "./DatePicker";
 
-const AddGiftcard = () => {
-
+const GiftcardDetails = ({ _id, identifier, amount, startDate, endDate  }: GiftcardInterface) => {
     const { 
         giftcardStartDate,
         setGiftcardStartDate,
@@ -29,37 +27,34 @@ const AddGiftcard = () => {
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [inputData, setInputData] = useState<GiftcardInterface>({
-        identifier: "",
-        amount: "",
-        startDate: giftcardStartDate,
-        endDate: giftcardEndDate,
+        _id: _id,
+        identifier: identifier,
+        amount: amount,
+        startDate: startDate,
+        endDate: endDate,
     })
 
-    const [showIdentifierError, setShowIndentifierError] = useState(false);
     const [showAmountError, setShowAmountError] = useState(false);
+
+    useEffect(() => {
+        setGiftcardStartDate(startDate);
+        setGiftcardEndDate(endDate);
+    }, [startDate, endDate])
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!showIdentifierError && !showAmountError) {
-            addNewGiftcardToDatabase(inputData);
-            console.log(inputData);
-            setInputData({
-                identifier: "",
-                amount: "",
-                startDate: giftcardStartDate,
-                endDate: giftcardEndDate,
-            });
+        if (!showAmountError) {
+            modifyGiftcard(inputData);
         }
     }
 
-    const addNewGiftcardToDatabase = async (giftcardData: GiftcardInterface) => {
+    const modifyGiftcard = async (newGiftcardData: GiftcardInterface) => {
         try {
-            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/add-new-giftcard";
-            const params = {giftcardData: giftcardData};
-            const response = await axios.post(url, params, { withCredentials: true });
-            if (response.status == 201) {
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/edit-giftcard";
+            const params = {newGiftcardData: newGiftcardData};
+            const response = await axios.put(url, params, { withCredentials: true });
+            if (response.status == 200) {
                 setShowSuccessAlert(true);
-                Router.push('/admin/giftcards');
             } else {
                 setShowErrorAlert(true);
             }
@@ -81,9 +76,6 @@ const AddGiftcard = () => {
         if (name === 'amount') {
             containsOnlyNumbers(value) ? setShowAmountError(false) : setShowAmountError(true);
         }
-        if (name === 'identifier') {
-            containsOnlyNumbers(value) ? setShowIndentifierError(false) : setShowIndentifierError(true);
-        }
     }
 
     useEffect(() => {
@@ -104,16 +96,10 @@ const AddGiftcard = () => {
         })
     }, [giftcardEndDate])
 
-    const setNewIdentifier = () => {
-        const newIdentifier = generateRandomIdentifier();
-        setInputData(prevVal => {
-            return {
-                ...prevVal,
-                identifier: newIdentifier,
-            }
-        })
-        
+    const deleteGiftcard = () => {
+        console.log("ja");
     }
+
 
     const handleCloseAlert = () => {
         setShowSuccessAlert(false);
@@ -126,13 +112,13 @@ const AddGiftcard = () => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={handleCloseAlert}
-                text="Ajándékutalvány hozzáadása sikeres volt."
+                text="Ajándékutalvány módosítása sikeres volt."
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={handleCloseAlert}
-                text="Ajándékutalvány hozzáadása nem sikerült."
+                text="Ajándékutalvány módosítása nem sikerült."
                 severity="error"
             />
             
@@ -142,10 +128,7 @@ const AddGiftcard = () => {
                     <Container>
                         <Row>
                             <Col lg={3}>
-                                <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
-                                <Collapse in={showIdentifierError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
+                                <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
                             </Col>
                             <Col lg={3}>
                                 <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
@@ -161,9 +144,10 @@ const AddGiftcard = () => {
                             </Col>
                         </Row>
                     </Container>
-                        <div className="button-block">
-                            <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
-                        </div>
+                    <DeleteDialog 
+                        deleteLabel={`Biztosan törölni szeretnéd ${identifier} azonosítójú ajándékutalványt?`}
+                        deleteFunction={deleteGiftcard}
+                    />
                 </Box>
             </>
             <DatePickerDialog 
@@ -184,4 +168,4 @@ const AddGiftcard = () => {
     )
 }
 
-export default AddGiftcard;
+export default GiftcardDetails;

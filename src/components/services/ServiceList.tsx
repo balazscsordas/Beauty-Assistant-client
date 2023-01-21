@@ -1,9 +1,10 @@
 import { ServiceListInterface } from "../../interfaces/ServiceInterfaces";
-import ServiceCard from "./ServiceCard";
 import { useState } from 'react';
 import Link from "next/link";
-import TextField from '@mui/material/TextField';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
+import { Searchbar } from "../smallComponents/Searchbars";
+import ListComponent from "../smallComponents/ListComponent";
 
 interface Props {
     servicesList: ServiceListInterface[]
@@ -33,39 +34,28 @@ const ServiceList = ({ servicesList }: Props) => {
                 <Link href="/admin/add-new-service" passHref>
                     <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
                 </Link>
-                { servicesList.length !== 0
-                    && <div className="searchbar-section">
-                        <TextField
-                            onChange={changeSearchBarData}
-                            type="search"
-                            variant="outlined"
-                            name="searchbar"
-                            value={inputTextValue}
-                            id="searchbar"
-                            fullWidth
-                            label="Keresés"
-                        />
-                    </div>
+                { servicesList.length !== 0 
+                    && <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
                 }
                 <div>
                     {filteredArray.length === 0
                         ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>
                         : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
-                            <ServiceCard
+                            <ListComponent
                                 key={index}
-                                category={service.category}
-                                _id={service._id}
                                 name={service.name}
+                                url={`/admin/services/${service._id}`}
+                                icon={<AccountCircleIcon/>}
                             />
                         ))}
                     {servicesList.length === 0 
                         ? <p>Még nem adtál hozzá szolgáltatást.</p>
                         : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
-                            <ServiceCard
+                            <ListComponent
                                 key={index}
-                                _id={service._id}
-                                category={service.category}
                                 name={service.name}
+                                url={`/admin/services/${service._id}`}
+                                icon={<AccountCircleIcon/>}
                             />
                         ))}
                 </div>

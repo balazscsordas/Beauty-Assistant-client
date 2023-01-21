@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect } from "react";
 import AddAppointmentDialog from "../../components/appointment/addNewAppointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
 import EditAppointmentDialog from "../../components/appointment/editAppointment/EditAppointmDialog";

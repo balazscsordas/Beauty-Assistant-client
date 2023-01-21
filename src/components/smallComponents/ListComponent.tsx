@@ -1,19 +1,21 @@
-import { ClientListInterface } from "../../interfaces/ClientInterfaces";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Link from "next/link";
 
-const ClientCard = ({ name, age, _id }: ClientListInterface) => {
+interface Props {
+    name: string;
+    url: string;
+    icon: React.ReactElement;
+}
 
-    const url = `/admin/clients/${_id}`
+const ListComponent = ({ name, url, icon}: Props) => {
 
     return (
         <section id="client-card-section">
             <div className="head-block">
                 <Link href={url}>
                     <IconButton aria-label="account-icon-more-data">
-                        <AccountCircleIcon className="account-icon"/>
+                        {icon}
                     </IconButton>
                 </Link>
                 <h5 className="name-title">{name}</h5>
@@ -27,4 +29,4 @@ const ClientCard = ({ name, age, _id }: ClientListInterface) => {
     )
 }
 
-export default ClientCard;
+export default ListComponent;

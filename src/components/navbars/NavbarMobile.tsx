@@ -11,7 +11,7 @@ const NavbarMobile = () => {
             <Link href="/admin/clients"><PeopleIcon/><span>Vendégek</span></Link>
             <Link href="/admin/appointments"><CalendarMonthIcon/><span>Időpontok</span></Link>
             <Link href="/admin/services"><BusinessCenterIcon/><span>Szolgáltatások</span></Link>
-            <Link href="/admin/giftcard"><RedeemIcon/><span>Ajándékkártyák</span></Link>
+            <Link href="/admin/giftcards"><RedeemIcon/><span>Ajándékkártyák</span></Link>
             <Link href="/admin/statistics"><BarChartIcon/><span>Statisztikák</span></Link>
         </div>
     )

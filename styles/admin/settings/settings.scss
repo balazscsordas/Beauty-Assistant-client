@@ -5,6 +5,13 @@
     margin: auto;
     max-width: 600px;
 
+    .section-bubble {
+        background-color: var(--color-100);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
     #opening-hours-section {
         .input-fields {
             display: flex;
@@ -13,19 +20,17 @@
             input {
                 width: 80px;
             }
-
         }
     }
 
     h3 {
         text-align: center;
-        margin-top: 40px;
         margin-bottom: 20px;
     }
 
     .setting-block {
         display: flex;
-        margin: 15px auto;
+        margin-top: 15px;
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
