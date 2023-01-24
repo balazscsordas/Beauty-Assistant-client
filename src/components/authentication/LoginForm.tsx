@@ -9,6 +9,7 @@ import { OneLineReqAutoFocusInput, OneLineReqInput } from '../smallComponents/In
 import { BasicPrimaryButton } from '../smallComponents/Buttons';
 import { Alert } from '../smallComponents/Alerts';
 import Link from 'next/link';
+import AuthenticationWrapper from './AuthenticationWrapper';
 
 const LoginForm = () => {
 
@@ -70,7 +71,7 @@ const LoginForm = () => {
 
 
   return (
-    <section id="login-section">
+    <>
       <Alert 
           open={showSuccessAlert}
           onClose={handleCloseAlert}
@@ -83,13 +84,11 @@ const LoginForm = () => {
           text="Hibás email cím vagy jelszó."
           severity="error"
       />
-
-      <div className="max-w-lg bg-orange-100 px-6 p-12 text-center m-3 bg-gradient-to-t from-purple-300 to-purple-500 rounded-xl shadow-lg text-white">
-        <h3 className="font-bold font">Bejelentkezés</h3>
+    <AuthenticationWrapper title="Bejelentkezés">
         <Box component="form" onSubmit={handleSubmit}>
           <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete="email"/>
           <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete="password"/>
-          <Box className="mt-6 mb-4">
+          <Box className="mt-8 mb-4">
             <BasicPrimaryButton text="Bejelentkezés" type="submit" disabled={loading}/>
             {loading && (
               <div>
@@ -99,12 +98,12 @@ const LoginForm = () => {
           </Box>
         </Box>
         <p className="mt-4 font-medium text-sm">Nincs még fiókod? Regisztrálj 
-          <Link className="underline text-slate-600" passHref href="/registration">
-            <button>ide kattintva!</button>
+          <Link className="text-slate-200" passHref href="/registration">
+            <button className='ml-1 underline underline-offset-2'>ide kattintva!</button>
           </Link>
         </p>
-      </div>
-    </section>
+    </AuthenticationWrapper>
+    </>
   );
 }
 

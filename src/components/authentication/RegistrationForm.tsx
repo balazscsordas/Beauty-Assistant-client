@@ -15,6 +15,7 @@ import { emailValidationCheck, passwordValidationCheck } from './Utils';
 import validator from 'validator';
 import Router from 'next/router';
 import Link from 'next/link';
+import AuthenticationWrapper from './AuthenticationWrapper';
 
 const RegistrationForm = () => {
 
@@ -111,48 +112,46 @@ const RegistrationForm = () => {
             text="Sikertelen regisztráció."
             severity="error"
         />
-      
-        <div className="max-w-lg bg-orange-100 px-6 py-12 text-center m-3 bg-gradient-to-t from-purple-300 to-purple-500 rounded-xl shadow-lg text-white">
-          <h3 className="font-bold font mb-4">Regisztráció</h3>
-          <Box component="form" onSubmit={handleSubmit}>
-            <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
-            <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete='email'/>
-            
-            <Collapse in={showEmailErrorMessage}>
-              <div>
-                <p className="input-error-text">Nem megfelelő email</p>
-              </div>
-            </Collapse>
-            <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete='password'/>
-            
-            <Collapse in={inputData.password.length > 0}>
-              <ul className="input-error-text">
-                <p className="input-error-text mb-2 mt-1">Jelszónak a következő feltételeknek kell megfelelnie:</p>
-                <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
-                <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
-                <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
-              </ul>
-            </Collapse>
-            <Box className="mt-6 mb-4">
-              <BasicPrimaryButton text="Regisztráció" type="submit" disabled={loading}/>
-              {loading && (
+      <AuthenticationWrapper title='Regisztráció'>
+            <Box component="form" onSubmit={handleSubmit}>
+              <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
+              <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete='email'/>
+              
+              <Collapse in={showEmailErrorMessage}>
                 <div>
-                  <CircularProgress size={24}/>
+                  <p className="input-error-text">Nem megfelelő email</p>
                 </div>
-              )}
+              </Collapse>
+              <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete='password'/>
+              
+              <Collapse in={inputData.password.length > 0}>
+                <ul className="input-error-text">
+                  <p className="input-error-text mb-2 mt-1">Jelszónak a következő feltételeknek kell megfelelnie:</p>
+                  <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
+                  <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
+                  <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
+                </ul>
+              </Collapse>
+              <Box className="mt-6 mb-4">
+                <BasicPrimaryButton text="Regisztráció" type="submit" disabled={loading}/>
+                {loading && (
+                  <div>
+                    <CircularProgress size={24}/>
+                  </div>
+                )}
+              </Box>
             </Box>
-          </Box>
-          <Zoom in={showRegistrationMessage}>
-              <div>
-                  <p>{registrationMessage}</p>
-              </div>
-          </Zoom>
-          <p className="mt-4 font-medium text-sm">Van már fiókod? Jelentkezz be 
-            <Link className="underline text-slate-600" passHref href="/login">
-              <button>ide kattintva!</button>
-            </Link>
-          </p>
-        </div>
+            <Zoom in={showRegistrationMessage}>
+                <div>
+                    <p>{registrationMessage}</p>
+                </div>
+            </Zoom>
+            <p className="mt-4 font-medium text-sm">Van már fiókod? Jelentkezz be 
+              <Link className="text-slate-200" passHref href="/login">
+                <button className='ml-1 underline underline-offset-2'>ide kattintva!</button>
+              </Link>
+            </p>
+        </AuthenticationWrapper>
       </>
   );
 }

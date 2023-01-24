@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { Dispatch, SetStateAction } from "react";
-import { createNewDateAfterChoosingDay, getCurrentMonthDays, getSpanArray } from "./Utils";
+import { createNewDateAfterChoosingDay, getCurrentMonthDays, getSpanArray } from "../Utils";
 
 interface Props {
     giftcardDate: Date,

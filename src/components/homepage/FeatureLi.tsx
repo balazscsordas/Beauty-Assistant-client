@@ -1,27 +1,17 @@
 import { FeatureLi } from '../../interfaces/HomepageInterfaces';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Collapse, IconButton } from '@mui/material';
-import { useState } from 'react';
 
-const FeatureList = ({ title, description }: FeatureLi) => {
-
-    const [showDescription, setShowDescription] = useState(false);
+const FeatureItem = ({ title, description }: FeatureLi) => {
 
     return (
-        <section className="bg-orange-100 shadow-md p-1 m-4 rounded-md">
-            <div className="feature-list-li">
-                <div className="flex flex-row items-center">
-                    <IconButton className="mr-2" onClick={() => setShowDescription(prev => !prev)}>
-                        <AddCircleOutlineIcon />
-                    </IconButton>
-                    <p className="mb-0 text-sm font-semibold" >{title}</p>
+        <section className="flex flex-row basis-1/2">
+            <div className="m-4 bg-white p-4 w-full shadow-md rounded-md">
+                <div className="flex flex-col">
+                    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+                    <p>{description}</p>
                 </div>
-                <Collapse in={showDescription}>
-                    { <p className="ml-11 my-2 text-sm">{description}</p> }
-                </Collapse>
             </div>
         </section>
     )
 }
 
-export default FeatureList
+export default FeatureItem

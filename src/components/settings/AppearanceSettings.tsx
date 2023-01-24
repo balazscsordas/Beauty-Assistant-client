@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import ThemeContext from "../../context/ThemeProvider";
+import SectionWrapper from "../smallComponents/sectionWrappers/SectionWrapper";
 
 
 const AppearanceSettings = () => {
@@ -14,10 +15,9 @@ const AppearanceSettings = () => {
     }
  
     return (
-        <section className="section-bubble">
-            <h3>Megjelenés</h3>
-            <div className='setting-block'>
-                <p className='setting-name'>Téma</p>
+        <SectionWrapper title="Megjelenés">
+            <div className='flex flex-row mt-3 justify-between'>
+                <p>Téma</p>
                 <div>
                     <select onChange={handleChange} defaultValue={theme}>
                         {themeOptions.map((themeOption, index) => (
@@ -28,8 +28,7 @@ const AppearanceSettings = () => {
                     </select>
                 </div>
             </div>
-            
-        </section>
+        </SectionWrapper>
     )
 }
 

@@ -34,7 +34,7 @@ const AvatarMobile = () => {
   }
   return (
       <>  
-          <a onClick={handleOpenUserMenu} className='account'><PersonIcon /><span>{ auth && auth.firstName }</span></a>
+          <a onClick={handleOpenUserMenu}><PersonIcon /></a>
           <Menu
             sx={{ mt: '30px'}}
             id="menu-appbar"

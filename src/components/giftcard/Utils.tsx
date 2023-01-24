@@ -1,5 +1,12 @@
-import { getNamedMonth } from "../../appointment/Utils";
+import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
+import { getNamedMonth } from "../appointment/Utils";
 
+export const giftcardFilterByStatus = (giftcardList: GiftcardInterface[], allowedStatuses: string[]) => {
+    const result = giftcardList.filter((giftcard: GiftcardInterface) => {        
+        return allowedStatuses.includes(giftcard.status);
+    });
+    return result;
+}
 // RETURNS TRUE IF STRING CONTAINS ONLY NUMBERS
 export const containsOnlyNumbers = (str: string) => {
     if (str === "") {

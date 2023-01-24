@@ -1,4 +1,4 @@
 // Returns true if string contains at least one letter
-export const timeAndPriceValidator = (value: string) => {
+export const priceValidator = (value: string) => {
     return /^[0-9]+$/.test(value);
 }

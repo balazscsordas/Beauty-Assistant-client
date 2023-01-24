@@ -18,20 +18,20 @@ const WeekPicker = () => {
     }
 
     return (
-        <div id='week-picker'>
+        <div id='week-picker' className="max-w-sm mb-5 mx-auto text-center font-semibold">
             <div className='year-block'>
                 {currentWeek.monday.getFullYear() === currentWeek.sunday.getFullYear()
                     ? <h4>{currentWeek.monday.getFullYear()}</h4> 
                     : <h4>{currentWeek.monday.getFullYear() + ' - ' + currentWeek.sunday.getFullYear()}</h4>
                 }
             </div>
-            <div className='month-day-block'>
-                <IconButton className='icon' onClick={goToPrevWeek}>
+            <div className='flex flex-row items-center justify-between'>
+                <IconButton className='ease-in-out duration-200 hover:scale-110 cursor-pointer' onClick={goToPrevWeek}>
                     <KeyboardArrowLeftIcon />
                 </IconButton> 
                 
-                <h4>{getNamedMonth(currentWeek.monday) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday) + ' ' + currentWeek.sunday.getDate()}</h4>
-                <IconButton className='icon' onClick={goToNextWeek}>
+                <h4 className="mb-0">{getNamedMonth(currentWeek.monday) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday) + ' ' + currentWeek.sunday.getDate()}</h4>
+                <IconButton className='ease-in-out duration-200 hover:scale-110 cursor-pointer' onClick={goToNextWeek}>
                     <KeyboardArrowRightIcon />
                 </IconButton>
             </div>

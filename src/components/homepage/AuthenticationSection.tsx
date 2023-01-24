@@ -4,8 +4,8 @@ import { BasicPrimaryButton } from "../smallComponents/Buttons"
 const AuthenticationSection = () => {
 
     return (
-        <section className="my-14 bg-slate-100 py-5">
-            <h2 className="text-center mb-10 font-bold">Próbáld ki 30 napig ingyen!</h2>
+        <section className="my-14 py-16 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-600 to-indigo-900">
+            <h2 className="text-center mb-10 font-bold text-white">Próbáld ki 30 napig ingyen!</h2>
             <div className="flex justify-center max-w-lg m-auto">
                 <Link className="m-2" passHref href="/registration">
                     <BasicPrimaryButton text="Regisztráció"/>

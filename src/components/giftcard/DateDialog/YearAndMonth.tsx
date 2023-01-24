@@ -2,7 +2,7 @@ import { IconButton } from "@mui/material"
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Dispatch, SetStateAction, useContext } from "react";
-import { formatYearAndMonth, goToNextMonth, goToPrevMonth } from "./Utils";
+import { formatYearAndMonth, goToNextMonth, goToPrevMonth } from "../Utils";
 
 interface Props {
     giftcardDate: Date,

@@ -7,34 +7,32 @@ interface Props {
     name: string;
     url: string;
     icon: React.ReactElement;
-    status: string;
+    status?: string;
 }
 
 const ListComponent = ({ name, url, icon, status }: Props) => {
-
-    console.log(status);
 
     const setStatus = (status: string) => {
         if (status === "pending") {
             return "bg-yellow-200";
         }
-        if (status === "finished") {
+        if (status === "used") {
             return "bg-green-200";
         }
         return "bg-red-200";
     }
 
-    const [bgColor] = useState(setStatus(status));
+    const [bgColor] = useState(status ? setStatus(status) : "bg-red-200");
 
     return (
-        <section id="client-card-section" className="my-3">
-            <div className={`head-block flex items-center relative p-2 rounded-xl drop-shadow-md ${bgColor}`}>
+        <section className="my-3">
+            <div className={`head-block flex items-center relative p-2 rounded-xl shadow-md ${bgColor}`}>
                 <Link href={url}>
                     <IconButton aria-label="account-icon-more-data">
                         {icon}
                     </IconButton>
                 </Link>
-                <h5 className="mb-0 inline-block font-medium ml-3">{name}</h5>
+                <p className="mb-0 inline-block font-medium ml-3">{name}</p>
                 <Link href={url} className="ml-auto">
                     <IconButton aria-label="more data">
                         <AddCircleOutlineIcon />

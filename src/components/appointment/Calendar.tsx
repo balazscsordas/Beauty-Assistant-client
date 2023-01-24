@@ -5,6 +5,7 @@ import { addAppointmentToCell, getDayDataFromDayIndex, getNamedDay, getNumberedD
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
+import AppointmentWrapper from "../smallComponents/sectionWrappers/AppointmentWrapper";
 
 const Calendar = () => {
 
@@ -148,55 +149,58 @@ const Calendar = () => {
     }
 
     return (
-        <section id='calendar-section'>
+        <section id='calendar-section' className="max-w-5xl m-auto">
             <h1 className='page-title'>Időpontok</h1>
+            <AppointmentWrapper>
             <WeekPicker />
-            <div className='table-block'>
-                <table>
+            <div className='table-block overflow-scroll'>
+                <table className="table-fixed text-center w-full">
                     <thead >
-                        <tr className='main-row'>
+                        <tr className='main-row h-16'>
                             <th className='time-header'></th>
-                            <th className='header-item'>
+                            <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.monday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.monday) + getNumberedDay(currentWeek.monday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.monday) + getNumberedDay(currentWeek.monday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.tuesday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.tuesday) + getNumberedDay(currentWeek.tuesday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.tuesday) + getNumberedDay(currentWeek.tuesday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.wednesday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.wednesday) + getNumberedDay(currentWeek.wednesday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.wednesday) + getNumberedDay(currentWeek.wednesday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.thurstday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.thurstday) + getNumberedDay(currentWeek.thurstday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.thurstday) + getNumberedDay(currentWeek.thurstday) + '.'}</span>
                             </th>
-                            <th className='header-item'>
+                            <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.friday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
                             </th>
-                            <th className='header-item' hidden={hideSaturday}>
+                            <th className='text-center text-base' hidden={hideSaturday}>
                                 {getNamedDay(currentWeek.saturday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
                             </th>
-                            <th className='header-item' hidden={hideSunday}>
+                            <th className='text-center text-base' hidden={hideSunday}>
                                 {getNamedDay(currentWeek.sunday)}
                                 <br/>
-                                <span>{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
+                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {hours.map((hour, index) => (
                                 <tr key={index}>
-                                    <th className='time-header'><div className='time-box'>{hour}</div></th>
+                                    <th className='font-normal text-xs'>
+                                        <div className='relative bottom-4'>{hour}</div>
+                                    </th>
                                     <td className='empty'></td>
                                     <td className='empty'></td>
                                     <td className='empty'></td>
@@ -209,6 +213,7 @@ const Calendar = () => {
                     </tbody>
                 </table>
             </div>
+            </AppointmentWrapper>
         </section>
     )
 }

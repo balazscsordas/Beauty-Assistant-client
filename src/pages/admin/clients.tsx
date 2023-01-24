@@ -6,24 +6,6 @@ import axios from "axios";
 import ClientContext from "../../context/ClientProvider";
 import { useContext, useEffect } from "react";
 
-const ClientsPage = ({ clientsList, clientOptionNames }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-
-    const { setClients, setClientOptionNames } = useContext(ClientContext);
-
-    useEffect(() => {
-        setClients(clientsList);
-        setClientOptionNames(clientOptionNames);
-    }, [])
-
-    return (
-        <>
-            <NavbarLayout>
-                <ClientList clientsList = {clientsList}/>
-            </NavbarLayout>
-        </>
-    )
-}
-
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
     const options = {
@@ -44,5 +26,25 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
         }
     }
 }
+
+const ClientsPage = ({ clientsList, clientOptionNames }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const { setClients, setClientOptionNames } = useContext(ClientContext);
+
+    useEffect(() => {
+        setClients(clientsList);
+        setClientOptionNames(clientOptionNames);
+    }, [])
+
+    return (
+        <>
+            <NavbarLayout>
+                <ClientList clientsList = {clientsList}/>
+            </NavbarLayout>
+        </>
+    )
+}
+
+
 
 export default ClientsPage;

@@ -1,9 +1,9 @@
 import HourBlock from "./HourBlock";
+import SectionWrapper from "../smallComponents/sectionWrappers/SectionWrapper";
 
 const OpeningHoursSettings = () => {
     return (
-        <section id="opening-hours-section" className="section-bubble">
-            <h3>Nyitvatartás</h3>
+        <SectionWrapper title="Nyitvatartás">
             <HourBlock day="Hétfő"/>
             <HourBlock day="Kedd"/>
             <HourBlock day="Szerda"/>
@@ -11,7 +11,7 @@ const OpeningHoursSettings = () => {
             <HourBlock day="Péntek"/>
             <HourBlock day="Szombat"/>
             <HourBlock day="Vasárnap"/>
-        </section>
+        </SectionWrapper>
     )
 }
 

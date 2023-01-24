@@ -5,22 +5,24 @@ import { Container, Row, Col } from "react-bootstrap";
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
-import { AddIconOptionButton, BasicPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
-import { MultilineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
+import { AddIconOptionButton } from "../smallComponents/Buttons";
+import { MultilineNonReqInput } from "../smallComponents/InputFields";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
+import FixFields from "./addNewService/FixFields";
+import { priceValidator } from "./Utils";
+import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
-const ServiceDetails = (props: ServiceDataInterface) => {
+interface Props {
+    serviceDataFromDatabase: ServiceDataInterface;
+    categoryList: string[];
+}
 
-    const [serviceData, setServiceData] = useState<ServiceDataInterface>({
-        _id: props._id,
-        name: props.name,
-        category: props.category,
-        price: props.price,
-        time: props.time,
-        description: props.description,
-        steps: props.steps
-    })
+const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
+
+    const [serviceData, setServiceData] = useState<ServiceDataInterface>(serviceDataFromDatabase)
+    const [newCategory, setNewCategory] = useState("");
+    const [showPriceError, setShowPriceError] = useState(false);
 
     const [showSavingAlert, setShowSavingAlert] = useState(false);
     const [showSavingErrorAlert, setShowSavingErrorAlert] = useState(false);
@@ -30,23 +32,43 @@ const ServiceDetails = (props: ServiceDataInterface) => {
 
     // States for show or hide textfields
 
-    const [showDescription, setShowDescription] = useState(props.description ? true : false);
-    const [showSteps, setShowSteps] = useState(props.steps ? true : false);
+    const [showSteps, setShowSteps] = useState(serviceData.steps ? true : false);
 
-    const saveService = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        saveModifiedData(serviceData);
-        setShowSaveButton(false);
+        if (!showPriceError) {
+            serviceData.category === 'Új kategória hozzáadása' || categoryList.length === 1
+                ? saveModifiedData({
+                    name: serviceData.name,
+                    category: newCategory,
+                    price: serviceData.price,
+                    time: serviceData.time,
+                    description: serviceData.description,
+                    steps: serviceData.steps,
+                })
+                : saveModifiedData(serviceData)
+                
+            setServiceData({
+                name: "",
+                category: "",   
+                price: 0,
+                time: 0,
+                description: "",
+                steps: "",
+            })
+            setNewCategory("");
+        }
+        setShowSaveButton(false)
     }
 
     // Save service in database API
-
     const saveModifiedData = async (newServiceData: ServiceDataInterface) => {
         const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/service/save-modified-service-data";
-        const params = { newServiceData: newServiceData};
+        const params = { newServiceData };
         const response = await axios.put(url, params, { withCredentials: true });
         if(response.status === 200) {
             setShowSavingAlert(true);
+            Router.push('/admin/services');
         } 
         else {
             setShowSavingErrorAlert(true);
@@ -71,7 +93,7 @@ const ServiceDetails = (props: ServiceDataInterface) => {
 
     // DELETE SERVICE
     const deleteService = () => {
-        deleteServiceRequest(props._id);
+        deleteServiceRequest(serviceData._id);
         Router.push('/admin/services');
     }
 
@@ -83,6 +105,14 @@ const ServiceDetails = (props: ServiceDataInterface) => {
                 [name]: value
             }
         })
+        if (name === 'price') {
+            if (!priceValidator(value) && value.length > 0) {
+                setShowPriceError(true);
+            } else {
+                setShowPriceError(false);
+
+            }
+        }
         !showSaveButton && setShowSaveButton(true);
     }
 
@@ -104,7 +134,7 @@ const ServiceDetails = (props: ServiceDataInterface) => {
             <Alert 
                 open={showDeleteAlert}
                 onClose={() => setShowDeleteAlert(false)}
-                text={`${props.name} eltávolítása a kliensek közül sikeres volt`}
+                text={`${serviceData.name} eltávolítása a kliensek közül sikeres volt`}
                 severity="success"
             />
             <Alert 
@@ -114,43 +144,36 @@ const ServiceDetails = (props: ServiceDataInterface) => {
                 severity="error"
             />
 
-            <h1 className="page-title">{props.name}</h1>
-            <Box className="form" component="form" onSubmit={saveService}>
-                <Container>
-                    <Row>
-                        <Col lg={3}>
-                            <OneLineReqAutoFocusInput onChange={handleInputChange} value={serviceData.name} label="Név" nameVal="name"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineReqInput onChange={handleInputChange} value={serviceData.category} label="Kategória" nameVal="category"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineReqInput onChange={handleInputChange} value={serviceData.price} label="Ár (Ft)" nameVal="price"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineReqInput onChange={handleInputChange} value={serviceData.time} label="Időtartam (Perc)" nameVal="time"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col className="section-options-buttons">
-                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                            <AddIconOptionButton onClick={() => setShowDescription(!showDescription)} text="Leírás"/>
-                        </Col>
-                    </Row>
-                    <div className="options-fields">
-                        <Collapse in={showDescription}>
-                            <MultilineNonReqInput value={serviceData.description} onChange={handleInputChange} nameVal="description" label="Leírás"/>
-                        </Collapse>
-                        <Collapse in={showSteps}>
-                            <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
-                        </Collapse>
-                    </div>
-                </Container>
-                <DeleteDialog 
-                    deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}
-                    deleteFunction={deleteService}
-                />
-            </Box>
+            <h1 className="page-title">{serviceData.name}</h1>
+            <DetailsWrapper>
+                <Box className="form" component="form" onSubmit={handleSubmit}>
+                    <Container>
+                        <FixFields
+                                inputData={serviceData}
+                                setInputData={setServiceData}
+                                categoryList={categoryList}
+                                newCategory={newCategory}
+                                setNewCategory={setNewCategory}
+                                handleChange={handleInputChange}
+                                showPriceError={showPriceError}
+                            />
+                        <Row>
+                            <Col className="section-options-buttons">
+                                <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
+                            </Col>
+                        </Row>
+                        <div className="options-fields">
+                            <Collapse in={showSteps}>
+                                <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
+                            </Collapse>
+                        </div>
+                    </Container>
+                    <DeleteDialog 
+                        deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}
+                        deleteFunction={deleteService}
+                    />
+                </Box>
+            </DetailsWrapper>
         </section>
     )
 }

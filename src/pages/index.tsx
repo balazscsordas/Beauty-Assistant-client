@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import AuthenticationSection from '../components/homepage/AuthenticationSection';
-import WelcomeSection from '../components/homepage/WelcomeSection';
+import FeatureList from '../components/homepage/FeatureList';
+import MainBanner from '../components/homepage/MainBanner';
+import NonAdminLayout from '../Layouts/NonAdminLayout';
 
 export default function Home() {
   return (
@@ -11,10 +13,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
-        <WelcomeSection />
+      <NonAdminLayout>
+        <MainBanner/>
+        <FeatureList />
         <AuthenticationSection />
-      </section>
+      </NonAdminLayout>
     </>
   )
 }

@@ -8,10 +8,10 @@ type Props = {
 interface ClientListContextInterface {
     clients: ClientListInterface[];
     clientOptionNames: ClientOptionNamesInterface;
-    openAddClientOptionDialog: boolean,
+    openClientOptionDialog: boolean,
     setClients: React.Dispatch<React.SetStateAction<ClientListInterface[]>>;
     setClientOptionNames: React.Dispatch<React.SetStateAction<ClientOptionNamesInterface>>;
-    setOpenAddClientOptionDialog: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenClientOptionDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ClientContext = createContext<ClientListContextInterface>({} as ClientListContextInterface);
 
@@ -25,16 +25,16 @@ export const ClientProvider = ({ children }: Props) => {
         option4Name: "",
         option5Name: "",
     })
-    const [openAddClientOptionDialog, setOpenAddClientOptionDialog] = useState<boolean>(false);
+    const [openClientOptionDialog, setOpenClientOptionDialog] = useState<boolean>(false);
 
     return (
         <ClientContext.Provider value={{ 
                                     clients,
                                     clientOptionNames,
-                                    openAddClientOptionDialog,
+                                    openClientOptionDialog,
                                     setClients,
                                     setClientOptionNames,
-                                    setOpenAddClientOptionDialog,
+                                    setOpenClientOptionDialog,
                                 }}>
             {children}
         </ClientContext.Provider>

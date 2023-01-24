@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import FeatureLi from "./FeatureLi";
     
 
-const features1 = [
+const features = [
     {
         title: 'Könnyedén kezelhető, felhasználóbarát felület',
         description: '3 különböző témának köszönhetően saját ízlésed alapján szabhatod személyre a kezelőfelületet. Egyszerű kezelhetőség a gyors és hatékony munkavégzés érdekében.'
@@ -20,9 +20,6 @@ const features1 = [
         title: 'Ajándékutalványok nyilvántartása',
         description: 'Pár kattintással létrehozhatsz új ajándékutalványokat, illetve visszanézheted a korábban létrehozottakat.'
     }, 
-]
-
-const features2 = [
     {
         title: 'Online időpontfoglalás lehetősége',
         description: 'Egy kattintással elérhetővé teheted az online időpontfoglalást'
@@ -41,37 +38,20 @@ const features2 = [
     }, 
 ]
 
-
 const FeatureList = () => {
 
     return (
-        <section className="my-14">
-            <Container className="max-w-6xl">
-                <h2 className="text-center mb-8 font-bold">Funkciók</h2>
-                <Row>
-                    <Col lg={6}>
-                        {features1.map((feature, index) => (
-                            <FeatureLi 
-                                key={index}
-                                title={feature.title}
-                                description={feature.description}
-                            />
-                        ))}
-                    </Col>
-                    <Col lg={6}>
-                        {features2.map((feature, index) => (
-                            <FeatureLi 
-                                key={index}
-                                title={feature.title}
-                                description={feature.description}
-                            />
-                        ))}
-                    </Col>
-                </Row>
-            </Container>
-            <ul>
+        <section className="relative -top-20">
+                <div className="max-w-7xl m-auto flex flex-row flex-wrap">
+                    {features.map((feature, index) => (
+                        <FeatureLi 
+                            key={index}
+                            title={feature.title}
+                            description={feature.description}
+                        />
+                    ))}
+                </div>
                 
-            </ul>
         </section>
     )
 }

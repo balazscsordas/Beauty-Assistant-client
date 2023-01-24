@@ -1,19 +1,19 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import ClientContext from "../../context/ClientProvider";
-import { ClientOptionNamesInterface } from "../../interfaces/ClientInterfaces";
-import { Alert } from "../smallComponents/Alerts";
-import { AddIconPrimaryButton, BasicSecondaryButton } from "../smallComponents/Buttons";
-import { OneLineNonReqInput } from "../smallComponents/InputFields";
+import ClientContext from "../../../context/ClientProvider";
+import { ClientOptionNamesInterface } from "../../../interfaces/ClientInterfaces";
+import { Alert } from "../../smallComponents/Alerts";
+import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
+import { OneLineNonReqInput } from "../../smallComponents/InputFields";
 
 const AddNewClientOptionDialog = () => {
 
     const { 
         clientOptionNames, 
         setClientOptionNames,
-        openAddClientOptionDialog,
-        setOpenAddClientOptionDialog
+        openClientOptionDialog,
+        setOpenClientOptionDialog
     } = useContext(ClientContext);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -30,20 +30,19 @@ const AddNewClientOptionDialog = () => {
             }
         } catch(err) {
             setShowErrorAlert(true);
-            console.log(err);
         }
     }
 
     const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         sendClientOptionNamesToServer({
-            option1Name: capitalizeFirstLetter(localInputValues.option1Name),
-            option2Name: capitalizeFirstLetter(localInputValues.option2Name),
-            option3Name: capitalizeFirstLetter(localInputValues.option3Name),
-            option4Name: capitalizeFirstLetter(localInputValues.option4Name),
-            option5Name: capitalizeFirstLetter(localInputValues.option5Name),
+            option1Name: localInputValues.option1Name !== "" ? capitalizeFirstLetter(localInputValues.option1Name) : localInputValues.option1Name,
+            option2Name: localInputValues.option2Name !== "" ? capitalizeFirstLetter(localInputValues.option2Name) : localInputValues.option2Name,
+            option3Name: localInputValues.option3Name !== "" ? capitalizeFirstLetter(localInputValues.option3Name) : localInputValues.option3Name,
+            option4Name: localInputValues.option4Name !== "" ? capitalizeFirstLetter(localInputValues.option4Name) : localInputValues.option4Name,
+            option5Name: localInputValues.option5Name !== "" ? capitalizeFirstLetter(localInputValues.option5Name) : localInputValues.option5Name,
         })
-        setOpenAddClientOptionDialog(false);
+        setOpenClientOptionDialog(false);
     }
 
     const handleCloseAlert = () => {
@@ -80,9 +79,9 @@ const AddNewClientOptionDialog = () => {
                 severity="error"
             />
 
-            <Dialog open={openAddClientOptionDialog} onClose={() => setOpenAddClientOptionDialog(false)} id='dialog-section'>
+            <Dialog open={openClientOptionDialog} onClose={() => setOpenClientOptionDialog(false)} id='dialog-section'>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>Mezők hozzáadása</DialogTitle>
+                    <DialogTitle>Mezők átnevezése</DialogTitle>
                     <DialogContent>
                         <OneLineNonReqInput label='Mező (1) neve' nameVal="option1Name" onChange={handleChange} value={localInputValues.option1Name}/>
                         <OneLineNonReqInput label='Mező (2) neve' nameVal="option2Name" onChange={handleChange} value={localInputValues.option2Name}/>
@@ -91,7 +90,7 @@ const AddNewClientOptionDialog = () => {
                         <OneLineNonReqInput label='Mező (5) neve' nameVal="option5Name" onChange={handleChange} value={localInputValues.option5Name}/>
                     </DialogContent>
                     <DialogActions>
-                        <BasicSecondaryButton onClick={() => setOpenAddClientOptionDialog(false)} text="Mégse"/>
+                        <BasicSecondaryButton onClick={() => setOpenClientOptionDialog(false)} text="Mégse"/>
                         <AddIconPrimaryButton text="Hozzáadás" type="submit"/>
                     </DialogActions>
                 </Box>

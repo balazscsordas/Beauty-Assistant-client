@@ -12,7 +12,8 @@ import DatePicker from "./DatePicker";
 import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
-import { containsOnlyNumbers, generateRandomIdentifier } from "./DateDialog/Utils";
+import { containsOnlyNumbers, generateRandomIdentifier } from "./Utils";
+import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
 const AddGiftcard = () => {
 
@@ -139,33 +140,35 @@ const AddGiftcard = () => {
             
             <>
                 <h1 className="page-title">Ajándékutalvány hozzáadása</h1>
-                <Box className="form" component="form" onSubmit={handleSubmit}>
-                    <Container>
-                        <Row>
-                            <Col lg={3}>
-                                <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
-                                <Collapse in={showIdentifierError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
-                            </Col>
-                            <Col lg={3}>
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
-                                <Collapse in={showAmountError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
-                            </Col>
-                            <Col lg={3}>
-                                <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
-                            </Col>
-                            <Col lg={3}>
-                                <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
-                            </Col>
-                        </Row>
-                    </Container>
-                        <div className="text-center m-4">
-                            <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
-                        </div>
-                </Box>
+                <DetailsWrapper>
+                    <Box className="form" component="form" onSubmit={handleSubmit}>
+                        <Container>
+                            <Row>
+                                <Col lg={3}>
+                                    <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
+                                    <Collapse in={showIdentifierError}>
+                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                    </Collapse>
+                                </Col>
+                                <Col lg={3}>
+                                    <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
+                                    <Collapse in={showAmountError}>
+                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                    </Collapse>
+                                </Col>
+                                <Col lg={3}>
+                                    <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
+                                </Col>
+                                <Col lg={3}>
+                                    <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                                </Col>
+                            </Row>
+                        </Container>
+                            <div className="text-center m-4">
+                                <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
+                            </div>
+                    </Box>
+                </DetailsWrapper>
             </>
             <DatePickerDialog 
                 label="Érvényesség kezdete" 

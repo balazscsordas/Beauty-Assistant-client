@@ -13,17 +13,19 @@ interface GiftcardContextInterface {
     setGiftcardStartDate: React.Dispatch<React.SetStateAction<Date>>;
     giftcardEndDate: Date,
     setGiftcardEndDate: React.Dispatch<React.SetStateAction<Date>>;
+    statusFilterArray: string[];
+    setStatusFilterArray: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 
 const GiftcardContext = createContext<GiftcardContextInterface>({} as GiftcardContextInterface);
 
 export const GiftcardProvider = ({children}: Props) => {
-
     const [showStartDateDialog, setShowStartDateDialog] = useState(false);
     const [showEndDateDialog, setShowEndDateDialog] = useState(false);
     const [giftcardStartDate, setGiftcardStartDate] = useState(new Date())
     const [giftcardEndDate, setGiftcardEndDate] = useState(new Date())
+    const [statusFilterArray, setStatusFilterArray] = useState(['expired', 'pending', 'used'])
 
     return (
         <GiftcardContext.Provider value={{ 
@@ -34,7 +36,9 @@ export const GiftcardProvider = ({children}: Props) => {
                                         giftcardStartDate,
                                         setGiftcardStartDate,
                                         giftcardEndDate,
-                                        setGiftcardEndDate
+                                        setGiftcardEndDate,
+                                        statusFilterArray,
+                                        setStatusFilterArray,
                                     }}>
             {children}
         </GiftcardContext.Provider>

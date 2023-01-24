@@ -33,6 +33,7 @@ const ClientDetailsPage = ({ giftcardDetails }: InferGetServerSidePropsType<type
                 <NavbarLayout>
                     <GiftcardDetails
                         _id = {giftcardDetails._id}
+                        status = {giftcardDetails.status}
                         identifier = {giftcardDetails.identifier}
                         amount = {giftcardDetails.amount}
                         startDate = {new Date(giftcardDetails.startDate)}

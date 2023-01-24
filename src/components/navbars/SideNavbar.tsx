@@ -5,27 +5,24 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AvatarSection from '../avatars/AvatarSection';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import Link from 'next/link';
+import NavbarItem from './NavbarItem';
 
 const sideNavbar = () => {
     return (
-        <div id='side-navbar' className="fixed flex flex-col top-0 left-0 bottom-0 w-60">
-            <div className='navbar-header'>
-                <Link href="/admin">Beauty Assistant</Link>
+        <header className="fixed hidden sm:flex flex-col top-0 left-0 bottom-0 w-20 md:w-60 font-medium bg-white shadow-md">
+            <div className='px-6 py-8'>
+                <Link className='hidden md:block' href="/admin">Beauty Assistant</Link>
+                <Link className='block md:hidden' href="/admin">BA</Link>
             </div>
-            <div className='navbar-header-small'>
-                <Link href="/admin">BA</Link>
-            </div>
-            <div className='navbar-body'>
-                <Link href="/admin/clients"><PeopleIcon /><span>Vendégek</span></Link>
-                <Link href="/admin/appointments"><CalendarMonthIcon /><span>Időpontok</span></Link>
-                <Link href="/admin/services"><BusinessCenterIcon /><span>Szolgáltatások</span></Link>
-                <Link href="/admin/giftcards"><RedeemIcon /><span>Ajándékutalvány</span></Link>
-                <Link href="/admin/statistics"><BarChartIcon /><span>Statisztikák</span></Link>
-            </div>
-            <div className='navbar-footer'>
+            <NavbarItem href="/admin/clients" label="Vendégek" icon={<PeopleIcon/>} />
+            <NavbarItem href="/admin/appointments" label="Időpontok" icon={<CalendarMonthIcon/>} />
+            <NavbarItem href="/admin/services" label="Szolgáltatások" icon={<RedeemIcon/>} />
+            <NavbarItem href="/admin/giftcards" label="Ajándékutalvány" icon={<BusinessCenterIcon/>} />
+            <NavbarItem href="/admin/statistics" label="Statisztikák" icon={<BarChartIcon/>} />
+            <div className='mt-auto px-6 py-8'>
                 <AvatarSection />
             </div>
-        </div>
+        </header>
     )
 }
 

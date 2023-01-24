@@ -1,19 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
-import { Collapse } from '@mui/material';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import { Alert } from "../smallComponents/Alerts";
-import { AddIconOptionButton } from "../smallComponents/Buttons";
-import { MultilineNonReqInput, OneLineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
-import ClientContext from "../../context/ClientProvider";
 import DeleteDialog from "../smallComponents/DeleteDialog";
+import FixFields from "./addNewClient/FixFields";
+import { ageValidator, mobileNumberValidator, nameValidator } from "./Utils";
+import OptionFields from "./addNewClient/OptionFields";
+import AddNewClientOptionDialog from "./addNewClient/ClientOptionNamesDialog";
+import AppointmentWrapper from "../smallComponents/sectionWrappers/AppointmentWrapper";
+import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
-    const { clientOptionNames } = useContext(ClientContext);
     const [clientData, setClientData] = useState<ClientDataInterface>({
         _id: props._id,
         name: props.name,
@@ -33,13 +34,9 @@ const ClientDetails = (props: ClientDataInterface) => {
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [showSaveButton, setShowSaveButton] = useState(false);
 
-    // States for show or hide textfields
-
-    const [showOption1Content, setShowOption1Content] = useState(props.option1Content ? true : false)
-    const [showOption2Content, setShowOption2Content] = useState(props.option2Content ? true : false)
-    const [showOption3Content, setShowOption3Content] = useState(props.option3Content ? true : false)
-    const [showOption4Content, setShowOption4Content] = useState(props.option4Content ? true : false)
-    const [showOption5Content, setShowOption5Content] = useState(props.option5Content ? true : false)
+    const [showNameError, setShowNameError] = useState(false);
+    const [showAgeError, setShowAgeError] = useState(false);
+    const [showMobileNumberError, setShowMobileNumberError] = useState(false);
 
     const saveClient = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -49,13 +46,15 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     // Save client in database API
     const saveModifiedData = async (newClientData: ClientDataInterface) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/save-modified-client-data";
-        const params = { newClientData: newClientData};
-        const response = await axios.put(url, params, { withCredentials: true });
-        if(response.status === 200) {
-            setShowSavingAlert(true);
-        } 
-        else {
+        try {
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/save-modified-client-data";
+            const params = { newClientData };
+            const response = await axios.put(url, params, { withCredentials: true });
+            if(response.status === 200) {
+                setShowSavingAlert(true);
+                Router.push('/admin/clients');
+            } 
+        } catch(err) {
             setShowSavingErrorAlert(true);
         }
     }
@@ -83,17 +82,27 @@ const ClientDetails = (props: ClientDataInterface) => {
         Router.push('/admin/clients');
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setClientData(prevData => {
+        setClientData(prevVal => {
             return {
-                ...prevData,
-                [name]: value
+                ...prevVal,
+                [name]: value,
             }
         })
+        if (name === 'name') {
+            nameValidator(value) ? setShowNameError(true): setShowNameError(false);
+        }
+        
+        if (name === 'age') {
+            ageValidator(value) ? setShowAgeError(true) : setShowAgeError(false);
+        }
+        if (name === 'mobileNumber') {
+            mobileNumberValidator(value) ? setShowMobileNumberError(true) : setShowMobileNumberError(false);
+        }
         !showSaveButton && setShowSaveButton(true);
     }
-
+    
     return (
         <section id="client-details-section data-details-section">
             <Alert 
@@ -123,54 +132,28 @@ const ClientDetails = (props: ClientDataInterface) => {
             />
             
             <h1 className="page-title">{props.name}</h1>
-            <Box className="form" component="form" onSubmit={saveClient}>
-                <Container>
-                    <Row>
-                        <Col lg={3}>
-                            <OneLineReqAutoFocusInput value={clientData.name} onChange={handleInputChange} label="Név" nameVal="name"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineReqInput onChange={handleInputChange} value={clientData.mobileNumber} label="Telefonszám" nameVal="tel"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineNonReqInput onChange={handleInputChange} value={clientData.age} label="Kor" nameVal="age"/>
-                        </Col>
-                        <Col lg={3}>
-                            <OneLineNonReqInput onChange={handleInputChange} value={clientData.email} label="E-mail" nameVal="email"/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col className="section-options-buttons">
-                            {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
-                            {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setShowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
-                            {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
-                            {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
-                            {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
-                        </Col>
-                    </Row>
-                    <div className="options-fields">
-                        <Collapse in={showOption1Content}>
-                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option1Content} label={clientOptionNames.option1Name} nameVal={clientOptionNames.option1Name}/>
-                        </Collapse>
-                        <Collapse in={showOption2Content}>
-                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option2Content} label={clientOptionNames.option2Name} nameVal={clientOptionNames.option2Name}/>
-                        </Collapse>
-                        <Collapse in={showOption3Content}>
-                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option3Content} label={clientOptionNames.option3Name} nameVal={clientOptionNames.option3Name}/>
-                        </Collapse>
-                        <Collapse in={showOption4Content}>
-                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option4Content} label={clientOptionNames.option4Name} nameVal={clientOptionNames.option4Name}/>
-                        </Collapse>
-                        <Collapse in={showOption5Content}>
-                            <MultilineNonReqInput onChange={handleInputChange} value={clientData.option5Content} label={clientOptionNames.option5Name}  nameVal={clientOptionNames.option5Name}/>
-                        </Collapse>
-                    </div>
-                </Container>
-                <DeleteDialog 
-                    deleteLabel={`Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?`}
-                    deleteFunction={deleteClient}
-                />
-            </Box>
+            <DetailsWrapper>
+                <Box className="form" component="form" onSubmit={saveClient}>
+                    <Container>
+                        <FixFields 
+                            inputData={clientData}
+                            handleChange={handleChange}
+                            showAgeError={showAgeError}
+                            showMobileNumberError={showMobileNumberError}
+                            showNameError={showNameError}
+                        />
+                        <OptionFields 
+                            inputData={clientData} 
+                            handleChange={handleChange}
+                        />
+                    </Container>
+                    <DeleteDialog 
+                        deleteLabel={`Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?`}
+                        deleteFunction={deleteClient}
+                    />
+                </Box>
+                <AddNewClientOptionDialog/>
+            </DetailsWrapper>
         </section>
     )
 }

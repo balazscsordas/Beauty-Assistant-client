@@ -1,7 +1,7 @@
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { SetStateAction } from "react";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { formatDate } from "./DateDialog/Utils";
+import { formatDate } from "./Utils";
 
 interface Props {
     label: string,

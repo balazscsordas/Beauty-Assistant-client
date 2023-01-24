@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 import { Searchbar } from "../smallComponents/Searchbars";
 import ListComponent from "../smallComponents/ListComponent";
+import SectionWrapper from "../smallComponents/sectionWrappers/SectionWrapper";
 
 interface Props {
     servicesList: ServiceListInterface[]
@@ -29,36 +30,36 @@ const ServiceList = ({ servicesList }: Props) => {
     }
 
     return (
-            <section className="text-center max-w-3xl m-auto">
+            <section className="text-center">
                 <h1 className="page-title">Szolgáltatások</h1>
-                <Link href="/admin/add-new-service" passHref>
-                    <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
-                </Link>
-                { servicesList.length !== 0 
-                    && <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
-                }
-                <div>
-                    {filteredArray.length === 0
-                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>
-                        : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
-                            <ListComponent
-                                key={index}
-                                name={service.name}
-                                url={`/admin/services/${service._id}`}
-                                icon={<AccountCircleIcon/>}
-                            />
-                        ))}
-                    {servicesList.length === 0 
-                        ? <p>Még nem adtál hozzá szolgáltatást.</p>
-                        : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
-                            <ListComponent
-                                key={index}
-                                name={service.name}
-                                url={`/admin/services/${service._id}`}
-                                icon={<AccountCircleIcon/>}
-                            />
-                        ))}
-                </div>
+                <SectionWrapper>
+                    <Link href="/admin/add-new-service" passHref>
+                        <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
+                    </Link>
+                    <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
+                    <div>
+                        {filteredArray.length === 0
+                            ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>
+                            : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
+                                <ListComponent
+                                    key={index}
+                                    name={service.name}
+                                    url={`/admin/services/${service._id}`}
+                                    icon={<AccountCircleIcon/>}
+                                />
+                            ))}
+                        {servicesList.length === 0 
+                            ? <p>Még nem adtál hozzá szolgáltatást.</p>
+                            : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
+                                <ListComponent
+                                    key={index}
+                                    name={service.name}
+                                    url={`/admin/services/${service._id}`}
+                                    icon={<AccountCircleIcon/>}
+                                />
+                            ))}
+                    </div>
+                </SectionWrapper>
             </section>
     )
 }

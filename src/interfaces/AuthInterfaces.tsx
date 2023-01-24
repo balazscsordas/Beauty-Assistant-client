@@ -1,3 +1,7 @@
+export interface baseAuthInterface {
+    firstName: string;
+}
+
 export interface AuthInterface {
     _id: string;
     firstName: string;

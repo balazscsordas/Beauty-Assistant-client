@@ -1,10 +1,13 @@
 import RegistrationForm from '../components/authentication/RegistrationForm';
+import NonAdminLayout from '../Layouts/NonAdminLayout';
 
 const RegistrationPage = () => {
     return (
-        <section className="max-w-xl min-h-screen min-w-full flex justify-center items-center">
-            <RegistrationForm />
-        </section>
+        <NonAdminLayout>
+            <section className="max-w-xl min-h-screen min-w-full flex justify-center items-center">
+                <RegistrationForm />
+            </section>
+        </NonAdminLayout>
     )
 }
 

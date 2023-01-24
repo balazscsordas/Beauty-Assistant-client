@@ -1,7 +1,8 @@
 import NavbarLayout from "../../Layouts/NavbarLayout";
-import AddNewClient from "../../components/clients/AddNewClient";
+import AddNewClient from "../../components/clients/addNewClient/AddNewClient";
 
-const addNewClient = () => {
+const AddNewClientPage = () => {
+
     return (
         <>
             <NavbarLayout>
@@ -11,4 +12,4 @@ const addNewClient = () => {
     )
 }
 
-export default addNewClient;
+export default AddNewClientPage;

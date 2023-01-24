@@ -6,12 +6,15 @@ import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
-import { OneLineReqAutoFocusInput, OneLineReqInput } from "../smallComponents/InputFields";
+import { OneLineReqAutoFocusInput, OneLineReqInput, SelectInputFieldGiftcard } from "../smallComponents/InputFields";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
-import { containsOnlyNumbers } from "./DateDialog/Utils";
+import { containsOnlyNumbers } from "./Utils";
 import DatePicker from "./DatePicker";
+import Router from "next/router";
+import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
 const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  }: GiftcardInterface) => {
+
     const { 
         giftcardStartDate,
         setGiftcardStartDate,
@@ -34,7 +37,6 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
         startDate: startDate,
         endDate: endDate,
     })
-
     const [showAmountError, setShowAmountError] = useState(false);
 
     useEffect(() => {
@@ -83,7 +85,10 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
 
     const deleteGiftcard = () => {
         _id && deleteGiftcardAPI(_id);
+        Router.push('/admin/giftcards');
     }
+
+    
 
     // API
     const editGiftcardAPI = async (newGiftcardData: GiftcardInterface) => {
@@ -93,6 +98,7 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
           const response = await axios.put(url, params, { withCredentials: true });
           if (response.status == 200) {
               setShowEditSuccessAlert(true);
+              Router.push('/admin/giftcards');
           } else {
               setShowEditErrorAlert(true);
           }
@@ -106,11 +112,11 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
     const deleteGiftcardAPI = async (giftcardId: string) => {
         try {
             const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/giftcard/delete-giftcard";
-            const options = {
+            const config = {
                 withCredentials: true,
-                params: {giftcardId: giftcardId},
+                data: { giftcardId },
             }
-            const response = await axios.delete(url, options);
+            const response = await axios.delete(url, config);
             if (response.status == 200) {
                 setShowDeleteSuccessAlert(true);
             } else {
@@ -153,31 +159,36 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
             
             <>
                 <h1 className="page-title">Ajándékutalvány</h1>
-                <Box className="form" component="form" onSubmit={handleSubmit}>
-                    <Container>
-                        <Row>
-                            <Col lg={3}>
-                                <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
-                            </Col>
-                            <Col lg={3}>
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
-                                <Collapse in={showAmountError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
-                            </Col>
-                            <Col lg={3}>
-                                <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
-                            </Col>
-                            <Col lg={3}>
-                                <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
-                            </Col>
-                        </Row>
-                    </Container>
-                    <DeleteDialog 
-                        deleteLabel={`Biztosan törölni szeretnéd ${identifier} azonosítójú ajándékutalványt?`}
-                        deleteFunction={deleteGiftcard}
-                    />
-                </Box>
+                <DetailsWrapper>
+                    <Box className="form" component="form" onSubmit={handleSubmit}>
+                        <Container>
+                            <Row>
+                                <Col lg={3}>
+                                    <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
+                                </Col>
+                                <Col lg={3}>
+                                    <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
+                                    <Collapse in={showAmountError}>
+                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                    </Collapse>
+                                </Col>
+                                <Col lg={3}>
+                                    <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
+                                </Col>
+                                <Col lg={3}>
+                                    <DatePicker label="Érvényesség vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                                </Col>
+                                <Col lg={3}>
+                                    <SelectInputFieldGiftcard label="Státusz" nameVal="status" setInputData={setInputData} value={inputData.status}/>
+                                </Col>
+                            </Row>
+                        </Container>
+                        <DeleteDialog 
+                            deleteLabel={`Biztosan törölni szeretnéd ${identifier} azonosítójú ajándékutalványt?`}
+                            deleteFunction={deleteGiftcard}
+                        />
+                    </Box>
+                </DetailsWrapper>
             </>
             <DatePickerDialog 
                 label="Érvényesség kezdete" 
