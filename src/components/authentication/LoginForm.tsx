@@ -47,7 +47,7 @@ const LoginForm = () => {
     }
     catch(err) {
       setShowErrorAlert(true);
-      console.log(err.message);
+      err instanceof Error && console.log(err.message);
       setLoading(false);
     }
   }
