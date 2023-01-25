@@ -152,15 +152,15 @@ const Calendar = () => {
     }
 
     return (
-        <section id='calendar-section' className="m-auto">
+        <section id='calendar-section' className="m-auto overflow-x-scroll overflow-y-scroll">
             <h1 className='page-title'>Időpontok</h1>
             <AppointmentWrapper>
             <WeekPicker />
-            <div className='table-block overflow-scroll'>
+            <div className='table-block'>
                 <table className="table-fixed text-center w-full">
                     <thead >
                         <tr className='main-row h-16'>
-                            <th className='time-header w-20'></th>
+                            <th className='time-header w-16 md:w-20'></th>
                             <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.monday)}
                                 <br/>
@@ -201,7 +201,7 @@ const Calendar = () => {
                     <tbody>
                         {hours.map((hour, index) => (
                                 <tr key={index}>
-                                    <th className='font-normal text-xs w-20'>
+                                    <th className='font-normal text-xs w-16 md:w-20'>
                                         <div className='relative bottom-4'>{hour}</div>
                                     </th>
                                     <td className='empty border-[1px]'></td>

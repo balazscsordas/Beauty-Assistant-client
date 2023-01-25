@@ -20,13 +20,13 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
     cell.classList.add('full');
     cell.classList.remove('empty');
     if (appointment.status === 'success') {
-        cell.innerHTML += `<div class='success rounded-md text-sm bg-green-300'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='success rounded-md text-[0.65rem] md:text-sm bg-green-300 font-medium'>${appointment.clientName}</div>`;
     } 
     else if (appointment.status === 'failure') {
-        cell.innerHTML += `<div class='failure rounded-md text-sm bg-red-300'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='failure rounded-md text-[0.65rem] md:text-sm bg-red-300 font-medium'>${appointment.clientName}</div>`;
     } 
     else {
-        cell.innerHTML += `<div class='pending rounded-md text-sm bg-yellow-300'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='pending rounded-md text-[0.65rem] md:text-sm bg-yellow-300 font-medium'>${appointment.clientName}</div>`;
     }
 }
 
