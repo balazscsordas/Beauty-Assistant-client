@@ -1,7 +1,6 @@
 import { Box, Collapse } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import { Alert } from "../smallComponents/Alerts";
@@ -160,29 +159,27 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
             <>
                 <h1 className="page-title">Ajándékutalvány</h1>
                 <DetailsWrapper>
-                    <Box className="form" component="form" onSubmit={handleSubmit}>
-                        <Container>
-                            <Row>
-                                <Col lg={3}>
-                                    <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
-                                </Col>
-                                <Col lg={3}>
-                                    <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
-                                    <Collapse in={showAmountError}>
-                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                    </Collapse>
-                                </Col>
-                                <Col lg={3}>
-                                    <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
-                                </Col>
-                                <Col lg={3}>
-                                    <DatePicker label="Érvényesség vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
-                                </Col>
-                                <Col lg={3}>
-                                    <SelectInputFieldGiftcard label="Státusz" nameVal="status" setInputData={setInputData} value={inputData.status}/>
-                                </Col>
-                            </Row>
-                        </Container>
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <section className="flex flex-col lg:flex-row">
+                            <div className="flex-1 mx-2">
+                                <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
+                                <Collapse in={showAmountError}>
+                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                </Collapse>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <DatePicker label="Érvényesség vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <SelectInputFieldGiftcard label="Státusz" nameVal="status" setInputData={setInputData} value={inputData.status}/>
+                            </div>
+                        </section>
                         <DeleteDialog 
                             deleteLabel={`Biztosan törölni szeretnéd ${identifier} azonosítójú ajándékutalványt?`}
                             deleteFunction={deleteGiftcard}

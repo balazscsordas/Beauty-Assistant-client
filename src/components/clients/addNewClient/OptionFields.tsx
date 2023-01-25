@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Collapse } from "@mui/material";
-import { Col, Row } from "react-bootstrap";
 import ClientContext from "../../../context/ClientProvider";
 import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
 import { AddIconOptionButton, BasicPrimaryButton } from "../../smallComponents/Buttons";
@@ -35,20 +34,16 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
 
     return (
         <>
-            <Row className="text-center m-4">
-                <Col >
-                    {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
-                    {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setshowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
-                    {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
-                    {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
-                    {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
-                </Col>
-            </Row>
-            <Row className="text-center my-4">
-                <Col >
-                    <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text="mezők átnevezése"/>
-                </Col>
-            </Row>
+            <div className="text-center m-4">
+                {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
+                {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setshowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
+                {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
+                {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
+                {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
+            </div>
+            <div className="text-center my-4">
+                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text="mezők átnevezése"/>
+            </div>
             <div>
                 <Collapse in={showOption1Content}>
                     <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal="option1Content" label={clientOptionNames.option1Name}/>

@@ -21,21 +21,7 @@
     .full {
         position: relative;
 
-        .pending {
-            background-color: yellow;
-        }
-
-        .success {
-            background-color: green;
-        }
-
-        .failure {
-            background-color: red;
-        }
-        
         div {
-            border-radius: 10px;
-            font-size: 0.9rem;
             position: absolute;
             top: 0px;
             bottom: 0px;
@@ -45,7 +31,7 @@
             align-items: center;
             justify-content: center;
             margin: 3px;
-            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 1px 0px, rgba(60, 64, 67, 0.15) 0px 2px 3px 1px;
         }
     }
     

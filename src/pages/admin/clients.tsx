@@ -5,6 +5,7 @@ import { ClientListInterface, ClientOptionNamesInterface } from "../../interface
 import axios from "axios";
 import ClientContext from "../../context/ClientProvider";
 import { useContext, useEffect } from "react";
+import Head from "next/head";
 
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -38,6 +39,11 @@ const ClientsPage = ({ clientsList, clientOptionNames }: InferGetServerSideProps
 
     return (
         <>
+            <Head>
+            <title>Beauty Asszisztens | Vendégek</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+            </Head>
             <NavbarLayout>
                 <ClientList clientsList = {clientsList}/>
             </NavbarLayout>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Container from 'react-bootstrap/Container';
 import { Box } from '@mui/material';
 import axios from "axios";
 import { ClientDataInterface } from '../../../interfaces/ClientInterfaces';
@@ -7,7 +6,7 @@ import Router from 'next/router';
 import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton } from "../../smallComponents/Buttons";
 import AddNewClientOptionDialog from "./ClientOptionNamesDialog";
-import { ageValidator, nameValidator, mobileNumberValidator } from "../Utils";
+import { ageValidator, trueIfNumberValidator, mobileNumberValidator } from "../../smallComponents/InputValidators";
 import OptionFields from "./OptionFields";
 import FixFields from "./FixFields";
 import DetailsWrapper from "../../smallComponents/sectionWrappers/DetailsWrapper";
@@ -78,7 +77,7 @@ const AddClients = () => {
             }
         })
         if (name === 'name') {
-            nameValidator(value) ? setShowNameError(true): setShowNameError(false);
+            trueIfNumberValidator(value) ? setShowNameError(true): setShowNameError(false);
         }
         
         if (name === 'age') {
@@ -108,22 +107,20 @@ const AddClients = () => {
                 <h1 className="page-title">Vendég hozzáadása</h1>
                 <DetailsWrapper>
                     <Box className="form" component="form" onSubmit={handleSubmit}>
-                        <Container>
-                            <FixFields 
-                                inputData={inputData}
-                                handleChange={handleChange}
-                                showAgeError={showAgeError}
-                                showMobileNumberError={showMobileNumberError}
-                                showNameError={showNameError}
-                            />
-                            <OptionFields 
-                                inputData={inputData} 
-                                handleChange={handleChange}
-                            />
-                            <div className="text-center m-4">
-                                <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
-                            </div>
-                        </Container>
+                        <FixFields 
+                            inputData={inputData}
+                            handleChange={handleChange}
+                            showAgeError={showAgeError}
+                            showMobileNumberError={showMobileNumberError}
+                            showNameError={showNameError}
+                        />
+                        <OptionFields 
+                            inputData={inputData} 
+                            handleChange={handleChange}
+                        />
+                        <div className="text-center m-4">
+                            <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
+                        </div>
                     </Box>
                 </DetailsWrapper>
             </>

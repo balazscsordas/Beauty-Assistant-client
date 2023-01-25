@@ -19,7 +19,7 @@ const sideNavbar = () => {
             <NavbarItem href="/admin/services" label="Szolgáltatások" icon={<RedeemIcon/>} />
             <NavbarItem href="/admin/giftcards" label="Ajándékutalvány" icon={<BusinessCenterIcon/>} />
             <NavbarItem href="/admin/statistics" label="Statisztikák" icon={<BarChartIcon/>} />
-            <div className='mt-auto px-6 py-8'>
+            <div className='mt-auto mb-2'>
                 <AvatarSection />
             </div>
         </header>

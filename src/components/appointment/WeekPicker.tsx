@@ -18,7 +18,7 @@ const WeekPicker = () => {
     }
 
     return (
-        <div id='week-picker' className="max-w-sm mb-5 mx-auto text-center font-semibold">
+        <div id='week-picker' className="max-w-sm mb-4 mx-auto text-center font-semibold">
             <div className='year-block'>
                 {currentWeek.monday.getFullYear() === currentWeek.sunday.getFullYear()
                     ? <h4>{currentWeek.monday.getFullYear()}</h4> 

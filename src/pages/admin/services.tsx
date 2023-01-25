@@ -5,6 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import ServiceContext from "../../context/ServiceProvider";
+import Head from "next/head";
 
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -35,6 +36,11 @@ const ServicesPage = ({ servicesList }: InferGetServerSidePropsType<typeof getSe
 
     return (
         <>
+            <Head>
+            <title>Beauty Asszisztens | Szolgáltatások</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+            </Head>
             <NavbarLayout>
                 <ServiceList servicesList = {servicesList}/>
             </NavbarLayout>

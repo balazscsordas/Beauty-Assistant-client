@@ -6,7 +6,7 @@ type Props = {
 
 const AppointmentWrapper = ({ children }: Props) => {
     return (
-        <section className="bg-white p-4 rounded-xl my-4 shadow-md max-w-5xl m-auto">
+        <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md max-w-6xl m-auto">
             {children}
         </section>
     )

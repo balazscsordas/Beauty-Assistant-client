@@ -1,7 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Link from "next/link";
-import { useState } from "react";
 
 interface Props {
     name: string;
@@ -22,11 +21,9 @@ const ListComponent = ({ name, url, icon, status }: Props) => {
         return "bg-red-200";
     }
 
-    const [bgColor] = useState(status ? setStatus(status) : "bg-red-200");
-
     return (
         <section className="my-3">
-            <div className={`head-block flex items-center relative p-2 rounded-xl shadow-md ${bgColor}`}>
+            <div className={`head-block flex items-center relative p-2 rounded-xl shadow-md ${status ? setStatus(status) : 'bg-red-200'}`}>
                 <Link href={url}>
                     <IconButton aria-label="account-icon-more-data">
                         {icon}

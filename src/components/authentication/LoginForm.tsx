@@ -1,7 +1,6 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
 import axios from "axios";
 import AuthContext from '../../context/AuthProvider';
 import Router from 'next/router';
@@ -13,7 +12,7 @@ import AuthenticationWrapper from './AuthenticationWrapper';
 
 const LoginForm = () => {
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, setFirstName } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -37,6 +36,7 @@ const LoginForm = () => {
       if(response.status === 200) {
         setShowSuccessAlert(true);
         setAuth(response.data.authData);
+        setFirstName(response.data.authData.firstName);
         localStorage.setItem('firstName', response.data.authData.firstName);
         setInputData({
           email: "",

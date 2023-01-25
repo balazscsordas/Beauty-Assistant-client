@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ServiceDataInterface } from '../../interfaces/ServiceInterfaces';
 import { Collapse } from '@mui/material';
-import { Container, Row, Col } from "react-bootstrap";
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
@@ -10,7 +9,7 @@ import { MultilineNonReqInput } from "../smallComponents/InputFields";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewService/FixFields";
-import { priceValidator } from "./Utils";
+import { trueIfLetterValidator } from "../smallComponents/InputValidators";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
 interface Props {
@@ -106,7 +105,7 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
             }
         })
         if (name === 'price') {
-            if (!priceValidator(value) && value.length > 0) {
+            if (trueIfLetterValidator(value) && value.length > 0) {
                 setShowPriceError(true);
             } else {
                 setShowPriceError(false);
@@ -147,7 +146,6 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
             <h1 className="page-title">{serviceData.name}</h1>
             <DetailsWrapper>
                 <Box className="form" component="form" onSubmit={handleSubmit}>
-                    <Container>
                         <FixFields
                                 inputData={serviceData}
                                 setInputData={setServiceData}
@@ -157,17 +155,14 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
                                 handleChange={handleInputChange}
                                 showPriceError={showPriceError}
                             />
-                        <Row>
-                            <Col className="section-options-buttons">
-                                <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                            </Col>
-                        </Row>
+                        <div>
+                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
+                        </div>
                         <div className="options-fields">
                             <Collapse in={showSteps}>
                                 <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
                             </Collapse>
                         </div>
-                    </Container>
                     <DeleteDialog 
                         deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}
                         deleteFunction={deleteService}

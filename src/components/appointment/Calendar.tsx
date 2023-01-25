@@ -149,7 +149,7 @@ const Calendar = () => {
     }
 
     return (
-        <section id='calendar-section' className="max-w-5xl m-auto">
+        <section id='calendar-section' className="m-auto">
             <h1 className='page-title'>Időpontok</h1>
             <AppointmentWrapper>
             <WeekPicker />
@@ -157,7 +157,7 @@ const Calendar = () => {
                 <table className="table-fixed text-center w-full">
                     <thead >
                         <tr className='main-row h-16'>
-                            <th className='time-header'></th>
+                            <th className='time-header w-20'></th>
                             <th className='text-center text-base'>
                                 {getNamedDay(currentWeek.monday)}
                                 <br/>
@@ -198,16 +198,16 @@ const Calendar = () => {
                     <tbody>
                         {hours.map((hour, index) => (
                                 <tr key={index}>
-                                    <th className='font-normal text-xs'>
+                                    <th className='font-normal text-xs w-20'>
                                         <div className='relative bottom-4'>{hour}</div>
                                     </th>
-                                    <td className='empty'></td>
-                                    <td className='empty'></td>
-                                    <td className='empty'></td>
-                                    <td className='empty'></td>
-                                    <td className='empty'></td>
-                                    <td className='empty' hidden={hideSaturday}></td>
-                                    <td className='empty' hidden={hideSunday}></td>
+                                    <td className='empty border-[1px]'></td>
+                                    <td className='empty border-[1px]'></td>
+                                    <td className='empty border-[1px]'></td>
+                                    <td className='empty border-[1px]'></td>
+                                    <td className='empty border-[1px]'></td>
+                                    <td className='empty border-[1px]' hidden={hideSaturday}></td>
+                                    <td className='empty border-[1px]' hidden={hideSunday}></td>
                                 </tr>
                         ))}
                     </tbody>

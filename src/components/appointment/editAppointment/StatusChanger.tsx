@@ -44,13 +44,13 @@ const StatusChanger = () => {
         <section id="appointment-status-changer">
             <p>Státusz</p>
             <div>
-                <input type='checkbox' name="failure" onChange={handleChange} checked={failureChecked}></input>
+                <input type='checkbox' name="failure" onChange={handleChange} checked={editAppointmentData.status === 'failure' ? true : false}></input>
                 <label>Nem jött el</label>
 
-                <input type='checkbox' name="pending" onChange={handleChange} checked={pendingChecked}></input>
+                <input type='checkbox' name="pending" onChange={handleChange} checked={editAppointmentData.status === 'pending' ? true : false}></input>
                 <label>Függőben</label>
                     
-                <input type='checkbox' name="success" onChange={handleChange} checked={successChecked}></input>
+                <input type='checkbox' name="success" onChange={handleChange} checked={editAppointmentData.status === 'success' ? true : false}></input>
                 <label>Eljött</label>
             </div>            
         </section>

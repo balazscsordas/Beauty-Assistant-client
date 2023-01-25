@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import { useContext, useEffect } from "react";
 import AddAppointmentDialog from "../../components/appointment/addNewAppointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
@@ -26,6 +27,11 @@ const AppointmentPage = () => {
 
     return (
         <>
+            <Head>
+            <title>Beauty Asszisztens | Időpontok</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+            </Head>
             <NavbarLayout>
                 <Calendar/>
                 <AddAppointmentDialog/>

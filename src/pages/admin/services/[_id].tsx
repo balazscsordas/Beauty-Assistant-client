@@ -3,6 +3,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { ServiceDataInterface } from "../../../interfaces/ServiceInterfaces";
 import axios from "axios";
 import ServiceDetails from "../../../components/services/ServiceDetails";
+import Head from "next/head";
 
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -29,6 +30,11 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
 const ClientDetailsPage = ({ serviceDataFromDatabase, categoryList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <>
+            <Head>
+            <title>Beauty Asszisztens | Szolgáltatás</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+            </Head>
             <NavbarLayout>
                 <ServiceDetails
                     serviceDataFromDatabase={serviceDataFromDatabase}

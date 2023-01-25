@@ -13,7 +13,7 @@ import AuthContext from '../../context/AuthProvider';
 
 const AccountAvatar = () => {
 
-  const { auth } = useContext(AuthContext);
+  const { firstName } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElUser(event.currentTarget);
@@ -34,7 +34,7 @@ const AccountAvatar = () => {
   }
   return (
       <>  
-          <a onClick={handleOpenUserMenu}><PersonIcon /><span>{ auth && auth.firstName }</span></a>
+          <a className='flex items-center mx-2 my-2 p-3 hover:bg-slate-100 hover:text-[#4154f1] rounded-xl cursor-pointer' onClick={handleOpenUserMenu}><PersonIcon /><span className='ml-3 hidden md:block'>{ firstName }</span></a>
           <Menu
             sx={{ mt: '-10px'}}
             id="menu-appbar"

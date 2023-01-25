@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
-import { Container } from "react-bootstrap";
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewClient/FixFields";
-import { ageValidator, mobileNumberValidator, nameValidator } from "./Utils";
+import { ageValidator, mobileNumberValidator, trueIfNumberValidator } from "../smallComponents/InputValidators";
 import OptionFields from "./addNewClient/OptionFields";
 import AddNewClientOptionDialog from "./addNewClient/ClientOptionNamesDialog";
-import AppointmentWrapper from "../smallComponents/sectionWrappers/AppointmentWrapper";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 
 const ClientDetails = (props: ClientDataInterface) => {
@@ -91,7 +89,7 @@ const ClientDetails = (props: ClientDataInterface) => {
             }
         })
         if (name === 'name') {
-            nameValidator(value) ? setShowNameError(true): setShowNameError(false);
+            trueIfNumberValidator(value) ? setShowNameError(true): setShowNameError(false);
         }
         
         if (name === 'age') {
@@ -134,19 +132,17 @@ const ClientDetails = (props: ClientDataInterface) => {
             <h1 className="page-title">{props.name}</h1>
             <DetailsWrapper>
                 <Box className="form" component="form" onSubmit={saveClient}>
-                    <Container>
-                        <FixFields 
-                            inputData={clientData}
-                            handleChange={handleChange}
-                            showAgeError={showAgeError}
-                            showMobileNumberError={showMobileNumberError}
-                            showNameError={showNameError}
-                        />
-                        <OptionFields 
-                            inputData={clientData} 
-                            handleChange={handleChange}
-                        />
-                    </Container>
+                    <FixFields 
+                        inputData={clientData}
+                        handleChange={handleChange}
+                        showAgeError={showAgeError}
+                        showMobileNumberError={showMobileNumberError}
+                        showNameError={showNameError}
+                    />
+                    <OptionFields 
+                        inputData={clientData} 
+                        handleChange={handleChange}
+                    />
                     <DeleteDialog 
                         deleteLabel={`Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?`}
                         deleteFunction={deleteClient}

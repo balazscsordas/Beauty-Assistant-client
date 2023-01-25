@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import Container from 'react-bootstrap/Container';
 import { Collapse, Box } from '@mui/material';
-import { priceValidator } from "../Utils";
+import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { ServiceDataInterface } from '../../../interfaces/ServiceInterfaces';
 import Router from 'next/router';
 import { Alert } from "../../smallComponents/Alerts";
@@ -89,7 +86,7 @@ const AddNewService = ({ categoryList }: Props) => {
             }
         })
         if (name === 'price') {
-            if (!priceValidator(value) && value.length > 0) {
+            if (trueIfLetterValidator(value) && value.length > 0) {
                 setShowPriceError(true);
             } else {
                 setShowPriceError(false);
@@ -117,31 +114,27 @@ const AddNewService = ({ categoryList }: Props) => {
                 <h1 className="page-title">Szolgáltatás hozzáadása</h1>
                 <DetailsWrapper>
                     <Box className="form" component="form" onSubmit={handleSubmit}>
-                        <Container>
-                            <FixFields
-                                inputData={inputData}
-                                setInputData={setInputData}
-                                categoryList={categoryList}
-                                newCategory={newCategory}
-                                setNewCategory={setNewCategory}
-                                handleChange={handleChange}
-                                showPriceError={showPriceError}
-                            />
-                            
-                            <Row className="text-center my-4">
-                                <Col >
-                                    <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                                </Col>
-                            </Row>
-                            <div className="text-center">
-                                <Collapse in={showSteps}>
-                                    <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label="Lépések" nameVal="steps"/>
-                                </Collapse>
-                            </div>
-                            <div className="text-center my-4">
-                                <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
-                            </div>
-                        </Container>
+                        <FixFields
+                            inputData={inputData}
+                            setInputData={setInputData}
+                            categoryList={categoryList}
+                            newCategory={newCategory}
+                            setNewCategory={setNewCategory}
+                            handleChange={handleChange}
+                            showPriceError={showPriceError}
+                        />
+                        
+                        <div className="text-center my-4">
+                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
+                        </div>
+                        <div className="text-center">
+                            <Collapse in={showSteps}>
+                                <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label="Lépések" nameVal="steps"/>
+                            </Collapse>
+                        </div>
+                        <div className="text-center my-4">
+                            <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
+                        </div>
                     </Box>
                 </DetailsWrapper>
             </>

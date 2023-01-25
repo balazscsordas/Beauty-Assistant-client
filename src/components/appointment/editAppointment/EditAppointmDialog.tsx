@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from "@mui/material";
+import { Box, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../../context/AppointmentProvider";
@@ -10,6 +10,7 @@ import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
 import StatusChanger from "./StatusChanger";
+import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
 
 const EditAppointmentDialog = () => {
 
@@ -27,6 +28,7 @@ const EditAppointmentDialog = () => {
     const [showDeleteSuccessAlert, setShowDeleteSuccessAlert] = useState(false);
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [showDiscountError, setShowDiscountError] = useState(false);
 
     const sendEditedAppointmentDataToServer = async (data: AppointmentInterface) => {
         try {
@@ -90,6 +92,13 @@ const EditAppointmentDialog = () => {
                 [name]: value
             }
         })
+        if (name === 'discount') {
+            if (trueIfLetterValidator(value)) {
+                setShowDiscountError(true);
+            } else {
+                setShowDiscountError(false);
+            }
+        }
     }
 
     const handleDeleteAppointment = () => {
@@ -142,6 +151,9 @@ const EditAppointmentDialog = () => {
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
                             <OneLineNonReqInput onChange={handleChange} label='Kedvezmény (%)' nameVal="discount" value={editAppointmentData.discount}/>
+                            <Collapse in={showDiscountError}>
+                                <p className="input-error-text">Kizárólag 0 és 100 közötti számot tartalmazhat.</p>
+                            </Collapse>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés (vendég nem látja)' nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
                     </DialogContent>

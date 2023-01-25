@@ -4,6 +4,7 @@ import { GiftcardInterface } from "../../../interfaces/GiftcardInterfaces";
 import axios from "axios";
 import GiftcardDetails from "../../../components/giftcard/GiftcardDetails";
 import { GiftcardProvider } from "../../../context/GiftcardProvider";
+import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps<{ giftcardDetails: GiftcardInterface }> = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -29,6 +30,11 @@ const ClientDetailsPage = ({ giftcardDetails }: InferGetServerSidePropsType<type
 
     return (
         <>
+            <Head>
+            <title>Beauty Asszisztens | Ajándékkártya</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+            </Head>
             <GiftcardProvider>
                 <NavbarLayout>
                     <GiftcardDetails

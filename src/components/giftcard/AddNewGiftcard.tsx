@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import Container from 'react-bootstrap/Container';
 import { Collapse, Box } from '@mui/material';
 import axios from "axios";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Router from 'next/router';
 import { Alert } from "../smallComponents/Alerts";
 import { OneLineReqAutoFocusInputWithAdornment, OneLineReqInput } from "../smallComponents/InputFields";
@@ -141,32 +138,30 @@ const AddGiftcard = () => {
             <>
                 <h1 className="page-title">Ajándékutalvány hozzáadása</h1>
                 <DetailsWrapper>
-                    <Box className="form" component="form" onSubmit={handleSubmit}>
-                        <Container>
-                            <Row>
-                                <Col lg={3}>
-                                    <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
-                                    <Collapse in={showIdentifierError}>
-                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                    </Collapse>
-                                </Col>
-                                <Col lg={3}>
-                                    <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
-                                    <Collapse in={showAmountError}>
-                                        <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                    </Collapse>
-                                </Col>
-                                <Col lg={3}>
-                                    <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
-                                </Col>
-                                <Col lg={3}>
-                                    <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
-                                </Col>
-                            </Row>
-                        </Container>
-                            <div className="text-center m-4">
-                                <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <section className="flex flex-col lg:flex-row">
+                            <div className="flex-1 mx-2">
+                                <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
+                                <Collapse in={showIdentifierError}>
+                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                </Collapse>
                             </div>
+                            <div className="flex-1 mx-2">
+                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
+                                <Collapse in={showAmountError}>
+                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
+                                </Collapse>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
+                            </div>
+                            <div className="flex-1 mx-2">
+                                <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                            </div>
+                        </section>
+                        <div className="text-center m-4">
+                            <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
+                        </div>
                     </Box>
                 </DetailsWrapper>
             </>

@@ -10,7 +10,7 @@ const StatusFilterItem = ({ hunName, engName }: Props) => {
 
     const { statusFilterArray, setStatusFilterArray } = useContext(GiftcardContext);
     const [state, setState] = useState(statusFilterArray.includes(engName) ? true : false);
-    const [ bg ] = useState(setBgColor(engName))
+    const [ bg ] = useState(setBgColor(engName));
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = e.target;
@@ -38,8 +38,8 @@ const StatusFilterItem = ({ hunName, engName }: Props) => {
     }
 
     return (
-        <div className={`${bg} px-3 py-2 m-2 inline-flex rounded-md shadow-md`}>
-            <input type="checkbox" id={engName} name={engName} checked={state} onChange={handleChange}/>
+        <div className={`${bg} base`}>
+            <input className="mr-2" type="checkbox" id={engName} name={engName} checked={state} onChange={handleChange}/>
             <label htmlFor={engName}>{hunName}</label>
         </div>
     )

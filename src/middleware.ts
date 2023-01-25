@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from 'next/server'
 
-const authMiddleware = (req: NextRequest) => {
+const authMiddleware = (req: NextRequest ) => {
     const jwt = req.cookies.get('jwt')?.value;
     let url = req.url;
 
