@@ -30,6 +30,7 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
             clientOptionNames.option5Name === "") {
             fetchClientOptionNames(setClientOptionNames);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

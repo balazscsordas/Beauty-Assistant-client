@@ -41,6 +41,7 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
     useEffect(() => {
         setGiftcardStartDate(startDate);
         setGiftcardEndDate(endDate);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
 
     

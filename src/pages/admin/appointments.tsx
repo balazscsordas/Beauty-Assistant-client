@@ -13,6 +13,7 @@ const AppointmentPage = () => {
 
     useEffect(() => {
         fetchWeekData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeek])
 
     const fetchWeekData = async () => {

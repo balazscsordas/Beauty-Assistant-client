@@ -48,6 +48,7 @@ const Calendar = () => {
                 resetAllCells();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeekAppointments]);
 
 
@@ -65,6 +66,7 @@ const Calendar = () => {
         /* FETCHES THE SERVICE AND CLIENT LIST IF THEY HAVEN'T BEEN FETCHED */
         clients.length === 0 && getClientListAPI();
         services.length === 0 && getServiceListAPI();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -81,6 +83,7 @@ const Calendar = () => {
                 });
             };
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeekAppointments]);
     
 

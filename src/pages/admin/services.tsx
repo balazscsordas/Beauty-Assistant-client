@@ -32,6 +32,7 @@ const ServicesPage = ({ servicesList }: InferGetServerSidePropsType<typeof getSe
 
     useEffect(() => {
         setServices(servicesList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

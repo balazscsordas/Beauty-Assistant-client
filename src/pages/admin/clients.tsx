@@ -35,6 +35,7 @@ const ClientsPage = ({ clientsList, clientOptionNames }: InferGetServerSideProps
     useEffect(() => {
         setClients(clientsList);
         setClientOptionNames(clientOptionNames);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

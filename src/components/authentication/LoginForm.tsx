@@ -46,10 +46,8 @@ const LoginForm = () => {
       }
     }
     catch(err) {
-      if (err instanceof Error && err.response.status == 401) {
-        setShowErrorAlert(true);
-        console.log(err.message);
-      }
+      setShowErrorAlert(true);
+      console.log(err.message);
       setLoading(false);
     }
   }
