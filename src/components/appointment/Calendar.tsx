@@ -141,7 +141,7 @@ const Calendar = () => {
     function countEmptyRows(rowIndex: number, colIndex: number) {
         let numberOfEmptyCells = 0;
         for (let index = 0; index < 10; index++) {
-            const cell = document.getElementsByTagName('tr')[rowIndex + index].getElementsByTagName('td')[colIndex - 1];
+            const cell = document.getElementsByTagName('tr')[rowIndex + index].getElementsByTagName('td')[colIndex];
             if (cell.classList.contains('full')) {
                 break;
             } else {
