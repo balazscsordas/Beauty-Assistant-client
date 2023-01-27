@@ -1,31 +1,53 @@
 import axios from "axios";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useContext, useEffect } from "react";
 import AddAppointmentDialog from "../../components/appointment/addNewAppointment/AddAppointmDialog";
 import Calendar from "../../components/appointment/Calendar";
 import EditAppointmentDialog from "../../components/appointment/editAppointment/EditAppointmDialog";
 import AppointmentContext from "../../context/AppointmentProvider";
+import { AppointmentInterface, WeekdaysInterface } from "../../interfaces/AppointmentInterfaces";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
-const AppointmentPage = () => {
+export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
+    const jwtCookie = context.req.headers.cookie;
+    const options = {
+        headers: {
+            withCredentials: true,
+            cookie: jwtCookie
+        }
+    }
+    const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-first-fetch-appointment-list";
+    const response = await axios.get(url, options);
+    const currentWeek: WeekdaysInterface = response.data.currentWeek;
+    const firstFetchAppointments: AppointmentInterface[] | null = response.data.firstFetchAppointments;
 
-    const { currentWeek, setCurrentWeekAppointments } = useContext(AppointmentContext);
+    return {
+        props: {
+            currentWeek,
+            firstFetchAppointments
+        }
+    }
+}
+
+const AppointmentPage = ({ currentWeek, firstFetchAppointments }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const {setCurrentWeek, setCurrentWeekAppointments } = useContext(AppointmentContext);
 
     useEffect(() => {
-        fetchWeekData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentWeek])
-
-    const fetchWeekData = async () => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
-        const options = {
-            params: { currentWeek },
-            withCredentials: true
-        }
-        const response = await axios.get(url, options);
-        setCurrentWeekAppointments(response.data.currentWeekAppointments);
-    }
-
+        setCurrentWeek({
+            monday: new Date(currentWeek.monday),
+            tuesday: new Date(currentWeek.tuesday),
+            wednesday: new Date(currentWeek.wednesday),
+            thurstday: new Date(currentWeek.thurstday),
+            friday: new Date(currentWeek.friday),
+            saturday: new Date(currentWeek.saturday),
+            sunday: new Date(currentWeek.sunday),
+        });
+        console.log(new Date(currentWeek.monday))
+        setCurrentWeekAppointments(firstFetchAppointments);
+    }, [])
+ 
     return (
         <>
             <Head>

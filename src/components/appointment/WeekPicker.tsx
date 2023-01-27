@@ -4,17 +4,33 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { prevWeek, getNamedMonth, nextWeek } from "./Utils";
 import { IconButton } from '@mui/material';
 import AppointmentContext from '../../context/AppointmentProvider';
+import axios from 'axios';
+import { WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
 
 const WeekPicker = () => {
 
-    const {currentWeek, setCurrentWeek} = useContext(AppointmentContext);
+    const {currentWeek, setCurrentWeek, setCurrentWeekAppointments} = useContext(AppointmentContext);
 
     const goToPrevWeek = () => {
-        setCurrentWeek(prevWeek(currentWeek));
+        const prevWeekValue = prevWeek(currentWeek);
+        setCurrentWeek(prevWeekValue);
+        fetchWeekData(prevWeekValue);
     }
 
     const goToNextWeek = () => {
-        setCurrentWeek(nextWeek(currentWeek));
+        const nextWeekValue = nextWeek(currentWeek);
+        setCurrentWeek(nextWeekValue);
+        fetchWeekData(nextWeekValue);
+    }
+
+    const fetchWeekData = async (week: WeekdaysInterface) => {
+        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
+        const options = {
+            params: { week },
+            withCredentials: true
+        }
+        const response = await axios.get(url, options);
+        setCurrentWeekAppointments(response.data.currentWeekAppointments);
     }
 
     return (

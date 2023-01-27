@@ -155,11 +155,11 @@ const Calendar = () => {
         <section id='calendar-section'>
             <h1 className='page-title'>Időpontok</h1>
             <WeekPicker />
-            <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[1100px]">
+            <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[1000px]">
                 <DaysHeader currentWeek={currentWeek}/>
                 <div className="flex flex-row">
                 <HoursCol/>
-                <table className="table-fixed text-center w-full overflow-x-scroll">
+                <table className="text-center w-full overflow-x-scroll">
                     <tbody>
                         {hours.map((hour, index) => (
                             <tr key={index} className="[&:nth-child(4n+1)]:text-sm">
