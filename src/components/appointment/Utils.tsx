@@ -20,13 +20,13 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
     cell.classList.add('full');
     cell.classList.remove('empty');
     if (appointment.status === 'success') {
-        cell.innerHTML += `<div class='success rounded-md text-[0.65rem] lg:text-sm bg-green-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='success rounded-md text-[0.65rem] leading-[0.82rem] lg:text-sm bg-green-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     } 
     else if (appointment.status === 'failure') {
-        cell.innerHTML += `<div class='failure rounded-md text-[0.65rem] lg:text-sm bg-red-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='failure rounded-md text-[0.65rem] leading-[0.82rem] lg:text-sm bg-red-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     } 
     else {
-        cell.innerHTML += `<div class='pending rounded-md text-[0.65rem] lg:text-sm bg-yellow-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='pending rounded-md text-[0.65rem] leading-[0.82rem] lg:text-sm bg-yellow-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     }
 }
 

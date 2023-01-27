@@ -155,21 +155,21 @@ const Calendar = () => {
         <section id='calendar-section'>
             <h1 className='page-title'>Időpontok</h1>
             <WeekPicker />
-            <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[1000px]">
+            <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[600px] sm:w-[800px] lg:w-[1100px] overflow-x-scroll max-w-full">
                 <DaysHeader currentWeek={currentWeek}/>
                 <div className="flex flex-row">
                 <HoursCol/>
-                <table className="text-center w-full overflow-x-scroll">
-                    <tbody>
+                <table className="text-center w-full">
+                    <tbody >
                         {hours.map((hour, index) => (
                             <tr key={index} className="[&:nth-child(4n+1)]:text-sm">
-                                <td className='empty border-[1px]'></td>
-                                <td className='empty border-[1px]'></td>
-                                <td className='empty border-[1px]'></td>
-                                <td className='empty border-[1px]'></td>
-                                <td className='empty border-[1px]'></td>
-                                <td className='empty border-[1px]' hidden={hideSaturday}></td>
-                                <td className='empty border-[1px]' hidden={hideSunday}></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]'></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]'></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]'></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]'></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]'></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]' hidden={hideSaturday}></td>
+                                <td className='empty border-[1px] hover:cursor-pointer h-[45px]' hidden={hideSunday}></td>
                             </tr>
                         ))}
                     </tbody>
