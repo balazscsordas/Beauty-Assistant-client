@@ -30,9 +30,15 @@ const AppointmentContext = createContext<AppointmentContextInterface>({} as Appo
 
 export const AppointmentProvider = ({ children }: Props) => {
 
-    const todayGetDay = (new Date()).getDay();
-    const current = useMemo(() => getCurrentWeekDates(todayGetDay), [todayGetDay])
-    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>(current);
+    const [currentWeek, setCurrentWeek] = useState<WeekdaysInterface>({
+        monday: new Date(),
+        tuesday: new Date(),
+        wednesday: new Date(),
+        thurstday: new Date(),
+        friday: new Date(),
+        saturday: new Date(),
+        sunday: new Date()
+    });
 
     const [newAppointmentData, setNewAppointmentData] = useState({
         date: new Date(),
