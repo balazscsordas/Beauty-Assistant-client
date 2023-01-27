@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import AuthContext from '../../context/AuthProvider';
 import Router from 'next/router';
-import { OneLineReqAutoFocusInput, OneLineReqInput } from '../smallComponents/InputFields';
+import { OneLineReqInput } from '../smallComponents/InputFields';
 import { BasicPrimaryButton } from '../smallComponents/Buttons';
 import { Alert } from '../smallComponents/Alerts';
 import Link from 'next/link';
@@ -84,7 +84,7 @@ const LoginForm = () => {
       />
     <AuthenticationWrapper title="Bejelentkezés">
         <Box component="form" onSubmit={handleSubmit}>
-          <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete="email"/>
+          <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete="email"/>
           <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete="password"/>
           <Box className="mt-8 mb-4">
             <BasicPrimaryButton text="Bejelentkezés" type="submit" disabled={loading}/>

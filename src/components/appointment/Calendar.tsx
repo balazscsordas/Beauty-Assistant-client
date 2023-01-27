@@ -5,7 +5,8 @@ import { addAppointmentToCell, getDayDataFromDayIndex, getNamedDay, getNumberedD
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
-import AppointmentWrapper from "../smallComponents/sectionWrappers/AppointmentWrapper";
+import DaysHeader from "./DaysHeader";
+import HoursCol from "./HoursCol";
 
 const Calendar = () => {
 
@@ -20,7 +21,6 @@ const Calendar = () => {
         setOpenAddAppointmentDialog,
         setOpenEditAppointmentDialog,
         setEditAppointmentData,
-        editAppointmentData,
         setEmptyRowsForServiceLength
     } = useContext(AppointmentContext);
  
@@ -56,7 +56,7 @@ const Calendar = () => {
         currentWeekAppointments && currentWeekAppointments.map(appointment => {
             const time = appointment.time;
             const appointmLength = appointment.serviceTime;
-            const rowIndex = hours.indexOf(time) + 1;
+            const rowIndex = hours.indexOf(time);
             const colIndex = new Date(appointment.date).getUTCDay();
             addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
         })
@@ -96,7 +96,7 @@ const Calendar = () => {
                 return {
                     ...prevData,
                     date: getDayDataFromDayIndex(dayIndex, currentWeek),
-                    time: hours[rowIndex - 1],
+                    time: hours[rowIndex],
                 }
             })
             setOpenAddAppointmentDialog(true);
@@ -104,8 +104,8 @@ const Calendar = () => {
         }
         else if (cell.classList.contains('full')) {
             currentWeekAppointments && currentWeekAppointments.map(appointment => {
-                const appointmentRowIndex = hours.indexOf(appointment.time) + 1;
-                const appointmentDayIndex = new Date(appointment.date).getUTCDay();
+                const appointmentRowIndex = hours.indexOf(appointment.time);
+                const appointmentDayIndex = new Date(appointment.date).getUTCDay() - 1; // Because getUTCDay returns 1 on monday
 
                 if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
                     setEditAppointmentData(appointment);
@@ -152,71 +152,30 @@ const Calendar = () => {
     }
 
     return (
-        <section id='calendar-section' className="m-auto overflow-x-scroll overflow-y-scroll">
+        <section id='calendar-section'>
             <h1 className='page-title'>Időpontok</h1>
-            <AppointmentWrapper>
             <WeekPicker />
-            <div className='table-block'>
-                <table className="table-fixed text-center w-full">
-                    <thead >
-                        <tr className='main-row h-16'>
-                            <th className='time-header w-16 md:w-20'></th>
-                            <th className='text-center text-base'>
-                                {getNamedDay(currentWeek.monday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.monday) + getNumberedDay(currentWeek.monday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base'>
-                                {getNamedDay(currentWeek.tuesday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.tuesday) + getNumberedDay(currentWeek.tuesday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base'>
-                                {getNamedDay(currentWeek.wednesday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.wednesday) + getNumberedDay(currentWeek.wednesday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base'>
-                                {getNamedDay(currentWeek.thurstday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.thurstday) + getNumberedDay(currentWeek.thurstday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base'>
-                                {getNamedDay(currentWeek.friday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.friday) + getNumberedDay(currentWeek.friday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base' hidden={hideSaturday}>
-                                {getNamedDay(currentWeek.saturday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.saturday) + getNumberedDay(currentWeek.saturday) + '.'}</span>
-                            </th>
-                            <th className='text-center text-base' hidden={hideSunday}>
-                                {getNamedDay(currentWeek.sunday)}
-                                <br/>
-                                <span className="text-xs font-normal">{getNumberedMonth(currentWeek.sunday) + getNumberedDay(currentWeek.sunday) + '.'}</span>
-                            </th>
-                        </tr>
-                    </thead>
+            <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[1100px]">
+                <DaysHeader currentWeek={currentWeek}/>
+                <div className="flex flex-row">
+                <HoursCol/>
+                <table className="table-fixed text-center w-full overflow-x-scroll">
                     <tbody>
                         {hours.map((hour, index) => (
-                                <tr key={index}>
-                                    <th className='font-normal text-xs w-16 md:w-20'>
-                                        <div className='relative bottom-4'>{hour}</div>
-                                    </th>
-                                    <td className='empty border-[1px]'></td>
-                                    <td className='empty border-[1px]'></td>
-                                    <td className='empty border-[1px]'></td>
-                                    <td className='empty border-[1px]'></td>
-                                    <td className='empty border-[1px]'></td>
-                                    <td className='empty border-[1px]' hidden={hideSaturday}></td>
-                                    <td className='empty border-[1px]' hidden={hideSunday}></td>
-                                </tr>
+                            <tr key={index} className="[&:nth-child(4n+1)]:text-sm">
+                                <td className='empty border-[1px]'></td>
+                                <td className='empty border-[1px]'></td>
+                                <td className='empty border-[1px]'></td>
+                                <td className='empty border-[1px]'></td>
+                                <td className='empty border-[1px]'></td>
+                                <td className='empty border-[1px]' hidden={hideSaturday}></td>
+                                <td className='empty border-[1px]' hidden={hideSunday}></td>
+                            </tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
-            </AppointmentWrapper>
+                </div>
+            </section>
         </section>
     )
 }

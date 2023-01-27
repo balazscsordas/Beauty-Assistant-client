@@ -5,7 +5,7 @@ import GiftcardContext from "../../context/GiftcardProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
-import { OneLineReqAutoFocusInput, OneLineReqInput, SelectInputFieldGiftcard } from "../smallComponents/InputFields";
+import { OneLineReqInput, SelectInputFieldGiftcard } from "../smallComponents/InputFields";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
 import { containsOnlyNumbers } from "./Utils";
 import DatePicker from "./DatePicker";
@@ -163,7 +163,7 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
                     <Box component="form" onSubmit={handleSubmit}>
                         <section className="flex flex-col lg:flex-row">
                             <div className="flex-1 mx-2">
-                                <OneLineReqAutoFocusInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
+                                <OneLineReqInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
                             </div>
                             <div className="flex-1 mx-2">
                                 <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />

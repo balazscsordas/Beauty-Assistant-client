@@ -1,5 +1,5 @@
 import { ServiceDataInterface } from "../../../interfaces/ServiceInterfaces";
-import { BasicSelectInputField, MultilineNonReqInput, OneLineReqAutoFocusInput } from "../../smallComponents/InputFields";
+import { BasicSelectInputField, MultilineNonReqInput, OneLineReqInput } from "../../smallComponents/InputFields";
 
 interface Props {
     inputData: ServiceDataInterface;
@@ -33,7 +33,7 @@ const FixFields = ({ inputData, handleChange, showPriceError, categoryList, newC
         <>
             <section className="flex flex-col lg:flex-row">
                 <div className="flex-1 mx-2">
-                    <OneLineReqAutoFocusInput 
+                    <OneLineReqInput 
                             onChange={handleChange} 
                             value={inputData.name} 
                             label="Név" 
@@ -42,7 +42,7 @@ const FixFields = ({ inputData, handleChange, showPriceError, categoryList, newC
                 </div>
                 <div className="flex-1 mx-2">
                     {inputData.category === 'Új kategória hozzáadása' || categoryList.length === 1
-                        ? <OneLineReqAutoFocusInput label="Kategória" nameVal="newCategory" value={newCategory} onChange={handleSelectChange}/>
+                        ? <OneLineReqInput label="Kategória" nameVal="newCategory" value={newCategory} onChange={handleSelectChange}/>
                         : <BasicSelectInputField 
                                 label="Kategória" 
                                 value={inputData.category}
@@ -53,7 +53,7 @@ const FixFields = ({ inputData, handleChange, showPriceError, categoryList, newC
                     }
                 </div>
                 <div className="flex-1 mx-2">
-                    <OneLineReqAutoFocusInput 
+                    <OneLineReqInput 
                         onChange={handleChange} 
                         value={inputData.price === 0 ? "" : inputData.price} 
                         label="Ár (Ft)" 

@@ -8,8 +8,8 @@ const FeatureItem = ({ title, description }: FeatureLi) => {
             <div className="m-4 bg-white p-4 w-full shadow-md rounded-md">
                 <div className="flex flex-col">
                     <div className="flex flex-row">
-                        <span className="text-green-600 mr-2"><CheckCircleIcon/></span>
-                        <h3 className="text-lg font-bold mb-3">{title}</h3>
+                        <span className="text-green-600 mr-2 mb-3"><CheckCircleIcon/></span>
+                        <h3 className="text-[1rem] sm:text-lg font-bold mb-3">{title}</h3>
                     </div>
                     <p>{description}</p>
                 </div>

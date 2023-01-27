@@ -23,7 +23,7 @@ const ListComponent = ({ name, url, icon, status }: Props) => {
 
     return (
         <section className="my-3">
-            <div className={`head-block flex items-center relative p-2 rounded-xl shadow-md ${status ? setStatus(status) : 'bg-red-200'}`}>
+            <div className={`head-block flex items-center relative p-1 sm:p-2 rounded-xl shadow-md ${status ? setStatus(status) : 'bg-red-200'}`}>
                 <Link href={url}>
                     <IconButton aria-label="account-icon-more-data">
                         {icon}

@@ -17,7 +17,7 @@ const NavbarLayout = ({ children }: Props) => {
         <div className={`app ${theme}`}>
                 <SideNavbar />
                 <NavbarTop />
-                <div className='content ml-0 px-3 sm:ml-20 sm:py-3 md:ml-56 md:py-5'>
+                <div className='content ml-0 mb-20 px-3 sm:ml-20 sm:py-3 sm:mb-0 lg:ml-56 lg:py-5'>
                     {children}
                     <NavbarMobile />
                 </div>

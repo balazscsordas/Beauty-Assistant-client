@@ -3,7 +3,7 @@ import { Collapse, Box } from '@mui/material';
 import axios from "axios";
 import Router from 'next/router';
 import { Alert } from "../smallComponents/Alerts";
-import { OneLineReqAutoFocusInputWithAdornment, OneLineReqInput } from "../smallComponents/InputFields";
+import { OneLineReqInputWithAdornment, OneLineReqInput } from "../smallComponents/InputFields";
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 import DatePicker from "./DatePicker";
 import GiftcardContext from "../../context/GiftcardProvider";
@@ -141,13 +141,13 @@ const AddGiftcard = () => {
                     <Box component="form" onSubmit={handleSubmit}>
                         <section className="flex flex-col lg:flex-row">
                             <div className="flex-1 mx-2">
-                                <OneLineReqAutoFocusInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
+                                <OneLineReqInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
                                 <Collapse in={showIdentifierError}>
                                     <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
                                 </Collapse>
                             </div>
                             <div className="flex-1 mx-2">
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
+                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg (Ft)" nameVal="amount" />
                                 <Collapse in={showAmountError}>
                                     <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
                                 </Collapse>
@@ -156,7 +156,7 @@ const AddGiftcard = () => {
                                 <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
                             </div>
                             <div className="flex-1 mx-2">
-                                <DatePicker label="Érvényesség Vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                                <DatePicker label="Érvényesség vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
                             </div>
                         </section>
                         <div className="text-center m-4">

@@ -34,7 +34,7 @@ const AccountAvatar = () => {
   }
   return (
       <>  
-          <a className='flex items-center mx-2 my-2 p-3 hover:bg-slate-100 hover:text-[#4154f1] rounded-xl cursor-pointer' onClick={handleOpenUserMenu}><PersonIcon /><span className='ml-3 hidden md:block'>{ firstName }</span></a>
+          <a className='flex items-center mx-2 my-2 p-3 hover:bg-slate-100 hover:text-[#4154f1] rounded-xl cursor-pointer' onClick={handleOpenUserMenu}><PersonIcon className='m-auto lg:m-0'/><span className='ml-3 hidden lg:block'>{ firstName }</span></a>
           <Menu
             sx={{ mt: '-10px'}}
             id="menu-appbar"
@@ -51,11 +51,6 @@ const AccountAvatar = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-              <Link href="/admin/user-data" passHref>
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <ListItemIcon><ManageAccountsIcon fontSize="small"/></ListItemIcon>Adatok
-                </MenuItem>
-              </Link>
               <Link href="/admin/settings" passHref>
                 <MenuItem onClick={handleCloseUserMenu}>
                     <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások

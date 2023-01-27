@@ -7,9 +7,9 @@ const Settings = () => {
     return (
         <section>
             <h1 className="page-title">Beállítások</h1>
-            <AppearanceSettings />
+            {/* <AppearanceSettings /> */}
             <AppointmentSettings />
-            <OpeningHoursSettings />
+            {/* <OpeningHoursSettings /> */}
         </section>
     )
 }

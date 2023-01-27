@@ -10,8 +10,7 @@ const NonAdminLayout = ({ children }: Props) => {
 
     return (
         <>
-            <NonAdminHeader/>
-                {children}
+            {children}
             <NonAdminFooter/>
         </>
     )

@@ -7,7 +7,7 @@ interface Props {
 
 export const Searchbar = ({ onChange, value }: Props) => {
     return (
-        <div className="my-8">
+        <div className="mt-4 mb-6 sm:mt-6 sm:mb-8">
             <OneLineNonReqInput 
                 label="Keresés"
                 type="search"

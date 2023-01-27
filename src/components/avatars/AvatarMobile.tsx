@@ -9,6 +9,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import axios from 'axios';
 import Router from 'next/router';
 import AuthContext from '../../context/AuthProvider';
+import Link from 'next/link';
 
 const AvatarMobile = () => {
 
@@ -34,7 +35,7 @@ const AvatarMobile = () => {
   }
   return (
       <>  
-          <a onClick={handleOpenUserMenu}><PersonIcon /></a>
+          <a onClick={handleOpenUserMenu} className="mr-2"><PersonIcon /></a>
           <Menu
             sx={{ mt: '30px'}}
             id="menu-appbar"
@@ -51,12 +52,11 @@ const AvatarMobile = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-              <MenuItem onClick={handleCloseUserMenu}>
-                  <ListItemIcon><ManageAccountsIcon fontSize="small"/></ListItemIcon>Adatok
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                  <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
-              </MenuItem>
+              <Link href="/admin/settings" passHref>
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
+                </MenuItem>
+              </Link>
               <MenuItem onClick={handleLogout}>
                   <ListItemIcon><Logout fontSize="small"/></ListItemIcon>Kijelentkezés
               </MenuItem>

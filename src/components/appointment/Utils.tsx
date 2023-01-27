@@ -20,13 +20,13 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
     cell.classList.add('full');
     cell.classList.remove('empty');
     if (appointment.status === 'success') {
-        cell.innerHTML += `<div class='success rounded-md text-[0.65rem] md:text-sm bg-green-300 font-medium'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='success rounded-md text-[0.65rem] lg:text-sm bg-green-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     } 
     else if (appointment.status === 'failure') {
-        cell.innerHTML += `<div class='failure rounded-md text-[0.65rem] md:text-sm bg-red-300 font-medium'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='failure rounded-md text-[0.65rem] lg:text-sm bg-red-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     } 
     else {
-        cell.innerHTML += `<div class='pending rounded-md text-[0.65rem] md:text-sm bg-yellow-300 font-medium'>${appointment.clientName}</div>`;
+        cell.innerHTML += `<div class='pending rounded-md text-[0.65rem] lg:text-sm bg-yellow-300 font-medium my-1 mx-1 lg:mx-2'>${appointment.clientName}</div>`;
     }
 }
 
@@ -221,19 +221,19 @@ export const getCurrentWeekDates = (todayGetDate: number): WeekdaysInterface => 
 
 export const getDayDataFromDayIndex = (dayIndex: number, currentWeek: WeekdaysInterface) => {
     switch (dayIndex) {
-        case 1:
+        case 0:
             return currentWeek.monday;
-        case 2:
+        case 1:
             return currentWeek.tuesday;
-        case 3:
+        case 2:
             return currentWeek.wednesday;
-        case 4:
+        case 3:
             return currentWeek.thurstday;
-        case 5:
+        case 4:
             return currentWeek.friday;
-        case 6:
+        case 5:
             return currentWeek.saturday;
-        case 7:
+        case 6:
             return currentWeek.sunday;
 
         default:

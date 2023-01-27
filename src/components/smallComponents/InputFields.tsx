@@ -16,30 +16,7 @@ interface Props {
     errorText?: string,
 }
 
-export const OneLineReqAutoFocusInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, showError, errorText }: Props) => {
-    return (
-        <section className="flex flex-col">
-            <TextField
-                margin="normal"
-                required
-                onChange={onChange}
-                fullWidth
-                inputRef={inputRef}
-                value={value}
-                label={label}
-                name={nameVal}
-                autoFocus
-                autoComplete={autoComplete}
-                type={type}
-            />
-            <Collapse in={showError}>
-                <p className="input-error-text">{errorText}</p>
-            </Collapse>
-        </section>
-    )
-}
-
-export const OneLineReqAutoFocusInputWithAdornment = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, onClick }: Props) => {
+export const OneLineReqInputWithAdornment = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, onClick }: Props) => {
     return (
         <TextField
             margin="normal"
@@ -50,7 +27,6 @@ export const OneLineReqAutoFocusInputWithAdornment = ({ inputRef, value, onChang
             value={value}
             label={label}
             name={nameVal}
-            autoFocus
             autoComplete={autoComplete}
             type={type}
             InputProps={{

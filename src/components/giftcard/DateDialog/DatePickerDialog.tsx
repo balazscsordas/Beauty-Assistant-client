@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import DateBlock from "./DateBlock";
+import { BasicPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
 
 interface Props {
     label: string,
@@ -30,9 +31,9 @@ const DatePickerDialog = ({ label, showDateDialog, setShowDateDialog, setGiftcar
                 <DialogContent>
                     <DateBlock giftcardDate={giftcardDate} setGiftcardDate={setGiftcardDate} setShowDateDialog={setShowDateDialog}/>
                 </DialogContent>
-                <DialogActions className="flex flex-row justify-start py-4 px-6">
-                    <button onClick={closeDateDialog}>Mégse</button>
-                    <button className="ml-auto" onClick={setTodayAsDate}>Mai nap</button>
+                <DialogActions className="flex flex-row py-4 px-6 justify-between">
+                    <BasicSecondaryButton onClick={closeDateDialog} text="Mégse"/>
+                    <BasicPrimaryButton onClick={setTodayAsDate} text="Mai nap"/>
                 </DialogActions>
             </Dialog>
         </section>

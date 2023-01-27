@@ -1,6 +1,6 @@
 import { Collapse } from "@mui/material";
 import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
-import { OneLineNonReqInput, OneLineReqAutoFocusInput, OneLineReqInput } from "../../smallComponents/InputFields";
+import { OneLineNonReqInput, OneLineReqInput } from "../../smallComponents/InputFields";
 
 interface Props {
     inputData: ClientDataInterface;
@@ -16,7 +16,7 @@ const FixFields = ({ inputData, handleChange, showNameError, showMobileNumberErr
         <>
             <section className="flex flex-col lg:flex-row">
                 <div className="flex-1 mx-2">
-                    <OneLineReqAutoFocusInput value={inputData.name} onChange={handleChange} label="Név" nameVal="name"/>
+                    <OneLineReqInput value={inputData.name} onChange={handleChange} label="Név" nameVal="name"/>
                     <Collapse in={showNameError}>
                         <p className="input-error-text">Nem tartalmazhat számot!</p>
                     </Collapse>

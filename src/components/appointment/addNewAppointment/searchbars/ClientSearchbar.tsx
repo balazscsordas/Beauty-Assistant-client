@@ -4,7 +4,7 @@ import ClientContext from "../../../../context/ClientProvider";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ClientListInterface } from "../../../../interfaces/ClientInterfaces";
 import AppointmentContext from "../../../../context/AppointmentProvider";
-import { OneLineReqAutoFocusInput } from "../../../smallComponents/InputFields";
+import { OneLineReqInput } from "../../../smallComponents/InputFields";
 
 const ClientSearchbar = () => {
 
@@ -43,7 +43,7 @@ const ClientSearchbar = () => {
 
     return (
         <div className="appointment-searchbar-section">
-            <OneLineReqAutoFocusInput 
+            <OneLineReqInput 
                 onChange={changeSearchBarData} 
                 type="search" 
                 value={clientSearchbarValue} 

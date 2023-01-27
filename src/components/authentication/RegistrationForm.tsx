@@ -7,7 +7,7 @@ import Collapse from '@mui/material/Collapse';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
-import { OneLineReqAutoFocusInput, OneLineReqInput } from '../smallComponents/InputFields';
+import { OneLineReqInput } from '../smallComponents/InputFields';
 import { BasicPrimaryButton } from '../smallComponents/Buttons';
 import { RegistrationDataInterface } from '../../interfaces/AuthInterfaces';
 import { Alert } from '../smallComponents/Alerts';
@@ -114,7 +114,7 @@ const RegistrationForm = () => {
         />
       <AuthenticationWrapper title='Regisztráció'>
             <Box component="form" onSubmit={handleSubmit}>
-              <OneLineReqAutoFocusInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
+              <OneLineReqInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
               <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete='email'/>
               
               <Collapse in={showEmailErrorMessage}>
