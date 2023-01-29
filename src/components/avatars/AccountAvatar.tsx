@@ -38,6 +38,7 @@ const AccountAvatar = () => {
     try {
       const url = "/api/deleteCookie";
       const response = await axios.delete(url, { withCredentials: true });
+      Router.push('/');
     } 
     catch (e) {
       console.log(e);

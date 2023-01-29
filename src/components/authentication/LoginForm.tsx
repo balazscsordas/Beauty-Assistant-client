@@ -30,25 +30,34 @@ const LoginForm = () => {
     try {
       setLoading(true);
       const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/login";
-      const params = { data };
+      const params = { email: data.email, password: data.password };
       const response = await axios.post(url, params, { withCredentials: true });
+      setCookie(response.data.refreshToken);
       setLoading(false);
-      if(response.status === 200) {
-        setShowSuccessAlert(true);
-        setAuth(response.data.authData);
-        setFirstName(response.data.authData.firstName);
-        localStorage.setItem('firstName', response.data.authData.firstName);
-        setInputData({
-          email: "",
-          password: "",
-        })
-        Router.push('/admin');
-      }
+      setShowSuccessAlert(true);
+      setAuth(response.data.authData);
+      setFirstName(response.data.authData.firstName);
+      localStorage.setItem('firstName', response.data.authData.firstName);
+      setInputData({
+        email: "",
+        password: "",
+      })
     }
     catch(err) {
       setShowErrorAlert(true);
       err instanceof Error && console.log(err.message);
       setLoading(false);
+    }
+  }
+
+  const setCookie = async (refreshToken: string) => {
+    try {
+      const url = "/api/setCookie";
+      const params = { refreshToken };
+      const response = await axios.post(url, params, { withCredentials: true, headers: {'Content-Type': 'application/json'} });
+      Router.push('/admin');
+    } catch(err) {
+        err instanceof Error && console.log(err);
     }
   }
 
