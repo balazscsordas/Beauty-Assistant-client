@@ -73,8 +73,8 @@ const EditAppointmentDialog = () => {
 
     const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setOpenEditAppointmentDialog(false);
         sendEditedAppointmentDataToServer(editAppointmentData);
+        setOpenEditAppointmentDialog(false);
     }
 
     const handleCloseAlert = () => {

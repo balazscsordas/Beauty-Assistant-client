@@ -147,21 +147,21 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
             <DetailsWrapper>
                 <Box className="form" component="form" onSubmit={handleSubmit}>
                         <FixFields
-                                inputData={serviceData}
-                                setInputData={setServiceData}
-                                categoryList={categoryList}
-                                newCategory={newCategory}
-                                setNewCategory={setNewCategory}
-                                handleChange={handleInputChange}
-                                showPriceError={showPriceError}
-                            />
+                            inputData={serviceData}
+                            setInputData={setServiceData}
+                            categoryList={categoryList}
+                            newCategory={newCategory}
+                            setNewCategory={setNewCategory}
+                            handleChange={handleInputChange}
+                            showPriceError={showPriceError}
+                        />
                         <div>
-                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                        </div>
-                        <div className="options-fields">
                             <Collapse in={showSteps}>
                                 <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
                             </Collapse>
+                        </div>
+                        <div className="text-center my-4">
+                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
                         </div>
                     <DeleteDialog 
                         deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}

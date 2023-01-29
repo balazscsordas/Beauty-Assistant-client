@@ -31,7 +31,7 @@ const AddAppointmentDialog = () => {
             if (response?.status === 200) {
                 setShowSuccessAlert(true);
                 const savedAppointment = response.data.savedAppointment;
-                setCurrentWeekAppointments(prevValues => prevValues && [...prevValues, savedAppointment])  // ezzel lehet hiba lesz
+                setCurrentWeekAppointments(prevValues => prevValues && [...prevValues, savedAppointment])
             }
         } catch(err) {
             setShowErrorAlert(true);
@@ -41,15 +41,19 @@ const AddAppointmentDialog = () => {
 
     const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setOpenAddAppointmentDialog(false);
-        sendNewAppointmentDataToServer(newAppointmentData);
-        resetNewAppointmentData();
+        if (newAppointmentData.clientId !== "" && newAppointmentData.serviceId !== "") {
+            setOpenAddAppointmentDialog(false);
+            sendNewAppointmentDataToServer(newAppointmentData);
+            resetNewAppointmentData();
+        }
     }
 
     const resetNewAppointmentData = () => {
         setNewAppointmentData(prevValues => {
             return {
                 ...prevValues,
+                clientId: "",
+                serviceId: "",
                 discount: "",
                 commentForAdmin: "",
                 commentForClient: "",

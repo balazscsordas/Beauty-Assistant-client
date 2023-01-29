@@ -123,15 +123,15 @@ const AddNewService = ({ categoryList }: Props) => {
                             handleChange={handleChange}
                             showPriceError={showPriceError}
                         />
-                        
-                        <div className="text-center my-4">
-                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                        </div>
                         <div className="text-center">
                             <Collapse in={showSteps}>
                                 <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label="Lépések" nameVal="steps"/>
                             </Collapse>
                         </div>
+                        <div className="text-center my-4">
+                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
+                        </div>
+                        
                         <div className="text-center my-4">
                             <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
                         </div>

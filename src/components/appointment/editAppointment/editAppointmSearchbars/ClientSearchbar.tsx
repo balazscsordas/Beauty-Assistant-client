@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ClientListInterface } from "../../../../interfaces/ClientInterfaces";
 import AppointmentContext from "../../../../context/AppointmentProvider";
 import { OneLineReqInput } from "../../../smallComponents/InputFields";
+import SearchbarResultItem from "../../SearchbarResultItem";
 
 const ClientSearchbar = () => {
 
@@ -54,14 +55,11 @@ const ClientSearchbar = () => {
                 {filteredClientList.length === 0
                     ? clientSearchbarValue !== "" && <p className='no-content-message'>Nincs a keresésnek megfelelő találat!</p>
                     : clientSearchbarValue !== "" && filteredClientList.map((client: ClientListInterface, index: number) => (
-                        <section id="card-section" key={index}>
-                            <div className="head-block">
-                                <h5 className="name-title">{client.name}</h5>
-                                <IconButton onClick={() => setClient(client._id, client.name)} className="hamburger-icon" aria-label="add">
-                                    <AddCircleOutlineIcon />
-                                </IconButton>
-                            </div>
-                        </section>
+                        <SearchbarResultItem 
+                            key={index}
+                            onClick={() => setClient(client._id, client.name)}
+                            name={client.name}
+                        />
                 ))}
             </Collapse>
         </div>

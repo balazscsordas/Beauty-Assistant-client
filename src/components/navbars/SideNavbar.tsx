@@ -15,8 +15,8 @@ const sideNavbar = () => {
             </div>
             <NavbarItem href="/admin/clients" label="Vendégek" icon={<PeopleIcon className='m-auto lg:m-0'/>} />
             <NavbarItem href="/admin/appointments" label="Időpontok" icon={<CalendarMonthIcon className='m-auto lg:m-0'/>} />
-            <NavbarItem href="/admin/services" label="Szolgáltatások" icon={<RedeemIcon className='m-auto lg:m-0'/>} />
-            <NavbarItem href="/admin/giftcards" label="Ajándékutalványok" icon={<BusinessCenterIcon className='m-auto lg:m-0'/>} />
+            <NavbarItem href="/admin/services" label="Szolgáltatások" icon={<BusinessCenterIcon className='m-auto lg:m-0'/>} />
+            <NavbarItem href="/admin/giftcards" label="Ajándékutalványok" icon={<RedeemIcon className='m-auto lg:m-0'/>} />
             <div className='mt-auto mb-2'>
                 <AvatarSection />
             </div>
@@ -24,4 +24,4 @@ const sideNavbar = () => {
     )
 }
 
-export default sideNavbar;
+export default sideNavbar

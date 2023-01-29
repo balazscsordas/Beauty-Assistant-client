@@ -35,16 +35,6 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
 
     return (
         <>
-            <div className="text-center m-4">
-                {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
-                {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setshowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
-                {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
-                {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
-                {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
-            </div>
-            <div className="text-center my-4">
-                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text="mezők átnevezése"/>
-            </div>
             <div>
                 <Collapse in={showOption1Content}>
                     <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal="option1Content" label={clientOptionNames.option1Name}/>
@@ -62,6 +52,17 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
                     <MultilineNonReqInput value={inputData.option5Content} onChange={handleChange} nameVal="option5Content" label={clientOptionNames.option5Name}/>
                 </Collapse>
             </div>
+            <div className="text-center m-4">
+                {clientOptionNames.option1Name && <AddIconOptionButton addIcon={showOption1Content} onClick={() => setShowOption1Content(!showOption1Content)} text={clientOptionNames.option1Name}/> }
+                {clientOptionNames.option2Name && <AddIconOptionButton addIcon={showOption2Content} onClick={() => setshowOption2Content(!showOption2Content)} text={clientOptionNames.option2Name}/> }
+                {clientOptionNames.option3Name && <AddIconOptionButton addIcon={showOption3Content} onClick={() => setShowOption3Content(!showOption3Content)} text={clientOptionNames.option3Name}/> }
+                {clientOptionNames.option4Name && <AddIconOptionButton addIcon={showOption4Content} onClick={() => setShowOption4Content(!showOption4Content)} text={clientOptionNames.option4Name}/> }
+                {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
+            </div>
+            <div className="text-center my-4">
+                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text="mezők átnevezése"/>
+            </div>
+            
         </>
     )
 }

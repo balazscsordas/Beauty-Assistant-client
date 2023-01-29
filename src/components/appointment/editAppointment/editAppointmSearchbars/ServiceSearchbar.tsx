@@ -5,6 +5,7 @@ import { ServiceListInterface } from "../../../../interfaces/ServiceInterfaces";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AppointmentContext from "../../../../context/AppointmentProvider";
 import { OneLineReqInput } from "../../../smallComponents/InputFields";
+import SearchbarResultItem from "../../SearchbarResultItem";
 
 const ServiceSearchbar = () => {
 
@@ -65,14 +66,11 @@ const ServiceSearchbar = () => {
                 {filteredServiceList.length === 0
                     ? serviceSearchbarValue !== "" && <p className='no-content-message'>Nincs a keresésnek megfelelő találat!</p>
                     : serviceSearchbarValue !== "" && filteredServiceList.map((service: ServiceListInterface, index: number) => (
-                        <section id="card-section" key={index}>
-                            <div className="head-block">
-                                <h5 className="name-title">{service.name}</h5>
-                                <IconButton onClick={() => setService(service._id, service.name)} className="hamburger-icon" aria-label="add">
-                                    <AddCircleOutlineIcon />
-                                </IconButton>
-                            </div>
-                        </section>
+                        <SearchbarResultItem 
+                            key={index}
+                            onClick={() => setService(service._id, service.name)}
+                            name={service.name}
+                        />
                 ))}
             </Collapse>
         </div>
