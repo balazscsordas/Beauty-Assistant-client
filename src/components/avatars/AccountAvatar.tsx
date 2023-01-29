@@ -21,17 +21,30 @@ const AccountAvatar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   const handleLogout = async () => {
     try {
       const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/logout";
       const response = await axios.delete(url, { withCredentials: true });
       setAnchorElUser(null);
+      deleteCookie();
+    } 
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  const deleteCookie = async () => {
+    try {
+      const url = "/api/deleteCookie";
+      const response = await axios.delete(url, { withCredentials: true });
       Router.push('/');
     } 
     catch (e) {
       console.log(e);
     }
   }
+
   return (
       <>  
           <a className='flex items-center mx-2 my-2 p-3 hover:bg-slate-100 hover:text-[#4154f1] rounded-xl cursor-pointer' onClick={handleOpenUserMenu}><PersonIcon className='m-auto lg:m-0'/><span className='ml-3 hidden lg:block'>{ firstName }</span></a>

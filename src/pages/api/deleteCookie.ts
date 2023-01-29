@@ -2,13 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import cookie from "cookie";
 
-const setCookie = (req: NextApiRequest, res: NextApiResponse) => {
+const deleteCookie = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize("jwt", req.body.refreshToken, {
+    cookie.serialize("jwt", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
-      maxAge: 24 * 60 * 60 * 1000,
+      expires: new Date('August 19, 1975 23:15:30 GMT-11:00'),
       sameSite: "strict",
       path: "/",
     })
@@ -17,4 +17,4 @@ const setCookie = (req: NextApiRequest, res: NextApiResponse) => {
   res.json({ success: true });
 };
 
-export default setCookie;
+export default deleteCookie;
