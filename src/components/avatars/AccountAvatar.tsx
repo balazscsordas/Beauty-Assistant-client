@@ -38,7 +38,6 @@ const AccountAvatar = () => {
     try {
       const url = "/api/deleteCookie";
       const response = await axios.delete(url, { withCredentials: true });
-      Router.push('/');
     } 
     catch (e) {
       console.log(e);
@@ -69,7 +68,7 @@ const AccountAvatar = () => {
                     <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
                 </MenuItem>
               </Link>
-              <MenuItem onClick={handleLogout}>
+              <MenuItem onClick={deleteCookie}>
                   <ListItemIcon><Logout fontSize="small"/></ListItemIcon>Kijelentkezés
               </MenuItem>
           </Menu>
