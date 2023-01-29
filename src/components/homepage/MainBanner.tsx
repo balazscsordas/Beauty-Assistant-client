@@ -37,15 +37,12 @@ const MainBanner = () => {
                 <h1 className="mb-4 text-3xl sm:text-4xl font-bold">Beauty Assistant</h1>
                 <p>Gyorsan, egyszerűen, hatékonyan.</p>
                 <div className="flex justify-center max-w-lg m-auto mt-4">
-                    <div className="m-2">
-                        <BasicPrimaryButton text="Bemutató fiók" onClick={handleTestLogin}/>
-                    </div>
-                    {/* <Link className="m-2" passHref href="/registration">
+                    <Link className="m-2" passHref href="/registration">
                         <BasicPrimaryButton text="Regisztráció"/>
                     </Link>
                     <Link className="m-2" passHref href="/login">
                         <BasicPrimaryButton text="Bejelentkezés"/>
-                    </Link> */}
+                    </Link>
                 </div>
             </div>
         </section>
