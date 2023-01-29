@@ -27,8 +27,8 @@ const AvatarMobile = () => {
     try {
       const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/logout";
       const response = await axios.delete(url, { withCredentials: true });
-      setAnchorElUser(null);
       deleteCookie();
+      setAnchorElUser(null);
     } 
     catch (e) {
       console.log(e);

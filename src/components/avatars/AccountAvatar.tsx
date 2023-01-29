@@ -26,8 +26,8 @@ const AccountAvatar = () => {
     try {
       const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/logout";
       const response = await axios.delete(url, { withCredentials: true });
-      setAnchorElUser(null);
       deleteCookie();
+      setAnchorElUser(null);
     } 
     catch (e) {
       console.log(e);
@@ -68,7 +68,7 @@ const AccountAvatar = () => {
                     <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
                 </MenuItem>
               </Link>
-              <MenuItem onClick={deleteCookie}>
+              <MenuItem onClick={handleLogout}>
                   <ListItemIcon><Logout fontSize="small"/></ListItemIcon>Kijelentkezés
               </MenuItem>
           </Menu>
