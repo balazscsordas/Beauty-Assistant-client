@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { prevWeek, getNamedMonth, nextWeek } from "./Utils";
@@ -10,31 +10,46 @@ import { WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
 const WeekPicker = () => {
 
     const {currentWeek, setCurrentWeek, setCurrentWeekAppointments} = useContext(AppointmentContext);
+    const controller = new AbortController();
+    const { signal } = controller;
 
     const goToPrevWeek = () => {
         const prevWeekValue = prevWeek(currentWeek);
         setCurrentWeek(prevWeekValue);
-        fetchWeekData(prevWeekValue);
     }
 
     const goToNextWeek = () => {
         const nextWeekValue = nextWeek(currentWeek);
         setCurrentWeek(nextWeekValue);
-        fetchWeekData(nextWeekValue);
     }
 
-    const fetchWeekData = async (week: WeekdaysInterface) => {
-        const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
-        const options = {
-            params: { week },
-            withCredentials: true
+    useEffect(() => {
+        fetchWeekData(currentWeek);
+        return () => {
+            controller.abort();
         }
-        const response = await axios.get(url, options);
-        setCurrentWeekAppointments(response.data.currentWeekAppointments);
+    }, [currentWeek.monday])
+
+    const fetchWeekData = async (week: WeekdaysInterface) => {
+        
+        try {
+            const controller = new AbortController();
+            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
+            const options = {
+                params: { week },
+                signal,
+                withCredentials: true
+            }
+            const response = await axios.get(url, options);
+            setCurrentWeekAppointments(response.data.currentWeekAppointments);
+        } catch(err) {
+            err instanceof Error && console.log(err.message);
+        }
+        
     }
 
     return (
-        <div id='week-picker' className="max-w-sm mb-4 mx-auto text-center font-semibold">
+        <div className="max-w-md mb-6 mx-auto text-center font-semibold">
             <div className='year-block'>
                 {currentWeek.monday.getFullYear() === currentWeek.sunday.getFullYear()
                     ? <h4>{currentWeek.monday.getFullYear()}</h4> 

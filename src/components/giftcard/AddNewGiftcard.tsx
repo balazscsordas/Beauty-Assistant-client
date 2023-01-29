@@ -141,16 +141,10 @@ const AddGiftcard = () => {
                     <Box component="form" onSubmit={handleSubmit}>
                         <section className="flex flex-col lg:flex-row">
                             <div className="flex-1 mx-2">
-                                <OneLineReqInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier}/>
-                                <Collapse in={showIdentifierError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
+                                <OneLineReqInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier} showError={showIdentifierError} errorText="Kizárólag számot tartalmazhat!"/>
                             </div>
                             <div className="flex-1 mx-2">
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg (Ft)" nameVal="amount" />
-                                <Collapse in={showAmountError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
+                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg (Ft)" nameVal="amount" showError={showAmountError} errorText="Kizárólag számot tartalmazhat!"/>
                             </div>
                             <div className="flex-1 mx-2">
                                 <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>

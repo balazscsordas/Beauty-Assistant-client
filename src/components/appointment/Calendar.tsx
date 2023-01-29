@@ -159,7 +159,7 @@ const Calendar = () => {
                 <DaysHeader currentWeek={currentWeek}/>
                 <div className="flex flex-row">
                 <HoursCol/>
-                <table className="text-center w-full">
+                <table className="text-center min-w-[600px] w-full">
                     <tbody >
                         {hours.map((hour, index) => (
                             <tr key={index} className="[&:nth-child(4n+1)]:text-sm">

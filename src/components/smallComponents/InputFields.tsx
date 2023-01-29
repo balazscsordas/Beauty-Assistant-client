@@ -16,81 +16,101 @@ interface Props {
     errorText?: string,
 }
 
-export const OneLineReqInputWithAdornment = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, onClick }: Props) => {
+export const OneLineReqInputWithAdornment = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, onClick, showError, errorText }: Props) => {
     return (
-        <TextField
-            margin="normal"
-            required
-            onChange={onChange}
-            fullWidth
-            inputRef={inputRef}
-            value={value}
-            label={label}
-            name={nameVal}
-            autoComplete={autoComplete}
-            type={type}
-            InputProps={{
-                endAdornment: 
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={onClick}
-                            edge="end"
-                            >
-                            <AddCircleIcon />
-                        </IconButton>
-                    </InputAdornment>
-              }}
-        />
+        <>
+            <TextField
+                margin="normal"
+                required
+                onChange={onChange}
+                fullWidth
+                inputRef={inputRef}
+                value={value}
+                label={label}
+                name={nameVal}
+                autoComplete={autoComplete}
+                type={type}
+                InputProps={{
+                    endAdornment: 
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={onClick}
+                                edge="end"
+                                >
+                                <AddCircleIcon />
+                            </IconButton>
+                        </InputAdornment>
+                }}
+            />
+            <Collapse in={showError}>
+                <p className="input-error-text">{errorText}</p>
+            </Collapse>
+            </>
     )
 }
 
-export const OneLineReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete }: Props) => {
+export const OneLineReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, showError, errorText }: Props) => {
     return (
-        <TextField
-            margin="normal"
-            required
-            onChange={onChange}
-            fullWidth
-            inputRef={inputRef}
-            value={value}
-            label={label}
-            name={nameVal}
-            autoComplete={autoComplete}
-            type={type}
-        />
+        <>
+            <TextField
+                margin="normal"
+                required
+                onChange={onChange}
+                fullWidth
+                inputRef={inputRef}
+                value={value}
+                label={label}
+                name={nameVal}
+                autoComplete={autoComplete}
+                type={type}
+            />
+            <Collapse in={showError}>
+                <p className="input-error-text">{errorText}</p>
+            </Collapse>
+        </>
     )
 }
 
-export const OneLineNonReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete }: Props) => {
+export const OneLineNonReqInput = ({ inputRef, value, onChange, nameVal, label, type, autoComplete, showError, errorText }: Props) => {
     return (
-        <TextField
-            margin="normal"
-            onChange={onChange}
-            fullWidth
-            inputRef={inputRef}
-            value={value}
-            label={label}
-            name={nameVal}
-            autoComplete={autoComplete}
-            type={type}
-        />
+        <>
+            <TextField
+                margin="normal"
+                onChange={onChange}
+                fullWidth
+                inputRef={inputRef}
+                value={value}
+                label={label}
+                name={nameVal}
+                autoComplete={autoComplete}
+                type={type}
+            />
+            <Collapse in={showError}>
+                <p className="input-error-text">{errorText}</p>
+            </Collapse>
+        </>
     )
 }
 
-export const MultilineNonReqInput = ({ inputRef, value, onChange, nameVal, label }: Props) => {
+export const MultilineNonReqInput = ({ inputRef, value, onChange, nameVal, label, showError, errorText }: Props) => {
     return (
-        <TextField
-            margin="normal"
-            onChange={onChange}
-            fullWidth
-            minRows={3}
-            multiline
-            inputRef={inputRef}
-            value={value}
-            label={label}
-            name={nameVal}
-        />
+        <>
+            <TextField
+                margin="normal"
+                onChange={onChange}
+                fullWidth
+                minRows={3}
+                multiline
+                inputRef={inputRef}
+                value={value}
+                label={label}
+                name={nameVal}
+            />
+            <Collapse in={showError}>
+                <p className="input-error-text">{errorText}</p>
+            </Collapse>
+        </>
     )
 }
 

@@ -12,9 +12,7 @@ const DaysHeader = ({ currentWeek }: Props) => {
     const { hideSaturday, hideSunday } = useContext(AppointmentContext);
 
     return (
-        <section className="w-full sticky top-0 flex flex-row h-16 z-10">
-            <div className="time-header w-16 md:w-20">
-            </div>
+        <section className="min-w-[600px] w-full ml-16 md:ml-20 sticky top-0 flex flex-row h-16 z-10">
             <DaysHeaderItem date={currentWeek.monday}/>
             <DaysHeaderItem date={currentWeek.tuesday}/>
             <DaysHeaderItem date={currentWeek.wednesday}/>

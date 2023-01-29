@@ -34,7 +34,7 @@ const AddClients = () => {
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!showNameError && !showMobileNumberError) {
+        if (!showNameError && !showMobileNumberError && !showAgeError) {
             addNewClientToDatabase(inputData);
             setInputData({
                 name: "",

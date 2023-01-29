@@ -44,7 +44,6 @@ const AppointmentPage = ({ currentWeek, firstFetchAppointments }: InferGetServer
             saturday: new Date(currentWeek.saturday),
             sunday: new Date(currentWeek.sunday),
         });
-        console.log(new Date(currentWeek.monday))
         setCurrentWeekAppointments(firstFetchAppointments);
     }, [])
  

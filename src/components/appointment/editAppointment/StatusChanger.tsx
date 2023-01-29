@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../../context/AppointmentProvider";
+import { CheckboxButton } from "../../smallComponents/Buttons";
 
 const StatusChanger = () => {
 
@@ -9,8 +10,17 @@ const StatusChanger = () => {
     const [pendingChecked, setPendingChecked] = useState(editAppointmentData.status === 'pending' ? true : false)
     const [successChecked, setSuccessChecked] = useState(editAppointmentData.status === 'success' ? true : false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name } = e.target;
+    const changeEditAppointmentStatus = (status: string) => {
+        setEditAppointmentData(prevValues => {
+            return {
+                ...prevValues,
+                status: status
+            }
+        })
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {   
+        const { name } = e.currentTarget;
         if (name === 'failure') {
             setSuccessChecked(false);
             setPendingChecked(false);
@@ -31,27 +41,27 @@ const StatusChanger = () => {
         } 
     }
 
-    const changeEditAppointmentStatus = (status: string) => {
-        setEditAppointmentData(prevValues => {
-            return {
-                ...prevValues,
-                status: status
-            }
-        })
-    }
-
     return (
-        <section id="appointment-status-changer">
-            <p>Státusz</p>
-            <div>
-                <input type='checkbox' name="failure" onChange={handleChange} checked={editAppointmentData.status === 'failure' ? true : false}></input>
-                <label>Nem jött el</label>
-
-                <input type='checkbox' name="pending" onChange={handleChange} checked={editAppointmentData.status === 'pending' ? true : false}></input>
-                <label>Függőben</label>
-                    
-                <input type='checkbox' name="success" onChange={handleChange} checked={editAppointmentData.status === 'success' ? true : false}></input>
-                <label>Eljött</label>
+        <section className="mb-4">
+            <div className="flex flex-wrap justify-evenly">
+                <CheckboxButton 
+                    nameVal="failure" 
+                    text="Nem jött el" 
+                    onClick={handleClick} 
+                    checked={editAppointmentData.status === 'failure' ? true : false} 
+                />
+                <CheckboxButton 
+                    nameVal="pending" 
+                    text="Függőben" 
+                    onClick={handleClick} 
+                    checked={editAppointmentData.status === 'pending' ? true : false} 
+                />
+                <CheckboxButton 
+                    nameVal="success" 
+                    text="Eljött" 
+                    onClick={handleClick} 
+                    checked={editAppointmentData.status === 'success' ? true : false} 
+                />
             </div>            
         </section>
     )

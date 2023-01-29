@@ -166,10 +166,7 @@ const GiftcardDetails = ({ _id, status, identifier, amount, startDate, endDate  
                                 <OneLineReqInput value={inputData.identifier} label="Azonosító" nameVal="identifier"/>
                             </div>
                             <div className="flex-1 mx-2">
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" />
-                                <Collapse in={showAmountError}>
-                                    <p className="input-error-text">Kizárólag számot tartalmazhat!</p>
-                                </Collapse>
+                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg" nameVal="amount" showError={showAmountError} errorText="Kizárólag számot tartalmazhat!"/>
                             </div>
                             <div className="flex-1 mx-2">
                                 <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>

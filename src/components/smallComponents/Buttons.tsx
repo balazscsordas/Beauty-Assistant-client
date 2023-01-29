@@ -1,5 +1,7 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 interface Props {
     text: string,
@@ -57,6 +59,23 @@ export const AddIconOptionButton = ({ text, type="button", onClick, addIcon, dis
             onClick={onClick}
             disabled={disabled}
             >{!addIcon ? <AddCircleOutlineIcon/> : <RemoveCircleOutlineIcon/>}{text}
+        </button>
+    )
+}
+
+interface CheckboxButton extends Props {
+    checked: boolean,
+    nameVal: string,
+}
+
+export const CheckboxButton = ({ text, type="button", onClick, checked, nameVal }: CheckboxButton) => {
+    return (
+        <button
+            name={nameVal}
+            type={type}
+            onClick={onClick}
+            className='base'
+            >{checked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>}{text}
         </button>
     )
 }
