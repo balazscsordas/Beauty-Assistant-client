@@ -1,7 +1,7 @@
 import WeekPicker from "./WeekPicker";
 import React, { useContext, useEffect, useMemo } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
-import { addAppointmentToCell, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells } from "./Utils";
+import { addAppointmentToCell, getCorrectUTCDay, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells } from "./Utils";
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
@@ -57,7 +57,7 @@ const Calendar = () => {
             const time = appointment.time;
             const appointmLength = appointment.serviceTime;
             const rowIndex = hours.indexOf(time);
-            const colIndex = new Date(appointment.date).getUTCDay();
+            const colIndex = getCorrectUTCDay(new Date(appointment.date));
             addAppointmentToCell(rowIndex, colIndex, appointmLength, appointment);
         })
     }

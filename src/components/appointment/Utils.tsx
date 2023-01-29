@@ -13,7 +13,7 @@ export const resetAllCells = () => {
 }
 
 export const addAppointmentToCell = (rowIndex: number, colIndex: number, appointmLength: number, appointment: AppointmentInterface) => {
-    const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex - 1];
+    const cell = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex];
     const rowSpanVal = appointmLength / 15;
     hideUnusedCellsBeforeRowSpan(rowSpanVal, rowIndex, colIndex);
     cell.rowSpan = rowSpanVal;
@@ -32,7 +32,7 @@ export const addAppointmentToCell = (rowIndex: number, colIndex: number, appoint
 
 export const hideUnusedCellsBeforeRowSpan = (rowSpanVal: number, rowIndex: number, colIndex: number) => {
     for (let i = 1; i < rowSpanVal; i++) {
-        document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex - 1].classList.add('hidden');
+        document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[colIndex].classList.add('hidden');
     }
 }
 
@@ -238,5 +238,28 @@ export const getDayDataFromDayIndex = (dayIndex: number, currentWeek: WeekdaysIn
 
         default:
             return currentWeek.monday;
+    }
+}
+
+export const getCorrectUTCDay = (date: Date) => {
+    const utcDay = date.getUTCDay();
+    switch (utcDay) {
+        case 0:
+            return 6;
+        case 1:
+            return 0;
+        case 2:
+            return 1;
+        case 3:
+            return 2;
+        case 4:
+            return 3;
+        case 5:
+            return 4;
+        case 6:
+            return 5;
+    
+        default:
+            return 20;
     }
 }
