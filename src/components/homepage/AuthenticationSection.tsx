@@ -12,7 +12,7 @@ const AuthenticationSection = () => {
     const sendLoginData = async (data: {email: string, password: string}) => {
         try {
           const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/login";
-          const params = { data };
+          const params = { email: data.email, password: data.password };
           const response = await axios.post(url, params, { withCredentials: true });
           if(response.status === 200) {
             setAuth(response.data.authData);
