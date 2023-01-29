@@ -13,18 +13,27 @@ const AuthenticationSection = () => {
         try {
           const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/auth/login";
           const params = { email: data.email, password: data.password };
-          const response = await axios.post(url, params, { withCredentials: true });
-          if(response.status === 200) {
-            setAuth(response.data.authData);
-            setFirstName(response.data.authData.firstName);
-            localStorage.setItem('firstName', response.data.authData.firstName);
-            Router.push('/admin');
-          }
+          const response = await axios.post(url, params, { withCredentials: true, headers: {'Content-Type': 'application/json'} });
+          setCookie(response.data.refreshToken);
+          setAuth(response.data.authData);
+          setFirstName(response.data.authData.firstName);
+          localStorage.setItem('firstName', response.data.authData.firstName);
         }
         catch(err) {
-          console.log(err);
+          err instanceof Error && console.log(err);
         }
       }
+
+    const setCookie = async (refreshToken: string) => {
+      try {
+        const url = "/api/setCookie";
+        const params = { refreshToken };
+        const response = await axios.post(url, params, { withCredentials: true, headers: {'Content-Type': 'application/json'} });
+        Router.push('/admin');
+      } catch(err) {
+          err instanceof Error && console.log(err);
+      }
+    }
 
     const handleTestLogin = () => {
         sendLoginData({email: 'tesztfiok@tesztfiok.com', password: 'Tesztfiok1996@'})
