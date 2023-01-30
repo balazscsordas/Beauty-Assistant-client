@@ -61,11 +61,11 @@ const ClientDetails = (props: ClientDataInterface) => {
 
     const deleteClientRequest = async (clientId: string | undefined) => {
         const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/delete-client";
-        const config = {
+        const options = {
             data: { clientId },
             withCredentials: true,
         }
-        const response = await axios.delete(url, config);
+        const response = await axios.delete(url, options);
         if(response.status === 200) {
             setShowDeleteAlert(true);
         } 
