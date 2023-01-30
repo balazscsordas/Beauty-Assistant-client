@@ -9,7 +9,7 @@ const deleteCookie = (req: NextApiRequest, res: NextApiResponse) => {
       /* httpOnly: true,
       secure: process.env.NODE_ENV !== "development", */
       expires: new Date('August 19, 1975 23:15:30 GMT-11:00'),
-      /* sameSite: "strict", */
+      sameSite: "strict"
       /* path: "/", */
     })
   );
