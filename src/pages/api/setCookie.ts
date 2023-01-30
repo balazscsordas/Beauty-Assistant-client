@@ -6,11 +6,11 @@ const setCookie = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     "Set-Cookie",
     cookie.serialize("jwt", req.body.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
+      /* httpOnly: true, */
+      /* secure: process.env.NODE_ENV !== "development", */
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "strict",
-      path: "/",
+      /* sameSite: "strict", */
+      /* path: "/", */
     })
   );
   res.statusCode = 200;
