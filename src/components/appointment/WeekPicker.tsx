@@ -35,12 +35,7 @@ const WeekPicker = () => {
         try {
             const controller = new AbortController();
             const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/appointment/get-appointment-list";
-            const options = {
-                params: { week },
-                signal,
-                withCredentials: true
-            }
-            const response = await axios.get(url, options);
+            const response = await axios.post(url, { week }, { withCredentials: true, signal });
             setCurrentWeekAppointments(response.data.currentWeekAppointments);
         } catch(err) {
             err instanceof Error && console.log(err.message);
