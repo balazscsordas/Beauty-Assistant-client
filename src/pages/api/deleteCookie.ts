@@ -6,11 +6,11 @@ const deleteCookie = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     "Set-Cookie",
     cookie.serialize("jwt", "", {
-      /* httpOnly: true,
-      secure: process.env.NODE_ENV !== "development", */
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
       expires: new Date('August 19, 1975 23:15:30 GMT-11:00'),
-      sameSite: "strict"
-      /* path: "/", */
+      sameSite: "none",
+      path: "/"
     })
   );
   res.statusCode = 200;
