@@ -9,7 +9,7 @@ const setCookie = (req: NextApiRequest, res: NextApiResponse) => {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",
+      sameSite: "strict",
       path: "/",
     })
   );
