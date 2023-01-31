@@ -15,7 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <ClientProvider>
             <ServiceProvider>
              <AppointmentProvider>
-               <NextNProgress/>
+               <NextNProgress options={{ showSpinner: false }}/>
                <Component {...pageProps} />
              </AppointmentProvider>
             </ServiceProvider> 
