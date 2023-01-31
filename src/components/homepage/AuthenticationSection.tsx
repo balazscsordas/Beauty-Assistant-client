@@ -54,11 +54,6 @@ const AuthenticationSection = () => {
                 </Link>
                 <div className="m-2">
                     <BasicPrimaryButton text={ lang === 'hun' ? 'Tesztfiók' : 'test account' } onClick={handleTestLogin} disabled={loginLoading}/>
-                    {loginLoading && (
-                      <div>
-                        <CircularProgress size={24}/>
-                      </div>
-                    )}
                 </div>
             </div>
         </section>

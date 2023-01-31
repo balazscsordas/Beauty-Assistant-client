@@ -136,11 +136,6 @@ const RegistrationForm = () => {
               </Collapse>
               <Box className="mt-6 mb-4">
                 <BasicPrimaryButton text={ lang === 'hun' ? "Regisztráció" : "Registration" } type="submit" disabled={loading}/>
-                {loading && (
-                  <div>
-                    <CircularProgress size={24}/>
-                  </div>
-                )}
               </Box>
             </Box>
             <Zoom in={showRegistrationMessage}>
