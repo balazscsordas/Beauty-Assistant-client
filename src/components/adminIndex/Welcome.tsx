@@ -10,7 +10,6 @@ const Welcome = () => {
     return (
         <section id="welcome-section">
             <h1 className="page-title">{ lang === 'hun' ? 'Szia ' : 'Hi ' }{ firstName }!</h1>
-            <p>{ lang === 'hun' ? 'Mai időpontok száma: 0' : "Today's appointments: 0" }</p>
         </section>
     )
 }
