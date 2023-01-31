@@ -36,19 +36,19 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
     return (
         <>
             <div>
-                <Collapse in={showOption1Content}>
+                <Collapse in={showOption1Content} className="mx-2">
                     <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal="option1Content" label={clientOptionNames.option1Name}/>
                 </Collapse>
-                <Collapse in={showOption2Content}>
+                <Collapse in={showOption2Content} className="mx-2">
                     <MultilineNonReqInput value={inputData.option2Content} onChange={handleChange} nameVal="option2Content" label={clientOptionNames.option2Name}/>
                 </Collapse>
-                <Collapse in={showOption3Content}>
+                <Collapse in={showOption3Content} className="mx-2">
                     <MultilineNonReqInput value={inputData.option3Content} onChange={handleChange} nameVal="option3Content" label={clientOptionNames.option3Name}/>
                 </Collapse>
-                <Collapse in={showOption4Content}>
+                <Collapse in={showOption4Content} className="mx-2">
                     <MultilineNonReqInput value={inputData.option4Content} onChange={handleChange} nameVal="option4Content" label={clientOptionNames.option4Name}/>
                 </Collapse>
-                <Collapse in={showOption5Content}>
+                <Collapse in={showOption5Content} className="mx-2">
                     <MultilineNonReqInput value={inputData.option5Content} onChange={handleChange} nameVal="option5Content" label={clientOptionNames.option5Name}/>
                 </Collapse>
             </div>

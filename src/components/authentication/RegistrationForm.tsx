@@ -147,8 +147,8 @@ const RegistrationForm = () => {
                 </div>
             </Zoom>
             <p className="mt-4 font-medium text-sm">Van már fiókod? Jelentkezz be 
-              <Link className="text-slate-200" passHref href="/login">
-                <button className='ml-1 underline underline-offset-2'>ide kattintva!</button>
+              <Link passHref href="/login">
+                <button className='ml-1 mt-2 underline underline-offset-2'>ide kattintva!</button>
               </Link>
             </p>
         </AuthenticationWrapper>

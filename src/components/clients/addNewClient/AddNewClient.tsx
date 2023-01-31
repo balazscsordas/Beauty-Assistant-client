@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box } from '@mui/material';
 import axios from "axios";
 import { ClientDataInterface } from '../../../interfaces/ClientInterfaces';
@@ -10,8 +10,11 @@ import { ageValidator, trueIfNumberValidator, mobileNumberValidator } from "../.
 import OptionFields from "./OptionFields";
 import FixFields from "./FixFields";
 import DetailsWrapper from "../../smallComponents/sectionWrappers/DetailsWrapper";
+import LangContext from "../../../context/LanguageProvider";
 
 const AddClients = () => {
+
+    const { lang } = useContext(LangContext);
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -104,7 +107,7 @@ const AddClients = () => {
             />
             
             <>
-                <h1 className="page-title">Vendég hozzáadása</h1>
+                <h1 className="page-title">{ lang === 'hun' ? 'Vendég hozzáadása' : 'Add new client' }</h1>
                 <DetailsWrapper>
                     <Box className="form" component="form" onSubmit={handleSubmit}>
                         <FixFields 
@@ -119,7 +122,7 @@ const AddClients = () => {
                             handleChange={handleChange}
                         />
                         <div className="text-center m-4">
-                            <AddIconPrimaryButton text='vendég hozzáadása' type="submit"/>
+                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Vendég hozzáadása' : 'Add new client' } type="submit"/>
                         </div>
                     </Box>
                 </DetailsWrapper>

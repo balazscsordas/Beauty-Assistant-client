@@ -5,14 +5,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import axios from 'axios';
 import Router from 'next/router';
 import Link from 'next/link';
 import AuthContext from '../../context/AuthProvider';
+import LangContext from '../../context/LanguageProvider';
 
 const AccountAvatar = () => {
 
+  const { lang } = useContext(LangContext);
   const { firstName } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -66,11 +67,11 @@ const AccountAvatar = () => {
           >
               <Link href="/admin/settings" passHref>
                 <MenuItem onClick={handleCloseUserMenu}>
-                    <ListItemIcon><Settings fontSize="small"/></ListItemIcon>Beállítások
+                    <ListItemIcon><Settings fontSize="small"/></ListItemIcon>{ lang === 'hun' ? 'Beállítások' : 'Settings' }
                 </MenuItem>
               </Link>
               <MenuItem onClick={handleLogout}>
-                  <ListItemIcon><Logout fontSize="small"/></ListItemIcon>Kijelentkezés
+                  <ListItemIcon><Logout fontSize="small"/></ListItemIcon>{ lang === 'hun' ? 'Kijelentkezés' : 'Log out' }
               </MenuItem>
           </Menu>
       </>

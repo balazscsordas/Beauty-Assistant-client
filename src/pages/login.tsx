@@ -11,9 +11,7 @@ const LoginPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <NonAdminLayout>
-          <section className="max-w-xl min-h-screen min-w-full flex justify-center items-center">
-              <LoginForm />
-          </section>
+            <LoginForm />
         </NonAdminLayout>
       </>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Collapse, Box } from '@mui/material';
 import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
 import axios from "axios";
@@ -9,6 +9,8 @@ import { MultilineNonReqInput } from "../../smallComponents/InputFields";
 import { AddIconOptionButton, AddIconPrimaryButton } from "../../smallComponents/Buttons";
 import FixFields from "./FixFields";
 import DetailsWrapper from "../../smallComponents/sectionWrappers/DetailsWrapper";
+import OptionFields from "./OptionFields";
+import LangContext from "../../../context/LanguageProvider";
 
 interface Props {
     categoryList: string[];
@@ -16,6 +18,8 @@ interface Props {
 
 const AddNewService = ({ categoryList }: Props) => {
 
+    const { lang } = useContext(LangContext)
+    
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [newCategory, setNewCategory] = useState("");
@@ -30,7 +34,6 @@ const AddNewService = ({ categoryList }: Props) => {
     })
 
     const [showPriceError, setShowPriceError] = useState(false);
-    const [showSteps, setShowSteps] = useState(false);
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -100,18 +103,18 @@ const AddNewService = ({ categoryList }: Props) => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={() => setShowSuccessAlert(false)}
-                text="Szolgáltatás hozzáadása sikeres volt."
+                text={ lang === 'hun' ? 'Szolgáltatás hozzáadása sikeres volt.' : 'Succesfully added a new service.' }
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={() => setShowErrorAlert(false)}
-                text="Szolgáltatás hozzáadása nem sikerült."
+                text={ lang === 'hun' ? 'Szolgáltatás hozzáadása nem sikerült.' : 'Something went wront, please try again.' }
                 severity="error"
             />
 
             <>
-                <h1 className="page-title">Szolgáltatás hozzáadása</h1>
+                <h1 className="page-title">{ lang === 'hun' ? 'Szolgáltatás hozzáadása' : 'Add new service' }</h1>
                 <DetailsWrapper>
                     <Box className="form" component="form" onSubmit={handleSubmit}>
                         <FixFields
@@ -123,17 +126,12 @@ const AddNewService = ({ categoryList }: Props) => {
                             handleChange={handleChange}
                             showPriceError={showPriceError}
                         />
-                        <div className="text-center">
-                            <Collapse in={showSteps}>
-                                <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label="Lépések" nameVal="steps"/>
-                            </Collapse>
-                        </div>
+                        <OptionFields 
+                            inputData={inputData}
+                            handleChange={handleChange}
+                        />
                         <div className="text-center my-4">
-                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                        </div>
-                        
-                        <div className="text-center my-4">
-                            <AddIconPrimaryButton text='Szolgáltatás hozzáadása' type="submit"/>
+                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Szolgáltatás hozzáadása' : 'Create service' } type="submit"/>
                         </div>
                     </Box>
                 </DetailsWrapper>

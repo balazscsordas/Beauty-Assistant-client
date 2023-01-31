@@ -9,10 +9,10 @@ type Props = {
 const NonAdminLayout = ({ children }: Props) => {
 
     return (
-        <>
+        <section className="min-h-screen flex flex-col">
             {children}
             <NonAdminFooter/>
-        </>
+        </section>
     )
 }
 

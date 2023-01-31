@@ -24,3 +24,12 @@ export const trueIfNumberValidator = (value: string) => {
 export const trueIfLetterValidator = (value: string) => {
     return /[a-zA-Z]/.test(value);
 }
+
+export const checkIfDateInPast = (date: Date) => {
+    const referenceDate = new Date();
+    const newDate = new Date(date);
+    if (newDate.setHours(0, 0, 0, 0) < referenceDate.setHours(0, 0, 0, 0)) {
+        return true;
+      }
+      return false;
+}

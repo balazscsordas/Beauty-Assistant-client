@@ -3,10 +3,12 @@ import Link from "next/link";
 import Router from "next/router";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
+import LangContext from "../../context/LanguageProvider";
 import { BasicPrimaryButton } from "../smallComponents/Buttons";
 
 const MainBanner = () => {
 
+    const { lang } = useContext(LangContext);
     const { setAuth, setFirstName } = useContext(AuthContext);
 
     const sendLoginData = async (data: {email: string, password: string}) => {
@@ -30,18 +32,17 @@ const MainBanner = () => {
         sendLoginData({email: 'tesztfiok@tesztfiok.com', password: 'Tesztfiok1996@'})
     } 
 
-      
     return (
         <section className="flex justify-center items-center min-h-50vh bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-600 to-indigo-900">
             <div className="text-center text-white">
-                <h1 className="mb-4 text-3xl sm:text-4xl font-bold">Beauty Assistant</h1>
-                <p>Gyorsan, egyszerűen, hatékonyan.</p>
+                <h1 className="mb-4 text-3xl sm:text-5xl sm:mb-6 font-bold">Beauty Assistant</h1>
+                <p>{lang === 'hun' ? 'Gyorsan, egyszerűen, hatékonyan.' : 'Fast, quick, effective'}</p>
                 <div className="flex justify-center max-w-lg m-auto mt-4">
                     <Link className="m-2" passHref href="/registration">
-                        <BasicPrimaryButton text="Regisztráció"/>
+                        <BasicPrimaryButton text={ lang === 'hun' ? 'Regisztráció' : 'Registration' }/>
                     </Link>
                     <Link className="m-2" passHref href="/login">
-                        <BasicPrimaryButton text="Bejelentkezés"/>
+                        <BasicPrimaryButton text={ lang === 'hun' ? 'Bejelentkezés' : 'login' }/>
                     </Link>
                 </div>
             </div>

@@ -11,6 +11,7 @@ import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewService/FixFields";
 import { trueIfLetterValidator } from "../smallComponents/InputValidators";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
+import OptionFields from "./addNewService/OptionFields";
 
 interface Props {
     serviceDataFromDatabase: ServiceDataInterface;
@@ -155,14 +156,10 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
                             handleChange={handleInputChange}
                             showPriceError={showPriceError}
                         />
-                        <div>
-                            <Collapse in={showSteps}>
-                                <MultilineNonReqInput value={serviceData.steps} onChange={handleInputChange} nameVal="steps" label="Lépések"/>
-                            </Collapse>
-                        </div>
-                        <div className="text-center my-4">
-                            <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text="Lépések"/>
-                        </div>
+                        <OptionFields 
+                            inputData={serviceData}
+                            handleChange={handleInputChange}
+                        />
                     <DeleteDialog 
                         deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}
                         deleteFunction={deleteService}

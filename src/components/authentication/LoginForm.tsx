@@ -105,8 +105,8 @@ const LoginForm = () => {
           </Box>
         </Box>
         <p className="mt-4 font-medium text-sm">Nincs még fiókod? Regisztrálj 
-          <Link className="text-slate-200" passHref href="/registration">
-            <button className='ml-1 underline underline-offset-2'>ide kattintva!</button>
+          <Link passHref href="/registration">
+            <button className='ml-1 mt-2 underline underline-offset-2'>ide kattintva!</button>
           </Link>
         </p>
     </AuthenticationWrapper>

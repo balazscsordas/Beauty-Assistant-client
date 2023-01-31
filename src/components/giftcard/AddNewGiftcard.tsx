@@ -11,6 +11,7 @@ import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import DatePickerDialog from "./DateDialog/DatePickerDialog";
 import { containsOnlyNumbers, generateRandomIdentifier } from "./Utils";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
+import { checkIfDateInPast } from "../smallComponents/InputValidators";
 
 const AddGiftcard = () => {
 
@@ -36,10 +37,13 @@ const AddGiftcard = () => {
 
     const [showIdentifierError, setShowIndentifierError] = useState(false);
     const [showAmountError, setShowAmountError] = useState(false);
+    const [showEndDateError, setShowEndDateError] = useState(false);
+    const [showStartDateError, setShowStartDateError] = useState(false);
 
+ 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!showIdentifierError && !showAmountError) {
+        if (!showIdentifierError && !showAmountError && !showEndDateError && !showStartDateError) {
             addNewGiftcardToDatabase(inputData);
             setInputData({
                 status: "pending",
@@ -91,7 +95,12 @@ const AddGiftcard = () => {
                 ...prevValues,
                 startDate: giftcardStartDate,
             }
-        })
+        });
+        if (checkIfDateInPast(giftcardStartDate) && !showStartDateDialog) {
+            setShowStartDateError(true);
+        } else if (!checkIfDateInPast(giftcardStartDate) && !showStartDateDialog) {
+            setShowStartDateError(false);
+        }
     }, [giftcardStartDate])
 
     useEffect(() => {
@@ -101,6 +110,11 @@ const AddGiftcard = () => {
                 endDate: giftcardEndDate,
             }
         })
+        if (checkIfDateInPast(giftcardEndDate) && !showEndDateDialog) {
+            setShowEndDateError(true);
+        } else if (!checkIfDateInPast(giftcardEndDate) && !showEndDateDialog) {
+            setShowEndDateError(false);
+        }
     }, [giftcardEndDate])
 
     const setNewIdentifier = () => {
@@ -147,10 +161,20 @@ const AddGiftcard = () => {
                                 <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg (Ft)" nameVal="amount" showError={showAmountError} errorText="Kizárólag számot tartalmazhat!"/>
                             </div>
                             <div className="flex-1 mx-2">
-                                <DatePicker label="Érvényesség kezdete" giftcardDate={giftcardStartDate} setShowDateDialog={setShowStartDateDialog}/>
+                                <DatePicker 
+                                    label="Érvényesség kezdete" 
+                                    giftcardDate={giftcardStartDate} 
+                                    setShowDateDialog={setShowStartDateDialog}
+                                    showError={showStartDateError}
+                                />
                             </div>
                             <div className="flex-1 mx-2">
-                                <DatePicker label="Érvényesség vége" giftcardDate={giftcardEndDate} setShowDateDialog={setShowEndDateDialog}/>
+                                <DatePicker 
+                                    label="Érvényesség vége" 
+                                    giftcardDate={giftcardEndDate} 
+                                    setShowDateDialog={setShowEndDateDialog}
+                                    showError={showEndDateError}
+                                />
                             </div>
                         </section>
                         <div className="text-center m-4">
