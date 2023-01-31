@@ -1,7 +1,7 @@
 import validator from 'validator';
 
 export const emailValidationCheck = (email: string ) => {
-    if (email.length > 4) {
+    if (validator.isEmail(email)) {
       return true;
     }
     else return false;

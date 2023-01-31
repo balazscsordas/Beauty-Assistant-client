@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import axios from "axios";
 import Zoom from '@mui/material/Zoom';
 import Collapse from '@mui/material/Collapse';
@@ -84,15 +83,15 @@ const RegistrationForm = () => {
 
   const passwordFormatCheck = (password: string) => {
     password.length >= 8
-      ? setPasswordLengthError(<CheckIcon className="check-icon"/>)
+      ? setPasswordLengthError(<CheckIcon className="text-green-600"/>)
       : setPasswordLengthError(<CloseIcon className="close-icon"/>)
     
-    validator.isStrongPassword(inputData.password, {minLength: 0, minLowercase: 0, minUppercase: 0, minNumbers: 1, minSymbols: 1})
-      ? setPasswordNumberSymbolError(<CheckIcon className="check-icon"/>)
+    validator.isStrongPassword(password, {minLength: 0, minLowercase: 0, minUppercase: 0, minNumbers: 1, minSymbols: 1})
+      ? setPasswordNumberSymbolError(<CheckIcon className="text-green-600"/>)
       : setPasswordNumberSymbolError(<CloseIcon className="close-icon"/>)
 
-    validator.isStrongPassword(inputData.password, {minLength: 0, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0})
-      ? setPasswordLowerUpperError(<CheckIcon className="check-icon"/>)
+    validator.isStrongPassword(password, {minLength: 0, minLowercase: 1, minUppercase: 1, minNumbers: 0, minSymbols: 0})
+      ? setPasswordLowerUpperError(<CheckIcon className="text-green-600"/>)
       : setPasswordLowerUpperError(<CloseIcon className="close-icon"/>)
   }
 
@@ -106,13 +105,13 @@ const RegistrationForm = () => {
         <Alert 
             open={showSuccessAlert}
             onClose={handleCloseAlert}
-            text="Sikeres regisztráció."
+            text={ lang === 'hun' ? "Sikeres regisztráció." : 'Registration was successfull.' }
             severity="success"
         />
         <Alert 
             open={showErrorAlert}
             onClose={handleCloseAlert}
-            text="Sikertelen regisztráció."
+            text={ lang === 'hun' ? "Sikertelen regisztráció." : 'Something went wrong, please try again' }
             severity="error"
         />
       <AuthenticationWrapper title={ lang === 'hun' ? "Regisztráció" : "Registration" }>
@@ -122,7 +121,7 @@ const RegistrationForm = () => {
               
               <Collapse in={showEmailErrorMessage}>
                 <div>
-                  <p className="input-error-text">{ lang === 'hun' ? "Nem megfelelő email!" : "Not valid email!" }</p>
+                  <p className="input-error-text">{ lang === 'hun' ? "Nem megfelelő formátum!" : "Not valid email!" }</p>
                 </div>
               </Collapse>
               <OneLineReqInput onChange={handleChange} value={inputData.password} label={ lang === 'hun' ? "Jelszó" : "Password" } nameVal="password" type="password" autoComplete='password'/>
