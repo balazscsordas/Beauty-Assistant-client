@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Collapse, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import axios from "axios";
 import Router from 'next/router';
 import { Alert } from "../smallComponents/Alerts";
@@ -12,9 +12,11 @@ import DatePickerDialog from "./DateDialog/DatePickerDialog";
 import { containsOnlyNumbers, generateRandomIdentifier } from "./Utils";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 import { checkIfDateInPast } from "../smallComponents/InputValidators";
+import LangContext from "../../context/LanguageProvider";
 
 const AddGiftcard = () => {
 
+    const { lang } = useContext(LangContext);
     const { 
         giftcardStartDate,
         setGiftcardStartDate,
@@ -150,19 +152,31 @@ const AddGiftcard = () => {
             />
             
             <>
-                <h1 className="page-title">Ajándékutalvány hozzáadása</h1>
+                <h1 className="page-title">{ lang === 'hun' ? 'Ajándékutalvány hozzáadása' : 'Add new giftcard' }</h1>
                 <DetailsWrapper>
                     <Box component="form" onSubmit={handleSubmit}>
                         <section className="flex flex-col lg:flex-row">
                             <div className="flex-1 mx-2">
-                                <OneLineReqInputWithAdornment value={inputData.identifier} onChange={handleChange} label="Azonosító" nameVal="identifier" onClick={setNewIdentifier} showError={showIdentifierError} errorText="Kizárólag számot tartalmazhat!"/>
+                                <OneLineReqInputWithAdornment 
+                                    value={inputData.identifier} 
+                                    onChange={handleChange} 
+                                    label={ lang === 'hun' ? 'Azonosító' : 'ID' } 
+                                    nameVal="identifier" onClick={setNewIdentifier} 
+                                    showError={showIdentifierError} 
+                                    errorText={ lang === 'hun' ? "Kizárólag számot tartalmazhat!" : 'Only numbers are allowed!' }/>
                             </div>
                             <div className="flex-1 mx-2">
-                                <OneLineReqInput value={inputData.amount} onChange={handleChange} label="Összeg (Ft)" nameVal="amount" showError={showAmountError} errorText="Kizárólag számot tartalmazhat!"/>
+                                <OneLineReqInput 
+                                    value={inputData.amount} 
+                                    onChange={handleChange} 
+                                    label={ lang === 'hun' ? "Összeg (Ft)" : 'Price (Eur)' } 
+                                    nameVal="amount" 
+                                    showError={showAmountError} 
+                                    errorText={ lang === 'hun' ? "Kizárólag számot tartalmazhat!" : 'Only numbers are allowed!' }/>
                             </div>
                             <div className="flex-1 mx-2">
                                 <DatePicker 
-                                    label="Érvényesség kezdete" 
+                                    label={ lang === 'hun' ? "Érvényesség kezdete" : "Valid from" }
                                     giftcardDate={giftcardStartDate} 
                                     setShowDateDialog={setShowStartDateDialog}
                                     showError={showStartDateError}
@@ -170,7 +184,7 @@ const AddGiftcard = () => {
                             </div>
                             <div className="flex-1 mx-2">
                                 <DatePicker 
-                                    label="Érvényesség vége" 
+                                    label={ lang === 'hun' ? "Érvényesség vége" : "Valid to" }
                                     giftcardDate={giftcardEndDate} 
                                     setShowDateDialog={setShowEndDateDialog}
                                     showError={showEndDateError}
@@ -178,20 +192,20 @@ const AddGiftcard = () => {
                             </div>
                         </section>
                         <div className="text-center m-4">
-                            <AddIconPrimaryButton text='Ajándékutalvány hozzáadása' type="submit"/>
+                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Ajándékutalvány hozzáadása' : "create giftcard" } type="submit"/>
                         </div>
                     </Box>
                 </DetailsWrapper>
             </>
             <DatePickerDialog 
-                label="Érvényesség kezdete" 
+                label={ lang === 'hun' ? "Érvényesség kezdete" : "Valid from" }
                 showDateDialog={showStartDateDialog} 
                 setShowDateDialog={setShowStartDateDialog} 
                 setGiftcardDate={setGiftcardStartDate}
                 giftcardDate={giftcardStartDate}
             />
             <DatePickerDialog 
-                label="Érvényesség vége" 
+                label={ lang === 'hun' ? "Érvényesség vége" : "Valid to" }
                 showDateDialog={showEndDateDialog} 
                 setShowDateDialog={setShowEndDateDialog} 
                 setGiftcardDate={setGiftcardEndDate}

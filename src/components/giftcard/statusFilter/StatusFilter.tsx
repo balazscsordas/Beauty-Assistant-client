@@ -1,19 +1,23 @@
+import { useContext } from "react";
+import LangContext from "../../../context/LanguageProvider";
 import StatusFilterItem from "./StatusFilterItem"
 
 const StatusFilter = () => {
 
+    const { lang } = useContext(LangContext);
+ 
     const statuses = [
         {
             engName: 'expired',
-            hunName: 'Lejárt'
+            hunName: lang === 'hun' ? 'Lejárt' : 'Expired'
         },
         {
             engName: 'pending',
-            hunName: 'Függőben'
+            hunName: lang === 'hun' ? 'Függőben' : 'Valid'
         },
         {
             engName: 'used',
-            hunName: 'Felhasznált'
+            hunName: lang === 'hun' ? 'Felhasznált' : 'Used'
         }
     ];
 

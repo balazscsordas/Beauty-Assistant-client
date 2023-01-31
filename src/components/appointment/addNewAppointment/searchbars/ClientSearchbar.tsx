@@ -6,8 +6,11 @@ import { ClientListInterface } from "../../../../interfaces/ClientInterfaces";
 import AppointmentContext from "../../../../context/AppointmentProvider";
 import { OneLineReqInput } from "../../../smallComponents/InputFields";
 import SearchbarResultItem from "../../SearchbarResultItem";
+import LangContext from "../../../../context/LanguageProvider";
 
 const ClientSearchbar = () => {
+
+    const { lang } = useContext(LangContext);
 
     const { clients } = useContext(ClientContext);
     const { setNewAppointmentData } = useContext(AppointmentContext);
@@ -46,13 +49,13 @@ const ClientSearchbar = () => {
         <div className="appointment-searchbar-section">
             <OneLineReqInput 
                 onChange={changeSearchBarData} 
-                type="search" 
+                type={ lang === 'hun' ? "Keresés" : 'Search' }
                 value={clientSearchbarValue} 
-                label="Vendég neve"
+                label={ lang === 'hun' ? 'Vendég neve' : "Client name" }
             />
             <Collapse in={showFilteredClients}>
                 {filteredClientList.length === 0
-                    ? clientSearchbarValue !== "" && <p className='no-content-message'>Nincs a keresésnek megfelelő találat!</p>
+                    ? clientSearchbarValue !== "" && <p className='no-content-message'>{ lang === 'hun' ? 'Nincs a keresésnek megfelelő találat!' : "There isn't any client matching your search result!" }</p>
                     : clientSearchbarValue !== "" && filteredClientList.map((client: ClientListInterface, index: number) => (
                         <SearchbarResultItem 
                             key={index}

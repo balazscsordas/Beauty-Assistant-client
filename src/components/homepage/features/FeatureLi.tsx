@@ -4,7 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const FeatureItem = ({ title, description }: FeatureLi) => {
 
     return (
-        <section className="flex flex-row sm:basis-1/2">
+        <section className="flex flex-row basis-full sm:basis-1/2">
             <div className="m-4 bg-white p-6 w-full shadow-md rounded-md">
                 <div className="flex flex-col">
                     <div className="flex flex-row">

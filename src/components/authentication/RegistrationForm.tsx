@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import axios from "axios";
@@ -16,8 +16,11 @@ import validator from 'validator';
 import Router from 'next/router';
 import Link from 'next/link';
 import AuthenticationWrapper from './AuthenticationWrapper';
+import LangContext from '../../context/LanguageProvider';
 
 const RegistrationForm = () => {
+
+  const { lang } = useContext(LangContext);
 
   const [inputData, setInputData] = useState<RegistrationDataInterface>({
       firstName: "",
@@ -112,28 +115,28 @@ const RegistrationForm = () => {
             text="Sikertelen regisztráció."
             severity="error"
         />
-      <AuthenticationWrapper title='Regisztráció'>
+      <AuthenticationWrapper title={ lang === 'hun' ? "Regisztráció" : "Registration" }>
             <Box component="form" onSubmit={handleSubmit}>
-              <OneLineReqInput onChange={handleChange} value={inputData.firstName} label="Keresztnév" nameVal="firstName" autoComplete="first-name"/>
+              <OneLineReqInput onChange={handleChange} value={inputData.firstName} label={ lang === 'hun' ? "Keresztnév" : "First name" } nameVal="firstName" autoComplete="first-name"/>
               <OneLineReqInput onChange={handleChange} value={inputData.email} label="Email" nameVal="email" autoComplete='email'/>
               
               <Collapse in={showEmailErrorMessage}>
                 <div>
-                  <p className="input-error-text">Nem megfelelő email</p>
+                  <p className="input-error-text">{ lang === 'hun' ? "Nem megfelelő email!" : "Not valid email!" }</p>
                 </div>
               </Collapse>
-              <OneLineReqInput onChange={handleChange} value={inputData.password} label="Jelszó" nameVal="password" type="password" autoComplete='password'/>
+              <OneLineReqInput onChange={handleChange} value={inputData.password} label={ lang === 'hun' ? "Jelszó" : "Password" } nameVal="password" type="password" autoComplete='password'/>
               
               <Collapse in={inputData.password.length > 0}>
                 <ul className="input-error-text">
-                  <p className="input-error-text mb-2 mt-1">Jelszónak a következő feltételeknek kell megfelelnie:</p>
-                  <li>{passwordLowerUpperError} kis és nagybetűs karakterek</li>
-                  <li>{passwordNumberSymbolError} legalább egy szám és egy speciális karakter</li>
-                  <li>{passwordLengthError} minimum 8 karakter hosszúság</li>
+                  <p className="input-error-text mb-2 mt-1">{ lang === 'hun' ? "Jelszónak a következő feltételeknek kell megfelelnie:" : "Your password has to contain at least:" }</p>
+                  <li>{passwordLowerUpperError} { lang === 'hun' ? "kis és nagybetűs karakterek" : "one lowercase and one uppercase character" }</li>
+                  <li>{passwordNumberSymbolError} { lang === 'hun' ? "legalább egy szám és egy speciális karakter" : "one number and a special character" }</li>
+                  <li>{passwordLengthError} { lang === 'hun' ? "minimum 8 karakter hosszúság" : "8 characters long" }</li>
                 </ul>
               </Collapse>
               <Box className="mt-6 mb-4">
-                <BasicPrimaryButton text="Regisztráció" type="submit" disabled={loading}/>
+                <BasicPrimaryButton text={ lang === 'hun' ? "Regisztráció" : "Registration" } type="submit" disabled={loading}/>
                 {loading && (
                   <div>
                     <CircularProgress size={24}/>
@@ -146,9 +149,9 @@ const RegistrationForm = () => {
                     <p>{registrationMessage}</p>
                 </div>
             </Zoom>
-            <p className="mt-4 font-medium text-sm">Van már fiókod? Jelentkezz be 
+            <p className="mt-4 font-medium text-sm">{ lang === 'hun' ? "Van már fiókod? Jelentkezz be" : "Already have an account? Login by" } 
               <Link passHref href="/login">
-                <button className='ml-1 mt-2 underline underline-offset-2'>ide kattintva!</button>
+                <button className='ml-1 mt-2 underline underline-offset-2'>{ lang === 'hun' ? "ide kattintva!" : "clicking here" }</button>
               </Link>
             </p>
         </AuthenticationWrapper>

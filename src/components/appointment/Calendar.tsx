@@ -7,9 +7,11 @@ import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
 import DaysHeader from "./DaysHeader";
 import HoursCol from "./HoursCol";
+import LangContext from "../../context/LanguageProvider";
 
 const Calendar = () => {
 
+    const { lang } = useContext(LangContext);
     const { clients, setClients } = useContext(ClientContext);
     const { services, setServices } = useContext(ServiceContext);
     const { 
@@ -153,7 +155,7 @@ const Calendar = () => {
 
     return (
         <section id='calendar-section'>
-            <h1 className='page-title'>Időpontok</h1>
+            <h1 className='page-title'>{ lang === 'hun' ? 'Időpontok' : "Appointments" }</h1>
             <WeekPicker />
             <section className="bg-white py-4 px-2 rounded-xl my-4 shadow-md m-auto w-[600px] sm:w-[800px] lg:w-[1100px] overflow-x-scroll max-w-full">
                 <DaysHeader currentWeek={currentWeek}/>

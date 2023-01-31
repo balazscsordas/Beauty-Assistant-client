@@ -28,8 +28,8 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
                 </Collapse>
             </div>
             <div className="text-center my-4">
-                <AddIconOptionButton onClick={() => setShowDescription(!showDescription)} text={ lang === 'hun' ? 'Leírás' : 'Description' }/>
-                <AddIconOptionButton onClick={() => setShowSteps(!showSteps)} text={ lang === 'hun' ? 'Lépések' : 'Steps' }/>
+                <AddIconOptionButton addIcon={showDescription} onClick={() => setShowDescription(!showDescription)} text={ lang === 'hun' ? 'Leírás' : 'Description' }/>
+                <AddIconOptionButton addIcon={showSteps} onClick={() => setShowSteps(!showSteps)} text={ lang === 'hun' ? 'Lépések' : 'Steps' }/>
             </div>
         </>
     )

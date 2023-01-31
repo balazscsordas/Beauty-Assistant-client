@@ -9,9 +9,11 @@ import ServiceSearchbar from "./searchbars/ServiceSearchbar";
 import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
+import LangContext from "../../../context/LanguageProvider";
 
 const AddAppointmentDialog = () => {
 
+    const { lang } = useContext(LangContext);
     const { 
         newAppointmentData, 
         setNewAppointmentData,
@@ -86,19 +88,19 @@ const AddAppointmentDialog = () => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás hozzáadása sikeres volt."
+                text={ lang === 'hun' ? "Foglalás hozzáadása sikeres volt." : 'Successfully added the appointment.'}
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás hozzáadása nem sikerült."
+                text={ lang === 'hun' ? "Foglalás hozzáadása nem sikerült." : 'Something went wrong, please try again.'}
                 severity="error"
             />
 
             <Dialog open={openAddAppointmentDialog} onClose={closeDialog} id='dialog-section'>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>Időpont hozzáadása</DialogTitle>
+                    <DialogTitle>{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
                     <DialogContent>
                         <DialogContentText className='dialog-context-text'>
                             {
@@ -111,13 +113,13 @@ const AddAppointmentDialog = () => {
                         </DialogContentText>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény (%)' nameVal="discount" value={newAppointmentData.discount}/>
-                            <MultilineNonReqInput onChange={handleChange} label='Megjegyzés (vendég nem látja)' nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
-                            <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
+                            <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={newAppointmentData.discount}/>
+                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
+                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
                     </DialogContent>
                     <DialogActions>
-                        <BasicSecondaryButton onClick={closeDialog} text="Mégse"/>
-                        <AddIconPrimaryButton text="Hozzáadás" type="submit"/>
+                        <BasicSecondaryButton onClick={closeDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
+                        <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
                     </DialogActions>
                 </Box>
             </Dialog>

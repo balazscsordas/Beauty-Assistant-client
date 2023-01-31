@@ -11,9 +11,11 @@ import { AddIconPrimaryButton, BasicPrimaryButton, BasicSecondaryButton } from "
 import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
 import StatusChanger from "./StatusChanger";
 import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
+import LangContext from "../../../context/LanguageProvider";
 
 const EditAppointmentDialog = () => {
 
+    const { lang } = useContext(LangContext);
     const { 
         editAppointmentData, 
         setEditAppointmentData,
@@ -112,31 +114,31 @@ const EditAppointmentDialog = () => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás módosítása sikeres volt."
+                text={ lang === 'hun' ? "Foglalás módosítása sikeres volt." : 'Successfully saved the changes.'}
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás módosítása nem sikerült."
+                text={ lang === 'hun' ? "Foglalás módosítása nem sikerült." : 'Something went wrong, please try again.'}
                 severity="error"
             />
             <Alert 
                 open={showDeleteSuccessAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás módosítása sikeres volt."
+                text={ lang === 'hun' ? "Foglalás törlése sikeres volt." : 'Successfully deleted the appointment'}
                 severity="success"
             />
             <Alert 
                 open={showDeleteErrorAlert}
                 onClose={handleCloseAlert}
-                text="Foglalás módosítása nem sikerült."
+                text={ lang === 'hun' ? "Foglalás törlése nem sikerült." : 'Something went wrong, please try again.'}
                 severity="error"
             />
 
             <Dialog open={openEditAppointmentDialog} onClose={() => setOpenEditAppointmentDialog(false)} id='dialog-section'>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>Időpont szerkesztése</DialogTitle>
+                    <DialogTitle>{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
                     <DialogContent>
                         <DialogContentText className='dialog-context-text'>
                             {
@@ -150,17 +152,17 @@ const EditAppointmentDialog = () => {
                             <StatusChanger/>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label='Kedvezmény (%)' nameVal="discount" value={editAppointmentData.discount}/>
+                            <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={editAppointmentData.discount}/>
                             <Collapse in={showDiscountError}>
-                                <p className="input-error-text">Kizárólag 0 és 100 közötti számot tartalmazhat.</p>
+                                <p className="input-error-text">{ lang === 'hun' ? 'Kizárólag 0 és 100 közötti számot tartalmazhat.' : 'Only numbers between 0-100 are allowed' }</p>
                             </Collapse>
-                            <MultilineNonReqInput onChange={handleChange} label='Megjegyzés (vendég nem látja)' nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
-                            <MultilineNonReqInput onChange={handleChange} label='Megjegyzés a vendég részére' nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
+                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
+                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
                     </DialogContent>
                     <DialogActions>
-                        <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text="Mégse"/>
-                        <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text="Törlés"/>
-                        <AddIconPrimaryButton text="Módosítás" type="submit"/>
+                        <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
+                        <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
+                        <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
                     </DialogActions>
                 </Box>
             </Dialog>
@@ -173,12 +175,12 @@ const EditAppointmentDialog = () => {
                 >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Biztosan törölni szeretnéd a foglalást?
+                    { lang === 'hun' ? 'Biztosan törölni szeretnéd a foglalást?' : 'Do you really want to delete the appointment?' }
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text="Nem"/>
-                    <BasicPrimaryButton onClick={handleDeleteAppointment} text="Igen"/>
+                    <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text={ lang === 'hun' ? 'Nem' : 'Igen' }/>
+                    <BasicPrimaryButton onClick={handleDeleteAppointment} text={ lang === 'hun' ? 'Igen' : 'Nem' }/>
                 </DialogActions>
             </Dialog>
         </>

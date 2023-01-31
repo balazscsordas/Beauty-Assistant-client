@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import DateBlock from "./DateBlock";
 import { BasicPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
+import LangContext from "../../../context/LanguageProvider";
 
 interface Props {
     label: string,
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const DatePickerDialog = ({ label, showDateDialog, setShowDateDialog, setGiftcardDate, giftcardDate }: Props) => {
+
+    const { lang } = useContext(LangContext);
 
     const closeDateDialog = () => {
         setShowDateDialog(false);
@@ -32,8 +35,8 @@ const DatePickerDialog = ({ label, showDateDialog, setShowDateDialog, setGiftcar
                     <DateBlock giftcardDate={giftcardDate} setGiftcardDate={setGiftcardDate} setShowDateDialog={setShowDateDialog}/>
                 </DialogContent>
                 <DialogActions className="flex flex-row py-4 px-6 justify-between">
-                    <BasicSecondaryButton onClick={closeDateDialog} text="Mégse"/>
-                    <BasicPrimaryButton onClick={setTodayAsDate} text="Mai nap"/>
+                    <BasicSecondaryButton onClick={closeDateDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
+                    <BasicPrimaryButton onClick={setTodayAsDate} text={ lang === 'hun' ? 'Mai nap' : 'set today' }/>
                 </DialogActions>
             </Dialog>
         </section>

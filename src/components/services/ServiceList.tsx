@@ -1,17 +1,20 @@
 import { ServiceListInterface } from "../../interfaces/ServiceInterfaces";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from "next/link";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AddIconPrimaryButton } from "../smallComponents/Buttons";
 import { Searchbar } from "../smallComponents/Searchbars";
 import ListComponent from "../smallComponents/ListComponent";
 import SectionWrapper from "../smallComponents/sectionWrappers/SectionWrapper";
+import LangContext from "../../context/LanguageProvider";
 
 interface Props {
     servicesList: ServiceListInterface[]
 }
 
 const ServiceList = ({ servicesList }: Props) => {
+
+    const { lang } = useContext(LangContext)
 
     const [inputTextValue, setInputTextValue] = useState("");
     const [filteredArray, setFilteredArray] = useState<ServiceListInterface[]>([])
@@ -31,15 +34,15 @@ const ServiceList = ({ servicesList }: Props) => {
 
     return (
             <section className="text-center">
-                <h1 className="page-title">Szolgáltatások</h1>
+                <h1 className="page-title">{ lang === 'hun' ? 'Szolgáltatások' : 'Services' }</h1>
                 <SectionWrapper>
                     <Link href="/admin/add-new-service" passHref>
-                        <AddIconPrimaryButton text='szolgáltatás hozzáadása' />
+                        <AddIconPrimaryButton text={ lang === 'hun' ? 'Szolgáltatás hozzáadása' : 'add new service' } />
                     </Link>
                     <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
                     <div>
                         {filteredArray.length === 0
-                            ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat.</p>
+                            ? inputTextValue !== "" && <p>{ lang === 'hun' ? 'Nincs a keresésnek megfelelő találat!' : "There isn't any client matching your search result!" }</p>
                             : inputTextValue !== "" && filteredArray.map((service: ServiceListInterface, index: number) => (
                                 <ListComponent
                                     key={index}
@@ -49,7 +52,7 @@ const ServiceList = ({ servicesList }: Props) => {
                                 />
                             ))}
                         {servicesList.length === 0 
-                            ? <p>Még nem adtál hozzá szolgáltatást.</p>
+                            ? <p>{ lang === 'hun' ? 'Még nem adtál hozzá szolgáltatást!' : "You haven't added any service yet!" }</p>
                             : inputTextValue === "" && servicesList.map((service: ServiceListInterface, index: number) => (
                                 <ListComponent
                                     key={index}

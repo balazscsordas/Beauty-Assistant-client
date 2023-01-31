@@ -9,6 +9,7 @@ import StatusFilter from "./statusFilter/StatusFilter";
 import GiftcardContext from "../../context/GiftcardProvider";
 import { giftcardFilterByStatus } from "./Utils";
 import SectionWrapper from "../smallComponents/sectionWrappers/SectionWrapper";
+import LangContext from "../../context/LanguageProvider";
 
 interface Props {
     giftcardList: GiftcardInterface[],
@@ -16,6 +17,8 @@ interface Props {
 
 const GiftcardList = ({ giftcardList }: Props) => {
 
+    const { lang } = useContext(LangContext);
+    
     const { statusFilterArray } = useContext(GiftcardContext);
     const [filteredListByStatus, setFilteredListByStatus] = useState<GiftcardInterface[]>(giftcardList)
     const [inputTextValue, setInputTextValue] = useState("");
@@ -42,16 +45,16 @@ const GiftcardList = ({ giftcardList }: Props) => {
 
     return (
         <section className="text-center">
-            <h1 className="page-title">Ajándékutalvány</h1>
+            <h1 className="page-title">{ lang === 'hun' ? 'Ajándékutalvány' : 'Giftcard' }</h1>
             <SectionWrapper>
                 <Link href="/admin/add-new-giftcard" passHref>
-                    <AddIconPrimaryButton text='ajándékutalvány hozzáadása' />
+                    <AddIconPrimaryButton text={ lang === 'hun' ? 'ajándékutalvány hozzáadása' : 'add new giftcard' }/>
                 </Link>
                 { giftcardList.length !== 0 && <StatusFilter />}
                 <Searchbar onChange={changeSearchBarData} value={inputTextValue}/>
                 <div>
                     {filteredArray.length === 0
-                        ? inputTextValue !== "" && <p>Nincs a keresésnek megfelelő találat!</p>
+                        ? inputTextValue !== "" && <p>{ lang === 'hun' ? 'Nincs a keresésnek megfelelő találat!' : "There isn't any giftcard matching your search result!" }</p>
                         : inputTextValue !== "" && filteredArray.map((giftcard: GiftcardInterface, index: number) => (
                         <ListComponent
                             key={index}
@@ -62,7 +65,7 @@ const GiftcardList = ({ giftcardList }: Props) => {
                         />
                     ))}
                     {giftcardList.length === 0 && filteredListByStatus.length === 0
-                        ? <p>Még nem adtál hozzá ajándékutalványt!</p>
+                        ? <p>{ lang === 'hun' ? 'Még nem adtál hozzá ajándékutalványt!' : "Haven't added any giftcard yet" }</p>
                         : inputTextValue === "" && filteredListByStatus.map((giftcard: GiftcardInterface, index: number) => (
                         <ListComponent
                             key={index}
@@ -73,7 +76,7 @@ const GiftcardList = ({ giftcardList }: Props) => {
                         />
                     ))}
                     {giftcardList.length !== 0 && filteredListByStatus.length === 0
-                        && <p>Nincs a szűrésnek megfelelő ajándékutalvány!</p>
+                        && <p>{ lang === 'hun' ? 'Nincs a szűrésnek megfelelő ajándékutalvány!' : "There isn't any giftcard matching your filters!" }</p>
                     }
                 </div>
             </SectionWrapper>

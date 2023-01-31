@@ -1,8 +1,8 @@
 import { Collapse, IconButton, InputAdornment, TextField } from "@mui/material";
-import { SetStateAction } from "react";
+import { SetStateAction, useContext } from "react";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { formatDate } from "./Utils";
-import { checkIfDateInPast } from "../smallComponents/InputValidators";
+import LangContext from "../../context/LanguageProvider";
 
 interface Props {
     label: string,
@@ -12,6 +12,8 @@ interface Props {
 }
 
 const DatePicker = ({ label, giftcardDate, setShowDateDialog, showError }: Props) => {
+
+    const { lang } = useContext(LangContext);
  
     return (
         <>
@@ -34,7 +36,7 @@ const DatePicker = ({ label, giftcardDate, setShowDateDialog, showError }: Props
               }}
           />
             <Collapse in={showError}>
-                <p className="input-error-text">A kiválasztott dátum a múltban van!</p>
+                <p className="input-error-text">{ lang === 'hun' ? "A kiválasztott dátum a múltban van!" : "Selected date is in the past!" }</p>
             </Collapse>
         </>
     )

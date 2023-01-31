@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ServiceDataInterface } from '../../interfaces/ServiceInterfaces';
-import { Collapse } from '@mui/material';
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import axios from "axios";
-import { AddIconOptionButton } from "../smallComponents/Buttons";
-import { MultilineNonReqInput } from "../smallComponents/InputFields";
 import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewService/FixFields";
 import { trueIfLetterValidator } from "../smallComponents/InputValidators";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 import OptionFields from "./addNewService/OptionFields";
+import LangContext from "../../context/LanguageProvider";
 
 interface Props {
     serviceDataFromDatabase: ServiceDataInterface;
@@ -19,6 +17,8 @@ interface Props {
 }
 
 const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
+
+    const { lang } = useContext(LangContext)
 
     const [serviceData, setServiceData] = useState<ServiceDataInterface>(serviceDataFromDatabase)
     const [newCategory, setNewCategory] = useState("");
@@ -121,26 +121,26 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
             <Alert 
                 open={showSavingAlert}
                 onClose={() => setShowSavingAlert(false)}
-                text="A változtatások mentése sikeres volt."
+                text={ lang === 'hun' ? "A változtatások mentése sikeres volt." : 'Succesfully saved the changes' }
                 severity="success"
             />
             <Alert 
                 open={showSavingErrorAlert}
                 onClose={() => setShowSavingErrorAlert(false)}
-                text="A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később."
+                text={ lang === 'hun' ? "A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később." : 'Something went wrong, please try again!' }
                 severity="error"
             />
             
             <Alert 
                 open={showDeleteAlert}
                 onClose={() => setShowDeleteAlert(false)}
-                text={`${serviceData.name} eltávolítása a kliensek közül sikeres volt`}
+                text={ lang === 'hun' ? `${serviceData.name} eltávolítása a kliensek közül sikeres volt` : 'Something went wrong, please try again!' }
                 severity="success"
             />
             <Alert 
                 open={showDeleteErrorAlert}
                 onClose={() => setShowDeleteErrorAlert(false)}
-                text="A kliens adatbázisból történő törlése nem sikerült."
+                text={ lang === 'hun' ? 'A szolgáltatás adatbázisból történő törlése nem sikerült!' : 'Something went wrong, please try again!' }
                 severity="error"
             />
 
@@ -161,7 +161,7 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
                             handleChange={handleInputChange}
                         />
                     <DeleteDialog 
-                        deleteLabel={`Biztosan törölni szeretnéd a kezelést?`}
+                        deleteLabel={ lang === 'hun' ? 'Biztosan törölni szeretnéd a kezelést?' : 'Do you really want to remove the service?' }
                         deleteFunction={deleteService}
                     />
                 </Box>

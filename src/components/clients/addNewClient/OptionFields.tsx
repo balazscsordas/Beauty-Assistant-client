@@ -5,6 +5,7 @@ import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
 import { AddIconOptionButton, BasicPrimaryButton } from "../../smallComponents/Buttons";
 import { MultilineNonReqInput } from "../../smallComponents/InputFields";
 import { fetchClientOptionNames } from "../Utils";
+import LangContext from "../../../context/LanguageProvider";
 
 interface Props {
     inputData: ClientDataInterface;
@@ -13,6 +14,7 @@ interface Props {
 
 const OptionFields = ({ inputData, handleChange }: Props) => {
 
+    const { lang } = useContext(LangContext);
     const { setOpenClientOptionDialog, clientOptionNames, setClientOptionNames } = useContext(ClientContext);
 
     const [showOption1Content, setShowOption1Content] = useState(inputData.option1Content ? true : false);
@@ -60,7 +62,7 @@ const OptionFields = ({ inputData, handleChange }: Props) => {
                 {clientOptionNames.option5Name && <AddIconOptionButton addIcon={showOption5Content} onClick={() => setShowOption5Content(!showOption5Content)} text={clientOptionNames.option5Name}/> }
             </div>
             <div className="text-center my-4">
-                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text="mezők átnevezése"/>
+                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text={ lang === 'hun' ? 'mezők átnevezése' : 'Rename fields' }/>
             </div>
             
         </>
