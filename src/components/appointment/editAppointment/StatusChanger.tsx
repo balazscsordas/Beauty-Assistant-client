@@ -42,7 +42,7 @@ const StatusChanger = () => {
     }
 
     return (
-        <section className="mb-4">
+        <section className="mb-8">
             <div className="flex flex-wrap justify-evenly">
                 <CheckboxButton 
                     nameVal="failure" 

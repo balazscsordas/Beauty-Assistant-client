@@ -98,11 +98,11 @@ const AddAppointmentDialog = () => {
                 severity="error"
             />
 
-            <Dialog open={openAddAppointmentDialog} onClose={closeDialog} id='dialog-section'>
+            <Dialog open={openAddAppointmentDialog} onClose={closeDialog} fullWidth className="text-center">
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText className='dialog-context-text'>
+                        <DialogContentText className="mb-6">
                             {
                                 newAppointmentData.date.getFullYear() 
                                 + '. ' + getNamedMonth(newAppointmentData.date) 
@@ -117,7 +117,7 @@ const AddAppointmentDialog = () => {
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
                     </DialogContent>
-                    <DialogActions>
+                    <DialogActions className="justify-center mb-4">
                         <BasicSecondaryButton onClick={closeDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
                         <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
                     </DialogActions>

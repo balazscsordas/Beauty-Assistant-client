@@ -23,19 +23,13 @@ const ListComponent = ({ name, url, icon, status }: Props) => {
 
     return (
         <section className="my-3">
-            <div className={`head-block flex items-center relative p-1 sm:p-2 rounded-xl shadow-md ${status ? setStatus(status) : 'bg-red-200'}`}>
-                <Link href={url}>
-                    <IconButton aria-label="account-icon-more-data">
-                        {icon}
-                    </IconButton>
-                </Link>
-                <p className="mb-0 inline-block font-medium ml-3">{name}</p>
-                <Link href={url} className="ml-auto">
-                    <IconButton aria-label="more data">
-                        <AddCircleOutlineIcon />
-                    </IconButton>
-                </Link>
-            </div>
+            <Link href={url}>
+                <div className={`text-gray-600 head-block flex items-center relative p-2 sm:p-3 rounded-xl shadow-md ${status ? setStatus(status) : 'bg-red-200'}`}>
+                    {icon}
+                    <p className="mb-0 inline-block font-medium ml-3">{name}</p>
+                    <AddCircleOutlineIcon className="ml-auto"/>
+                </div>
+            </Link>
         </section>
     )
 }

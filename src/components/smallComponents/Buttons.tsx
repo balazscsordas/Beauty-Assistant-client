@@ -14,7 +14,7 @@ interface Props {
 
 export const BasicPrimaryButton = ({ text, type="button", onClick, disabled }: Props) => {
     return (
-        <div className='relative'>
+        <div className='relative inline-block'>
             <button 
                 id='primary-button'
                 className='base primary'
@@ -34,7 +34,7 @@ export const BasicPrimaryButton = ({ text, type="button", onClick, disabled }: P
 
 export const AddIconPrimaryButton = ({ text, type="button", onClick, disabled }: Props) => {
     return (
-        <div className='relative'>
+        <div className='relative inline-block'>
             <button 
                 id='primary-button'
                 className='base primary'
@@ -54,7 +54,7 @@ export const AddIconPrimaryButton = ({ text, type="button", onClick, disabled }:
 
 export const BasicSecondaryButton = ({ text, type="button", onClick, disabled }: Props) => {
     return (
-        <div className='relative'>
+        <div className='relative inline-block'>
             <button 
                 id='secondary-button'
                 className='base secondary'
@@ -74,7 +74,7 @@ export const BasicSecondaryButton = ({ text, type="button", onClick, disabled }:
 
 export const AddIconOptionButton = ({ text, type="button", onClick, addIcon, disabled }: Props) => {
     return (
-        <div className='relative'>
+        <div className='relative inline-block'>
             <button 
                 id='primary-button'
                 className='base option'
@@ -99,7 +99,7 @@ interface CheckboxButton extends Props {
 
 export const CheckboxButton = ({ text, type="button", onClick, checked, nameVal, disabled}: CheckboxButton) => {
     return (
-        <div className='relative'>
+        <div className='relative inline-block'>
             <button
                 name={nameVal}
                 type={type}

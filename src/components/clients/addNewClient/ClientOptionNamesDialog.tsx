@@ -1,6 +1,6 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ClientContext from "../../../context/ClientProvider";
 import { ClientOptionNamesInterface } from "../../../interfaces/ClientInterfaces";
 import { Alert } from "../../smallComponents/Alerts";
@@ -53,6 +53,10 @@ const AddNewClientOptionDialog = () => {
     function capitalizeFirstLetter(string: string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+    useEffect(() => {
+        setLocalInputValues(clientOptionNames);
+    }, [clientOptionNames])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

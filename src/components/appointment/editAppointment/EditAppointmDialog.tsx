@@ -136,11 +136,11 @@ const EditAppointmentDialog = () => {
                 severity="error"
             />
 
-            <Dialog open={openEditAppointmentDialog} onClose={() => setOpenEditAppointmentDialog(false)} id='dialog-section'>
+            <Dialog open={openEditAppointmentDialog} onClose={() => setOpenEditAppointmentDialog(false)} fullWidth className="text-center">
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText className='dialog-context-text'>
+                        <DialogContentText className="mb-8">
                             {
                                 new Date(editAppointmentData.date).getFullYear() 
                                 + '. ' + getNamedMonth(editAppointmentData.date) 
@@ -159,7 +159,7 @@ const EditAppointmentDialog = () => {
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
                     </DialogContent>
-                    <DialogActions>
+                    <DialogActions className="justify-center mb-4">
                         <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
                         <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
                         <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
