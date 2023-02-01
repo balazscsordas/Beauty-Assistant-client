@@ -102,14 +102,16 @@ const AddAppointmentDialog = () => {
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText className="mb-6">
-                            {
-                                newAppointmentData.date.getFullYear() 
-                                + '. ' + getNamedMonth(newAppointmentData.date) 
-                                + ' ' + getNumberedDay(newAppointmentData.date) 
-                                + '. ' + getNamedDay(newAppointmentData.date)
-                                + ' ' + newAppointmentData.time
-                            }
+                        <DialogContentText >
+                            <div className="mb-6">
+                                {
+                                    newAppointmentData.date.getFullYear() 
+                                    + '. ' + getNamedMonth(newAppointmentData.date) 
+                                    + ' ' + getNumberedDay(newAppointmentData.date) 
+                                    + '. ' + getNamedDay(newAppointmentData.date)
+                                    + ' ' + newAppointmentData.time
+                                }
+                            </div>
                         </DialogContentText>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
@@ -117,9 +119,11 @@ const AddAppointmentDialog = () => {
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
                     </DialogContent>
-                    <DialogActions className="justify-center mb-4">
-                        <BasicSecondaryButton onClick={closeDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
-                        <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
+                    <DialogActions>
+                        <div className="flex justify-center mb-4 mx-auto">
+                            <BasicSecondaryButton onClick={closeDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
+                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
+                        </div>
                     </DialogActions>
                 </Box>
             </Dialog>

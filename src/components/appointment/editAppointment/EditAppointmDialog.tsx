@@ -140,14 +140,16 @@ const EditAppointmentDialog = () => {
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText className="mb-8">
-                            {
-                                new Date(editAppointmentData.date).getFullYear() 
-                                + '. ' + getNamedMonth(editAppointmentData.date) 
-                                + ' ' + getNumberedDay(editAppointmentData.date) 
-                                + '. ' + getNamedDay(editAppointmentData.date)
-                                + ' ' + editAppointmentData.time
-                            }
+                        <DialogContentText>
+                            <div className="mb-8">
+                                {
+                                    new Date(editAppointmentData.date).getFullYear() 
+                                    + '. ' + getNamedMonth(editAppointmentData.date) 
+                                    + ' ' + getNumberedDay(editAppointmentData.date) 
+                                    + '. ' + getNamedDay(editAppointmentData.date)
+                                    + ' ' + editAppointmentData.time
+                                }
+                            </div>
                         </DialogContentText>
                             <StatusChanger/>
                             <ClientSearchbar/>
@@ -159,10 +161,12 @@ const EditAppointmentDialog = () => {
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
                             <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
                     </DialogContent>
-                    <DialogActions className="justify-center mb-4">
-                        <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
-                        <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
-                        <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
+                    <DialogActions>
+                        <div className="flex justify-center mx-auto mb-4">
+                            <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
+                            <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
+                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
+                        </div>
                     </DialogActions>
                 </Box>
             </Dialog>
@@ -179,8 +183,8 @@ const EditAppointmentDialog = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text={ lang === 'hun' ? 'Nem' : 'Igen' }/>
-                    <BasicPrimaryButton onClick={handleDeleteAppointment} text={ lang === 'hun' ? 'Igen' : 'Nem' }/>
+                        <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text={ lang === 'hun' ? 'Nem' : 'Igen' }/>
+                        <BasicPrimaryButton onClick={handleDeleteAppointment} text={ lang === 'hun' ? 'Igen' : 'Nem' }/>
                 </DialogActions>
             </Dialog>
         </>
