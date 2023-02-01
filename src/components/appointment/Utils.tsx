@@ -263,3 +263,33 @@ export const getCorrectUTCDay = (date: Date) => {
             return 20;
     }
 }
+
+    // returns the number of 15 minutes before the next appointment begin
+export const countEmptyRowsWhenEmptyClicked = (rowIndex: number, colIndex: number) => {
+    let numberOfEmptyCells = 0;
+    for (let index = 0; index < 10; index++) {
+        const cell = document.getElementsByTagName('tr')[rowIndex + index].getElementsByTagName('td')[colIndex];
+        if (cell.classList.contains('full')) {
+            break;
+        } else {
+            numberOfEmptyCells++;
+        }
+    }
+    return numberOfEmptyCells;
+}
+
+// returns the number of 15 minutes before the next appointment begin
+export const countEmptyRowsWhenFullClicked = (rowIndex: number, colIndex: number) => {
+    const rowSpanVal = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex].rowSpan;
+    console.log(rowSpanVal)
+    let numberOfEmptyCells = rowSpanVal;
+    for (let index = 0; index < 10; index++) {
+        const cell = document.getElementsByTagName('tr')[rowIndex + rowSpanVal + index].getElementsByTagName('td')[colIndex];
+        if (cell.classList.contains('full')) {
+            break;
+        } else {
+            numberOfEmptyCells++;
+        }
+    }
+    return numberOfEmptyCells;
+}

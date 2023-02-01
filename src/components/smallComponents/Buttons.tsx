@@ -104,8 +104,8 @@ export const CheckboxButton = ({ text, type="button", onClick, checked, nameVal,
                 name={nameVal}
                 type={type}
                 onClick={onClick}
-                className='base'
-                >{checked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>}{text}
+                className='uppercase rounded-full bg-slate-100 m-1 text-sm px-4 py-2 flex items-center font-medium shadow-md border-blue-300 border-2'
+                >{checked ? <CheckBoxIcon fontSize='small' className='mr-1'/> : <CheckBoxOutlineBlankIcon fontSize='small' className='mr-1'/>}{text}
             </button>
             {disabled && 
                 <span className='absoluteCenter flex justify-center'>

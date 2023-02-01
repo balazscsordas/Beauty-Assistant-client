@@ -102,7 +102,6 @@ const AddAppointmentDialog = () => {
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText >
                             <div className="mb-6">
                                 {
                                     newAppointmentData.date.getFullYear() 
@@ -112,7 +111,6 @@ const AddAppointmentDialog = () => {
                                     + ' ' + newAppointmentData.time
                                 }
                             </div>
-                        </DialogContentText>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>
                             <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={newAppointmentData.discount}/>

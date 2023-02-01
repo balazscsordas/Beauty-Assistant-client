@@ -140,9 +140,8 @@ const EditAppointmentDialog = () => {
                 <Box component="form" onSubmit={handleSubmit}>
                     <DialogTitle>{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            <div className="mb-8">
-                                {
+                            <div className="mb-8 mt-1">
+                            {
                                     new Date(editAppointmentData.date).getFullYear() 
                                     + '. ' + getNamedMonth(editAppointmentData.date) 
                                     + ' ' + getNumberedDay(editAppointmentData.date) 
@@ -150,7 +149,6 @@ const EditAppointmentDialog = () => {
                                     + ' ' + editAppointmentData.time
                                 }
                             </div>
-                        </DialogContentText>
                             <StatusChanger/>
                             <ClientSearchbar/>
                             <ServiceSearchbar/>

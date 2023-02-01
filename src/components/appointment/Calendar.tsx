@@ -1,7 +1,7 @@
 import WeekPicker from "./WeekPicker";
 import React, { useContext, useEffect, useMemo } from "react";
 import AppointmentContext from "../../context/AppointmentProvider";
-import { addAppointmentToCell, getCorrectUTCDay, getDayDataFromDayIndex, getNamedDay, getNumberedDay, getNumberedMonth, resetAllCells } from "./Utils";
+import { addAppointmentToCell, getCorrectUTCDay, getDayDataFromDayIndex, resetAllCells, countEmptyRowsWhenEmptyClicked, countEmptyRowsWhenFullClicked } from "./Utils";
 import ClientContext from "../../context/ClientProvider";
 import ServiceContext from "../../context/ServiceProvider";
 import axios from "axios";
@@ -91,7 +91,7 @@ const Calendar = () => {
 
     const handleTdClick = (cell: HTMLTableCellElement) => {
         const dayIndex = cell.cellIndex;
-        const rowIndex = cell.closest('tr')!.rowIndex // Check if it is ok with !
+        const rowIndex = cell.closest('tr')!.rowIndex
 
         if (cell.classList.contains('empty')) {
             setNewAppointmentData(prevData => {
@@ -102,7 +102,7 @@ const Calendar = () => {
                 }
             })
             setOpenAddAppointmentDialog(true);
-            setEmptyRowsForServiceLength(countEmptyRows(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
+            setEmptyRowsForServiceLength(countEmptyRowsWhenEmptyClicked(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
         }
         else if (cell.classList.contains('full')) {
             currentWeekAppointments && currentWeekAppointments.map(appointment => {
@@ -112,6 +112,7 @@ const Calendar = () => {
                 if (appointmentRowIndex === rowIndex && appointmentDayIndex === dayIndex) {
                     setEditAppointmentData(appointment);
                     setOpenEditAppointmentDialog(true);
+                    setEmptyRowsForServiceLength(countEmptyRowsWhenFullClicked(rowIndex, dayIndex)); // Checks how many empty rows are after the filled cell (for service filter by available time)
                 }
             })
         }
@@ -137,20 +138,6 @@ const Calendar = () => {
         } catch (err) {
             console.log(err);
         }
-    }
-
-    // returns the number of 15 minutes before the next appointment begin
-    function countEmptyRows(rowIndex: number, colIndex: number) {
-        let numberOfEmptyCells = 0;
-        for (let index = 0; index < 10; index++) {
-            const cell = document.getElementsByTagName('tr')[rowIndex + index].getElementsByTagName('td')[colIndex];
-            if (cell.classList.contains('full')) {
-                break;
-            } else {
-                numberOfEmptyCells++;
-            }
-        }
-        return numberOfEmptyCells;
     }
 
     return (

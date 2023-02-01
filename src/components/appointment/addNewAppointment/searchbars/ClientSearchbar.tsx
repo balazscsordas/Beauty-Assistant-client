@@ -1,7 +1,6 @@
-import { Collapse, IconButton, TextField } from "@mui/material";
+import { Collapse } from "@mui/material";
 import { useState, useContext } from "react";
 import ClientContext from "../../../../context/ClientProvider";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ClientListInterface } from "../../../../interfaces/ClientInterfaces";
 import AppointmentContext from "../../../../context/AppointmentProvider";
 import { OneLineReqInput } from "../../../smallComponents/InputFields";
@@ -11,7 +10,6 @@ import LangContext from "../../../../context/LanguageProvider";
 const ClientSearchbar = () => {
 
     const { lang } = useContext(LangContext);
-
     const { clients } = useContext(ClientContext);
     const { setNewAppointmentData } = useContext(AppointmentContext);
 
@@ -49,7 +47,7 @@ const ClientSearchbar = () => {
         <div className="appointment-searchbar-section">
             <OneLineReqInput 
                 onChange={changeSearchBarData} 
-                type={ lang === 'hun' ? "Keresés" : 'Search' }
+                type="search"
                 value={clientSearchbarValue} 
                 label={ lang === 'hun' ? 'Vendég neve' : "Client name" }
             />

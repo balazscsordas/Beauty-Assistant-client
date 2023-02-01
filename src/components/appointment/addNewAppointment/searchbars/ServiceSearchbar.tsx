@@ -10,9 +10,10 @@ import LangContext from "../../../../context/LanguageProvider";
 const ServiceSearchbar = () => {
 
     const { lang } = useContext(LangContext);
-
     const { services } = useContext(ServiceContext);
     const { setNewAppointmentData, emptyRowsForServiceLength } = useContext(AppointmentContext);
+    console.log(emptyRowsForServiceLength);
+
 
     const [serviceSearchbarValue, setServiceSearchbarValue] = useState("");
     const [filteredServiceList, setFilteredServiceList] = useState<ServiceListInterface[]>([])
@@ -61,12 +62,13 @@ const ServiceSearchbar = () => {
         <div className="appointment-searchbar-section">
             <OneLineReqInput 
                 onChange={changeSearchBarData} 
-                type={ lang === 'hun' ? "Keresés" : 'Search' } value={serviceSearchbarValue} 
+                type="search" 
+                value={serviceSearchbarValue} 
                 label={ lang === 'hun' ? 'Kezelés neve' : 'Service name' }
             />
             <Collapse in={showFilteredServices}>
                 {filteredServiceList.length === 0
-                    ? serviceSearchbarValue !== "" && <p className='no-content-message'>{ lang === 'hun' ? 'Nincs a keresésnek megfelelő találat!' : "There isn't any service matching your search result!" }</p>
+                    ? serviceSearchbarValue !== "" && <p>{ lang === 'hun' ? 'Nincs a keresésnek megfelelő találat!' : "There isn't any service matching your search result!" }</p>
                     : serviceSearchbarValue !== "" && filteredServiceList.map((service: ServiceListInterface, index: number) => (
                         <SearchbarResultItem 
                             key={index}

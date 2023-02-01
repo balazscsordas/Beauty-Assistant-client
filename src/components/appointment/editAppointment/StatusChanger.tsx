@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../../context/AppointmentProvider";
+import LangContext from "../../../context/LanguageProvider";
 import { CheckboxButton } from "../../smallComponents/Buttons";
 
 const StatusChanger = () => {
 
+    const { lang } = useContext(LangContext);
     const { editAppointmentData, setEditAppointmentData } = useContext(AppointmentContext);
 
     const [failureChecked, setFailureChecked] = useState(editAppointmentData.status === 'failure' ? true : false)
@@ -46,19 +48,19 @@ const StatusChanger = () => {
             <div className="flex flex-wrap justify-evenly">
                 <CheckboxButton 
                     nameVal="failure" 
-                    text="Nem jött el" 
+                    text={ lang === 'hun' ? "Nem jött el" : "Not used" }
                     onClick={handleClick} 
                     checked={editAppointmentData.status === 'failure' ? true : false} 
                 />
                 <CheckboxButton 
                     nameVal="pending" 
-                    text="Függőben" 
+                    text={ lang === 'hun' ? "Függőben" : "pending" }
                     onClick={handleClick} 
                     checked={editAppointmentData.status === 'pending' ? true : false} 
                 />
                 <CheckboxButton 
                     nameVal="success" 
-                    text="Eljött" 
+                    text={ lang === 'hun' ? "Eljött" : "used" }
                     onClick={handleClick} 
                     checked={editAppointmentData.status === 'success' ? true : false} 
                 />
