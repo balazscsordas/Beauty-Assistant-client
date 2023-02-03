@@ -7,6 +7,7 @@ import RedeemIcon from '@mui/icons-material/Redeem';
 import Link from 'next/link';
 import NavbarItem from './NavbarItem';
 import LangContext from '../../context/LanguageProvider';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const SideNavbar = () => {
 
@@ -22,6 +23,7 @@ const SideNavbar = () => {
             <NavbarItem href="/admin/appointments" label={ lang === 'hun' ? 'Időpontok' : 'Appointments' } icon={<CalendarMonthIcon className='m-auto lg:m-0'/>} />
             <NavbarItem href="/admin/services" label={ lang === 'hun' ? 'Szolgáltatások' : 'Services' } icon={<BusinessCenterIcon className='m-auto lg:m-0'/>} />
             <NavbarItem href="/admin/giftcards" label={ lang === 'hun' ? 'Ajándékutalványok' : 'Giftcards' } icon={<RedeemIcon className='m-auto lg:m-0'/>} />
+            <NavbarItem href="/admin/statistics" label={ lang === 'hun' ? 'Statisztikák' : 'Statistics' } icon={<BarChartIcon className='m-auto lg:m-0'/>} />
             <div className='mt-auto mb-2'>
                 <AvatarSection />
             </div>

@@ -5,6 +5,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import { useContext } from 'react';
 import LangContext from '../../context/LanguageProvider';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const NavbarMobile = () => {
 
@@ -16,6 +17,7 @@ const NavbarMobile = () => {
             <Link className="flex justify-center items-center flex-col flex-1" href="/admin/appointments"><CalendarMonthIcon/><span className="text-[0.5rem]">{ lang === 'hun' ? 'Időpontok' : 'Appointments' }</span></Link>
             <Link className="flex justify-center items-center flex-col flex-1" href="/admin/services"><BusinessCenterIcon/><span className="text-[0.5rem]">{ lang === 'hun' ? 'Szolgáltatások' : 'Services' }</span></Link>
             <Link className="flex justify-center items-center flex-col flex-1" href="/admin/giftcards"><RedeemIcon/><span className="text-[0.5rem]">{ lang === 'hun' ? 'Ajándékutalványok' : 'Giftcards' }</span></Link>
+            <Link className="flex justify-center items-center flex-col flex-1" href="/admin/statistics"><BarChartIcon/><span className="text-[0.5rem]">{ lang === 'hun' ? 'Statisztikák' : 'Statistics' }</span></Link>
         </header>
     )
 };

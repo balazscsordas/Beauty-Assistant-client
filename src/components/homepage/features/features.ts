@@ -34,5 +34,12 @@ export const features = [
         descriptionHUN: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.',
         descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
     },
+    {
+        titleHUN: 'Statisztikák',
+        titleENG: 'Services',
+
+        descriptionHUN: 'Hasznos kimutatások vállalkozásoddal kapcsolatban.',
+        descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
+    },
     
 ]
