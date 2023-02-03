@@ -30,5 +30,5 @@ export interface AppointmentInterface extends NewAppointmentInterface{
     clientName: string,
     serviceName: string,
     serviceTime: number,
-    servicePrice: number,
+    servicePrice?: number, // Nem kell elküldeni frontendre, korrigálni!
 }
