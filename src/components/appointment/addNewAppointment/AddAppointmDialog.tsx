@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../../context/AppointmentProvider";
@@ -10,6 +10,7 @@ import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
 import LangContext from "../../../context/LanguageProvider";
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddAppointmentDialog = () => {
 
@@ -100,7 +101,7 @@ const AddAppointmentDialog = () => {
 
             <Dialog open={openAddAppointmentDialog} onClose={closeDialog} fullWidth className="text-center">
                 <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
+                    <DialogTitle className="mx-6">{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
                     <DialogContent>
                             <div className="mb-6">
                                 {
@@ -119,11 +120,13 @@ const AddAppointmentDialog = () => {
                     </DialogContent>
                     <DialogActions>
                         <div className="flex justify-center mb-4 mx-auto">
-                            <BasicSecondaryButton onClick={closeDialog} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
                             <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
                         </div>
                     </DialogActions>
                 </Box>
+                <IconButton onClick={closeDialog} className="absolute top-0 right-0 mx-2 my-3">
+                    <CloseIcon/>
+                </IconButton>
             </Dialog>
         </>
     )
