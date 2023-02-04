@@ -1,4 +1,4 @@
-import { Box, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Box, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import AppointmentContext from "../../../context/AppointmentProvider";
@@ -12,6 +12,7 @@ import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/
 import StatusChanger from "./StatusChanger";
 import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
 import LangContext from "../../../context/LanguageProvider";
+import CloseIcon from '@mui/icons-material/Close';
 
 const EditAppointmentDialog = () => {
 
@@ -137,36 +138,40 @@ const EditAppointmentDialog = () => {
             />
 
             <Dialog open={openEditAppointmentDialog} onClose={() => setOpenEditAppointmentDialog(false)} fullWidth className="text-center">
-                <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
-                    <DialogContent>
-                            <div className="mb-8 mt-1">
-                            {
-                                    new Date(editAppointmentData.date).getFullYear() 
-                                    + '. ' + getNamedMonth(editAppointmentData.date) 
-                                    + ' ' + getNumberedDay(editAppointmentData.date) 
-                                    + '. ' + getNamedDay(editAppointmentData.date)
-                                    + ' ' + editAppointmentData.time
-                                }
+                <div className="relative">
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <DialogTitle className="mx-6">{ lang === 'hun' ? 'Időpont módosítása' : "Edit appointment" }</DialogTitle>
+                        <DialogContent>
+                                <div className="mb-8 mt-1">
+                                {
+                                        new Date(editAppointmentData.date).getFullYear() 
+                                        + '. ' + getNamedMonth(editAppointmentData.date) 
+                                        + ' ' + getNumberedDay(editAppointmentData.date) 
+                                        + '. ' + getNamedDay(editAppointmentData.date)
+                                        + ' ' + editAppointmentData.time
+                                    }
+                                </div>
+                                <StatusChanger/>
+                                <ClientSearchbar/>
+                                <ServiceSearchbar/>
+                                <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={editAppointmentData.discount}/>
+                                <Collapse in={showDiscountError}>
+                                    <p className="input-error-text">{ lang === 'hun' ? 'Kizárólag 0 és 100 közötti számot tartalmazhat.' : 'Only numbers between 0-100 are allowed' }</p>
+                                </Collapse>
+                                <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
+                                <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
+                        </DialogContent>
+                        <DialogActions>
+                            <div className="flex justify-center mx-auto mb-4">
+                                <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
+                                <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
                             </div>
-                            <StatusChanger/>
-                            <ClientSearchbar/>
-                            <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={editAppointmentData.discount}/>
-                            <Collapse in={showDiscountError}>
-                                <p className="input-error-text">{ lang === 'hun' ? 'Kizárólag 0 és 100 közötti számot tartalmazhat.' : 'Only numbers between 0-100 are allowed' }</p>
-                            </Collapse>
-                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={editAppointmentData.commentForAdmin}/>
-                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={editAppointmentData.commentForClient}/>
-                    </DialogContent>
-                    <DialogActions>
-                        <div className="flex justify-center mx-auto mb-4">
-                            <BasicSecondaryButton onClick={() => setOpenEditAppointmentDialog(false)} text={ lang === 'hun' ? 'Mégse' : 'exit' }/>
-                            <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? 'Törlés' : 'delete' }/>
-                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Módosítás' : 'Save' } type="submit"/>
-                        </div>
-                    </DialogActions>
-                </Box>
+                        </DialogActions>
+                    </Box>
+                    <IconButton onClick={() => setOpenEditAppointmentDialog(false)} className="absolute top-3 right-2">
+                        <CloseIcon/>
+                    </IconButton>
+                </div>
             </Dialog>
 
             <Dialog

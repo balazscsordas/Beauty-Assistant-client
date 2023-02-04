@@ -7,7 +7,7 @@ import { getNamedDay, getNamedMonth, getNumberedDay } from '../Utils';
 import ClientSearchbar from "./searchbars/ClientSearchbar";
 import ServiceSearchbar from "./searchbars/ServiceSearchbar";
 import { Alert } from "../../smallComponents/Alerts";
-import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
+import { AddIconPrimaryButton } from "../../smallComponents/Buttons";
 import { MultilineNonReqInput, OneLineNonReqInput } from "../../smallComponents/InputFields";
 import LangContext from "../../../context/LanguageProvider";
 import CloseIcon from '@mui/icons-material/Close';
@@ -100,33 +100,35 @@ const AddAppointmentDialog = () => {
             />
 
             <Dialog open={openAddAppointmentDialog} onClose={closeDialog} fullWidth className="text-center">
-                <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle className="mx-6">{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
-                    <DialogContent>
-                            <div className="mb-6">
-                                {
-                                    newAppointmentData.date.getFullYear() 
-                                    + '. ' + getNamedMonth(newAppointmentData.date) 
-                                    + ' ' + getNumberedDay(newAppointmentData.date) 
-                                    + '. ' + getNamedDay(newAppointmentData.date)
-                                    + ' ' + newAppointmentData.time
-                                }
+                <div className="relative">
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <DialogTitle className="mx-6">{ lang === 'hun' ? 'Időpont hozzáadása' : "Add new appointment" }</DialogTitle>
+                        <DialogContent>
+                                <div className="mb-6">
+                                    {
+                                        newAppointmentData.date.getFullYear() 
+                                        + '. ' + getNamedMonth(newAppointmentData.date) 
+                                        + ' ' + getNumberedDay(newAppointmentData.date) 
+                                        + '. ' + getNamedDay(newAppointmentData.date)
+                                        + ' ' + newAppointmentData.time
+                                    }
+                                </div>
+                                <ClientSearchbar/>
+                                <ServiceSearchbar/>
+                                <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={newAppointmentData.discount}/>
+                                <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
+                                <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
+                        </DialogContent>
+                        <DialogActions>
+                            <div className="flex justify-center mb-4 mx-auto">
+                                <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
                             </div>
-                            <ClientSearchbar/>
-                            <ServiceSearchbar/>
-                            <OneLineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Kedvezmény (%)' : "Discount (%)" } nameVal="discount" value={newAppointmentData.discount}/>
-                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés (vendég nem látja)' : "Comment for you (client can't see)" } nameVal="commentForAdmin" value={newAppointmentData.commentForAdmin}/>
-                            <MultilineNonReqInput onChange={handleChange} label={ lang === 'hun' ? 'Megjegyzés a vendég részére' : 'Comment for the client'} nameVal="commentForClient" value={newAppointmentData.commentForClient}/>
-                    </DialogContent>
-                    <DialogActions>
-                        <div className="flex justify-center mb-4 mx-auto">
-                            <AddIconPrimaryButton text={ lang === 'hun' ? 'Hozzáadás' : 'add appointment' } type="submit"/>
-                        </div>
-                    </DialogActions>
-                </Box>
-                <IconButton onClick={closeDialog} className="absolute top-0 right-0 mx-2 my-3">
-                    <CloseIcon/>
-                </IconButton>
+                        </DialogActions>
+                    </Box>
+                    <IconButton onClick={closeDialog} className="absolute top-3 right-2">
+                        <CloseIcon/>
+                    </IconButton>
+                </div>
             </Dialog>
         </>
     )
