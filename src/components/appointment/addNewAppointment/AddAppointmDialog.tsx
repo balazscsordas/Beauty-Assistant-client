@@ -125,9 +125,11 @@ const AddAppointmentDialog = () => {
                             </div>
                         </DialogActions>
                     </Box>
-                    <IconButton onClick={closeDialog} className="absolute top-3 right-2">
-                        <CloseIcon/>
-                    </IconButton>
+                    <span className="absolute top-3 right-2">
+                        <IconButton onClick={closeDialog}>
+                            <CloseIcon/>
+                        </IconButton>
+                    </span>
                 </div>
             </Dialog>
         </>

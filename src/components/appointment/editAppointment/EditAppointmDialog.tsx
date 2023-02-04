@@ -168,9 +168,11 @@ const EditAppointmentDialog = () => {
                             </div>
                         </DialogActions>
                     </Box>
-                    <IconButton onClick={() => setOpenEditAppointmentDialog(false)} className="absolute top-3 right-2">
-                        <CloseIcon/>
-                    </IconButton>
+                    <span className="absolute top-3 right-2">
+                        <IconButton onClick={() => setOpenEditAppointmentDialog(false)}>
+                            <CloseIcon/>
+                        </IconButton>
+                    </span>
                 </div>
             </Dialog>
 
