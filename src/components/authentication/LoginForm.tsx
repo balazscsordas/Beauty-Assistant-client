@@ -10,6 +10,7 @@ import { Alert } from '../smallComponents/Alerts';
 import Link from 'next/link';
 import AuthenticationWrapper from './AuthenticationWrapper';
 import LangContext from '../../context/LanguageProvider';
+import TestAccountLoginButton from '../homepage/TestAccountLoginButton';
 
 const LoginForm = () => {
 
@@ -100,6 +101,7 @@ const LoginForm = () => {
           <OneLineReqInput onChange={handleChange} value={inputData.password} label={ lang === 'hun' ? "Jelszó" : "Password" } nameVal="password" type="password" autoComplete="password"/>
           <Box className="mt-8 mb-4">
             <BasicPrimaryButton text={ lang === 'hun' ? "Bejelentkezés" : "Login" } type="submit" disabled={loading}/>
+            <TestAccountLoginButton />
           </Box>
         </Box>
         <p className="mt-4 font-medium text-sm">{ lang === 'hun' ? "Nincs még fiókod? Regisztrálj" : "Don't have account yet? Register by" }
