@@ -1,5 +1,6 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { ServiceListInterface } from "../interfaces/ServiceInterfaces";
+import LangContext from "./LanguageProvider";
 
 type Props = {
     children: ReactNode;
@@ -16,8 +17,10 @@ const ServiceContext = createContext<ServiceListContextInterface>({} as ServiceL
 
 export const ServiceProvider = ({ children }: Props) => {
 
+    const { lang } = useContext(LangContext);
+
     const [services, setServices] = useState<ServiceListInterface[]>([]);
-    const [serviceCategories, setServiceCategories] = useState<string[]>(["Új kategória hozzáadása"])
+    const [serviceCategories, setServiceCategories] = useState<string[]>(lang === 'hun' ? ["Új kategória hozzáadása"] : ["Add new category"])
 
     return (
         <ServiceContext.Provider value={{ 

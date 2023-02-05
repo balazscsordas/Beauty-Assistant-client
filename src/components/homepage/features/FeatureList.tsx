@@ -14,7 +14,7 @@ const FeatureList = () => {
                     <FeatureLi 
                         key={index}
                         title={lang === 'hun' ? feature.titleHUN : feature.titleENG}
-                        description={lang === 'hun' ? feature.descriptionHUN : feature.titleENG}
+                        description={lang === 'hun' ? feature.descriptionHUN : feature.descriptionENG}
                     />
                 ))}
             </div>

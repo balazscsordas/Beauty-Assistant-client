@@ -2,6 +2,7 @@ import { Box, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/mate
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import ClientContext from "../../../context/ClientProvider";
+import LangContext from "../../../context/LanguageProvider";
 import { ClientOptionNamesInterface } from "../../../interfaces/ClientInterfaces";
 import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton, BasicSecondaryButton } from "../../smallComponents/Buttons";
@@ -9,6 +10,7 @@ import { OneLineNonReqInput } from "../../smallComponents/InputFields";
 
 const AddNewClientOptionDialog = () => {
 
+    const { lang } = useContext(LangContext);
     const { 
         clientOptionNames, 
         setClientOptionNames,
@@ -73,29 +75,29 @@ const AddNewClientOptionDialog = () => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={handleCloseAlert}
-                text="Mezők hozzáadása sikeres volt."
+                text={ lang === 'hun' ? "Mezők hozzáadása sikeres volt." : "Successfully added the fields" }
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={handleCloseAlert}
-                text="Mezők hozzáadása nem sikerült."
+                text={ lang === 'hun' ? "Mezők hozzáadása nem sikerült." : "Something went wrong, please try again" }
                 severity="error"
             />
 
             <Dialog open={openClientOptionDialog} onClose={() => setOpenClientOptionDialog(false)} id='dialog-section'>
                 <Box component="form" onSubmit={handleSubmit}>
-                    <DialogTitle>Mezők átnevezése</DialogTitle>
+                    <DialogTitle>{ lang === 'hun' ? 'Mezők átnevezése' : 'Rename fields' }</DialogTitle>
                     <DialogContent>
-                        <OneLineNonReqInput label='Mező (1) neve' nameVal="option1Name" onChange={handleChange} value={localInputValues.option1Name}/>
-                        <OneLineNonReqInput label='Mező (2) neve' nameVal="option2Name" onChange={handleChange} value={localInputValues.option2Name}/>
-                        <OneLineNonReqInput label='Mező (3) neve' nameVal="option3Name" onChange={handleChange} value={localInputValues.option3Name}/>
-                        <OneLineNonReqInput label='Mező (4) neve' nameVal="option4Name" onChange={handleChange} value={localInputValues.option4Name}/>
-                        <OneLineNonReqInput label='Mező (5) neve' nameVal="option5Name" onChange={handleChange} value={localInputValues.option5Name}/>
+                        <OneLineNonReqInput label={ lang === 'hun' ? 'Mező (1) neve' : 'Name of field (1)' } nameVal="option1Name" onChange={handleChange} value={localInputValues.option1Name}/>
+                        <OneLineNonReqInput label={ lang === 'hun' ? 'Mező (2) neve' : 'Name of field (2)' } nameVal="option2Name" onChange={handleChange} value={localInputValues.option2Name}/>
+                        <OneLineNonReqInput label={ lang === 'hun' ? 'Mező (3) neve' : 'Name of field (3)' } nameVal="option3Name" onChange={handleChange} value={localInputValues.option3Name}/>
+                        <OneLineNonReqInput label={ lang === 'hun' ? 'Mező (4) neve' : 'Name of field (4)' } nameVal="option4Name" onChange={handleChange} value={localInputValues.option4Name}/>
+                        <OneLineNonReqInput label={ lang === 'hun' ? 'Mező (5) neve' : 'Name of field (5)' } nameVal="option5Name" onChange={handleChange} value={localInputValues.option5Name}/>
                     </DialogContent>
                     <DialogActions>
-                        <BasicSecondaryButton onClick={() => setOpenClientOptionDialog(false)} text="Mégse"/>
-                        <AddIconPrimaryButton text="Hozzáadás" type="submit"/>
+                        <BasicSecondaryButton onClick={() => setOpenClientOptionDialog(false)} text={  lang === 'hun' ? "Mégse" : "Exit" }/>
+                        <AddIconPrimaryButton text={ lang === 'hun' ? "Hozzáadás" : "Add" } type="submit"/>
                     </DialogActions>
                 </Box>
             </Dialog>

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import LangContext from "../../../context/LanguageProvider";
 import { ListStatInterface } from "../../../interfaces/StatisticsInterface";
 import StatWrapper from "../StatWrapper";
 import ListStatItem from "./ListStatItem";
@@ -9,24 +11,26 @@ interface Props {
 
 const ListStat = ({ title, data }: Props) => {
 
+    const { lang } = useContext(LangContext);
+
     return (
         <StatWrapper>
             {title && <h3 className="mb-10 font-semibold">{title}</h3>}
             <ListStatItem
-                text="Összes időpont: "
-                data={`${data.allAppointments} db`}
+                text={ lang === 'hun' ? "Összes időpont: " : "All appointments: "}
+                data={`${data.allAppointments}`}
             />
             <ListStatItem
-                text="Lemondott időpontok: "
-                data={`${data.failedAppointments} db`}
+                text={ lang === 'hun' ? "Lemondott időpontok: " : "Canceled appointments: " }
+                data={`${data.failedAppointments}`}
             />
             <ListStatItem
-                text="Várható bevétel: "
-                data={`${data.estimatedIncome} Ft`}
+                text={ lang === 'hun' ? "Várható bevétel: " : "Estimated income: " }
+                data={ lang === 'hun' ? `${data.estimatedIncome} Ft` : `${data.estimatedIncome} €`}
             />
             <ListStatItem
-                text="Összes vendég: "
-                data={`${data.allClients} db`}
+                text={ lang === 'hun' ? "Összes vendég: " : "Number of clients: " }
+                data={`${data.allClients}`}
             />
         </StatWrapper>
     )

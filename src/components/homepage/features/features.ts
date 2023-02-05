@@ -1,28 +1,28 @@
 export const features = [
     {
         titleHUN: 'Könnyedén kezelhető felület',
-        titleENG: 'Easy to use',
+        titleENG: 'Easy to use platform',
 
         descriptionHUN: 'Az alkalmazás elsődleges célja az, hogy használatával időt spórolj, ezért a kezelőfelület úgy lett megalkotva, hogy az elősegítse a gyors és hatékony munkavégzést.',
-        descriptionENG: 'A kezelőfelület úgy lett megalkotva, hogy az elősegítse a gyors és hatékony munkavégzést.'
+        descriptionENG: 'The purpose of the application is to save you time, so the user interface was created in such a way that it helps you do the job fast and effectively'
     }, 
     {
         titleHUN: 'Vendégkarton',
         titleENG: 'Collection of clients',
 
         descriptionHUN: 'Bőrtípus, allergiák, általános adatok és minden vendégeiddel kapcsolatos fontos információt egy helyen tudsz tárolni. A kötelező mezőkön felül (név, email, telefonszám, valamint kor) 5 db egyedi mező alapján tárolhatsz fontos információkat vendégeidről.',
-        descriptionENG: 'A kötelező mezőkön felül (név, email, telefonszám, valamint kor) 5 db egyedi mező alapján tárolhatsz fontos információkat vendégeidről.'
+        descriptionENG: 'You can useful information about your guests in one place. In addition to the mandatory fields (name, email, phone number, and age), you can store important information about your guests based on 5 individual fields.'
     },
     {
         titleHUN: 'Időpontok rögzítése',
-        titleENG: 'Appointments',
+        titleENG: 'Handle appointments',
 
         descriptionHUN: 'Hozzáadhatsz új időpontokat, amik heti bontásban jelennek meg, így azonnal átláthatóvá válik az egész heti program.',
-        descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
+        descriptionENG: 'You can add, edit and delete appointments, which are displayed in a weekly breakdown, so the entire weekly program becomes immediately visible.'
     }, 
     {
         titleHUN: 'Ajándékutalványok nyilvántartása',
-        titleENG: 'Giftcards',
+        titleENG: 'Keep record of your giftcards',
 
         descriptionHUN: 'Pár kattintással létrehozhatsz új ajándékutalványokat egyedi azonosítóval, rögzítheted a kezdeti és lejárati dátumot, utalvány összegét, illetve az utalvány státuszát (lejárt, függőben, felhasznált).',
         descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
@@ -32,14 +32,14 @@ export const features = [
         titleENG: 'Services',
 
         descriptionHUN: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.',
-        descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
+        descriptionENG: 'You can add, edit and delete your services and provide data about them for your clients.'
     },
     {
-        titleHUN: 'Statisztikák',
-        titleENG: 'Services',
+        titleHUN: 'Statisztikák, diagramok',
+        titleENG: 'Statistics about your business',
 
         descriptionHUN: 'Hasznos kimutatások vállalkozásoddal kapcsolatban.',
-        descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
+        descriptionENG: 'Based your appointment management, the application can provide useful stats about your business, for example your weekly income, number of appointments, etc.'
     },
     
 ]

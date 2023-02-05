@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Dialog, DialogActions, DialogContent, DialogContentText } from "@mui/material";
 import { useState } from "react";
+import LangContext from "../../context/LanguageProvider";
 import { BasicPrimaryButton, BasicSecondaryButton } from "./Buttons";
 
 interface Props {
@@ -9,6 +11,7 @@ interface Props {
 
 const DeleteDialog = ({ deleteLabel, deleteFunction }: Props) => {
 
+    const { lang } = useContext(LangContext);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const deleteItem = () => {
@@ -18,8 +21,8 @@ const DeleteDialog = ({ deleteLabel, deleteFunction }: Props) => {
 
     return (
         <div className="text-center mt-4">
-            <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text="Törlés"/>
-            <BasicPrimaryButton type="submit" text="Mentés"/>
+            <BasicSecondaryButton onClick={() => setDeleteDialogOpen(true)} text={ lang === 'hun' ? "Törlés" : "Delete" }/>
+            <BasicPrimaryButton type="submit" text={ lang === 'hun' ? "Mentés" : "Save" }/>
             <Dialog
                 open={deleteDialogOpen}
                 onClose={() => setDeleteDialogOpen(false)}
@@ -32,8 +35,8 @@ const DeleteDialog = ({ deleteLabel, deleteFunction }: Props) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <BasicSecondaryButton onClick={() => setDeleteDialogOpen(false)} text="Nem"/>
-                    <BasicPrimaryButton onClick={deleteItem} text="Igen"/>
+                    <BasicSecondaryButton onClick={() => setDeleteDialogOpen(false)} text={ lang === 'hun' ? "Nem" : "No" }/>
+                    <BasicPrimaryButton onClick={deleteItem} text={ lang === 'hun' ? "Igen" : "Yes" }/>
                 </DialogActions>
             </Dialog>
         </div>

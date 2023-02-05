@@ -71,16 +71,28 @@ export const nextWeek = (currentWeek: WeekdaysInterface) => {
     return nextWeek;
 }
 
-export const getNamedMonth = (date: Date) => {
+export const getNamedMonth = (date: Date, lang: string) => {
     const months = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
+    const monthsEng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const month = new Date(date).getMonth();
-    return months[month];
+    if (lang === 'hun') {
+        return months[month];
+    } 
+    if (lang === 'eng') {
+        return monthsEng[month]
+    }
 }
 
-export const getShortNamedMonth = (date: Date) => {
+export const getShortNamedMonth = (date: Date, lang: string) => {
     const months = ['Jan', 'Febr', 'Márc', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szept', 'Okt', 'Nov', 'Dec'];
+    const monthsEng = ['Jan', 'Febr', 'March', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     const month = new Date(date).getMonth();
-    return months[month];
+    if (lang === 'hun') {
+        return months[month];
+    } 
+    if (lang === 'eng') {
+        return monthsEng[month]
+    }
 }
 
 export const getNumberedMonth = (date: Date) => {
@@ -89,22 +101,50 @@ export const getNumberedMonth = (date: Date) => {
     return months[month];
 }
 
-export const getNamedDay = (date: Date) => {
+export const getNamedDay = (date: Date, lang: string) => {
     switch (new Date(date).getDay()) {
         case 0:
-            return 'Vasárnap';
+            if (lang === 'hun') {
+                return 'Vasárnap';
+            } else {
+                return 'Sunday'
+            }
         case 1:
-            return 'Hétfő'
+            if (lang === 'hun') {
+                return 'Hétfő';
+            } else {
+                return 'Monday'
+            }
         case 2:
-            return 'Kedd'
+            if (lang === 'hun') {
+                return 'Kedd';
+            } else {
+                return 'Tuesday'
+            }
         case 3:
-            return 'Szerda'
+            if (lang === 'hun') {
+                return 'Szerda';
+            } else {
+                return 'Wednesday'
+            }
         case 4:
-            return 'Csütörtök'
+            if (lang === 'hun') {
+                return 'Csütörtök';
+            } else {
+                return 'Thurstday'
+            }
         case 5:
-            return 'Péntek'
+            if (lang === 'hun') {
+                return 'Péntek';
+            } else {
+                return 'Friday'
+            }
         case 6:
-            return 'Szombat'
+            if (lang === 'hun') {
+                return 'Szombat';
+            } else {
+                return 'Saturday'
+            }
     
         default:
             return 'Error with getNamedDay function'

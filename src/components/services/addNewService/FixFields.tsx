@@ -40,7 +40,7 @@ const FixFields = ({ inputData, handleChange, showPriceError, categoryList, newC
                     <OneLineReqInput onChange={handleChange} value={inputData.name} label={ lang === 'hun' ? 'Név' : 'Name' } nameVal="name"/>
                 </div>
                 <div className="flex-1 mx-2">
-                    {inputData.category === 'Új kategória hozzáadása' || categoryList.length === 1
+                    {inputData.category === 'Új kategória hozzáadása' || inputData.category === 'Add new category' || categoryList.length === 1
                         ? <OneLineReqInput label={ lang === 'hun' ? 'Kategória' : 'Category' } nameVal="newCategory" value={newCategory} onChange={handleSelectChange}/>
                         : <BasicSelectInputField label={ lang === 'hun' ? 'Kategória' : 'Category' } value={inputData.category} array={categoryList} onChange={handleSelectChange} nameVal="category"/>
                     }

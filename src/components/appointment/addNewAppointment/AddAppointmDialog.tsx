@@ -107,9 +107,9 @@ const AddAppointmentDialog = () => {
                                 <div className="mb-6">
                                     {
                                         newAppointmentData.date.getFullYear() 
-                                        + '. ' + getNamedMonth(newAppointmentData.date) 
+                                        + '. ' + getNamedMonth(newAppointmentData.date, lang) 
                                         + ' ' + getNumberedDay(newAppointmentData.date) 
-                                        + '. ' + getNamedDay(newAppointmentData.date)
+                                        + '. ' + getNamedDay(newAppointmentData.date, lang)
                                         + ' ' + newAppointmentData.time
                                     }
                                 </div>

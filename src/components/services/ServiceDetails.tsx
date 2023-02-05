@@ -37,7 +37,7 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!showPriceError) {
-            serviceData.category === 'Új kategória hozzáadása' || categoryList.length === 1
+            serviceData.category === 'Új kategória hozzáadása' || serviceData.category === 'Add new category' || categoryList.length === 1
                 ? saveModifiedData({
                     name: serviceData.name,
                     category: newCategory,

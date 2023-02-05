@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ClientDataInterface } from '../../interfaces/ClientInterfaces';
 import Router from 'next/router';
 import Box from '@mui/material/Box';
@@ -10,9 +10,11 @@ import { ageValidator, mobileNumberValidator, trueIfNumberValidator } from "../s
 import OptionFields from "./addNewClient/OptionFields";
 import AddNewClientOptionDialog from "./addNewClient/ClientOptionNamesDialog";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
+import LangContext from "../../context/LanguageProvider";
 
 const ClientDetails = (props: ClientDataInterface) => {
 
+    const { lang } = useContext(LangContext);
     const [clientData, setClientData] = useState<ClientDataInterface>({
         _id: props._id,
         name: props.name,
@@ -106,26 +108,26 @@ const ClientDetails = (props: ClientDataInterface) => {
             <Alert 
                 open={showSavingAlert}
                 onClose={() => setShowSavingAlert(false)}
-                text="A változtatások mentése sikeres volt."
+                text={ lang === 'hun' ? "A változtatások mentése sikeres volt." : 'Succesfully saved the changes' }
                 severity="success"
             />
             <Alert 
                 open={showSavingErrorAlert}
                 onClose={() => setShowSavingErrorAlert(false)}
-                text="A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később."
+                text={ lang === 'hun' ? "A változtatásokat sajnos nem sikerült elmenteni, kérjük próbáld újra később." : 'Something went wrong, please try again!' }
                 severity="error"
             />
             
             <Alert 
                 open={showDeleteAlert}
                 onClose={() => setShowDeleteAlert(false)}
-                text={`${props.name} eltávolítása a kliensek közül sikeres volt`}
+                text={ lang === 'hun' ? `${props.name} eltávolítása a kliensek közül sikeres volt.` : `Successfully removed ${props.name} from your client list.`}
                 severity="success"
             />
             <Alert 
                 open={showDeleteErrorAlert}
                 onClose={() => setShowDeleteErrorAlert(false)}
-                text="A kliens adatbázisból történő törlése nem sikerült."
+                text={ lang === 'hun' ? "A kliens adatbázisból történő törlése nem sikerült." : 'Something went wrong, please try again!' }
                 severity="error"
             />
             
@@ -144,7 +146,7 @@ const ClientDetails = (props: ClientDataInterface) => {
                         handleChange={handleChange}
                     />
                     <DeleteDialog 
-                        deleteLabel={`Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?`}
+                        deleteLabel={lang === 'hun' ? `Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?` : `Do you really want to remove ${props.name} from your client list?`}
                         deleteFunction={deleteClient}
                     />
                 </Box>

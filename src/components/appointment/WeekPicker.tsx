@@ -6,9 +6,11 @@ import { IconButton } from '@mui/material';
 import AppointmentContext from '../../context/AppointmentProvider';
 import axios from 'axios';
 import { WeekdaysInterface } from '../../interfaces/AppointmentInterfaces';
+import LangContext from '../../context/LanguageProvider';
 
 const WeekPicker = () => {
 
+    const { lang } = useContext(LangContext);
     const {currentWeek, setCurrentWeek, setCurrentWeekAppointments} = useContext(AppointmentContext);
     const controller = new AbortController();
     const { signal } = controller;
@@ -56,7 +58,7 @@ const WeekPicker = () => {
                     <KeyboardArrowLeftIcon />
                 </IconButton> 
                 
-                <h4 className="mb-0">{getNamedMonth(currentWeek.monday) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday) + ' ' + currentWeek.sunday.getDate()}</h4>
+                <h4 className="mb-0">{getNamedMonth(currentWeek.monday, lang) + ' ' + currentWeek.monday.getDate() + ' - ' + getNamedMonth(currentWeek.sunday, lang) + ' ' + currentWeek.sunday.getDate()}</h4>
                 <IconButton className='ease-in-out duration-200 hover:scale-110 cursor-pointer' onClick={goToNextWeek}>
                     <KeyboardArrowRightIcon />
                 </IconButton>

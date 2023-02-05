@@ -96,13 +96,13 @@ const AddClients = () => {
             <Alert 
                 open={showSuccessAlert}
                 onClose={() => setShowSuccessAlert(false)}
-                text="Vendég hozzáadása sikeres volt."
+                text={ lang === 'hun' ? "Vendég hozzáadása sikeres volt." : "Successfully added a new client" }
                 severity="success"
             />
             <Alert 
                 open={showErrorAlert}
                 onClose={() => setShowErrorAlert(false)}
-                text="Vendég hozzáadása nem sikerült."
+                text={ lang === 'hun' ? "Vendég hozzáadása nem sikerült." : "Something went wrong, please try again" }
                 severity="error"
             />
             

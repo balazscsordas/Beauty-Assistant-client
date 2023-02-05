@@ -41,9 +41,9 @@ export const formatDate = (date: Date) => {
     return result;
 }
 
-export const formatYearAndMonth = (date: Date) => {
+export const formatYearAndMonth = (date: Date, lang: string) => {
     const year = date.getUTCFullYear();
-    const month = getNamedMonth(date);
+    const month = getNamedMonth(date, lang);
     const result = year + " " + month;
     return result;
 }

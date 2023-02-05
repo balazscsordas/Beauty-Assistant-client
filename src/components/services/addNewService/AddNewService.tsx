@@ -38,7 +38,7 @@ const AddNewService = ({ categoryList }: Props) => {
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!showPriceError) {
-            inputData.category === 'Új kategória hozzáadása' || categoryList.length === 1
+            inputData.category === 'Új kategória hozzáadása' || inputData.category === 'Add new category' || categoryList.length === 1
                 ? addNewServiceToDatabase({
                     name: inputData.name,
                     category: newCategory,

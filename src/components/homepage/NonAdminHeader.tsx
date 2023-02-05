@@ -1,22 +1,39 @@
+import { useContext, useState } from "react";
 import Link from "next/link";
+import Image from 'next/image'
+import engFlag from "../../../public/united-kingdom.png";
+import hunFlag from "../../../public/hungary.png";
+import LangContext from "../../context/LanguageProvider";
 
 const NonAdminHeader = () => {
+
+    const { lang, setLang } = useContext(LangContext);
+
+    const handleClick = () => {
+        if (lang == 'eng') {
+            setLang('hun');
+            localStorage.setItem('lang', 'hun');
+        } else if (lang == 'hun') {
+            setLang('eng');
+            localStorage.setItem('lang', 'eng');
+        }
+    }
+
     return (
-        <header className="bg-slate-500">
+        <header className="border-b-[1px] border-indigo-600">
             <section className="flex p-4 max-w-7xl mx-auto items-center justify-between">
                 <Link passHref href="/">
-                    <h1 className="font-semibold text-3xl text-black">Beauty Asszisztens</h1>
+                    <h1 className="font-semibold text-sm md:text-lg text-black">Beauty Asszisztens</h1>
                 </Link>
-                <div>
-                    <button id="mobile-open-button" className="md:hidden focus:outline-none text-4xl">
-                        &#9776;
-                    </button>
-                </div>
-                <nav className="hidden md:block text-lg">
-                    <a className="mx-4 hover:opacity-50 cursor-pointer">Foglalás</a>
-                    <a className="mx-4 hover:opacity-50 cursor-pointer">Kezelések</a>
-                    <a className="mx-4 hover:opacity-50 cursor-pointer">Adatok</a>
-                    <a className="mx-4 hover:opacity-50 cursor-pointer">Kapcsolat</a>
+                <nav>
+                    <Image 
+                        className="cursor-pointer"
+                        src={lang === 'hun' ? engFlag : hunFlag} 
+                        alt="language"
+                        width={20}
+                        height={20}
+                        onClick={handleClick}
+                    />
                 </nav>
             </section>
         </header>

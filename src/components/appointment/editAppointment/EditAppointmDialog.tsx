@@ -145,9 +145,9 @@ const EditAppointmentDialog = () => {
                                 <div className="mb-8 mt-1">
                                 {
                                         new Date(editAppointmentData.date).getFullYear() 
-                                        + '. ' + getNamedMonth(editAppointmentData.date) 
+                                        + '. ' + getNamedMonth(editAppointmentData.date, lang) 
                                         + ' ' + getNumberedDay(editAppointmentData.date) 
-                                        + '. ' + getNamedDay(editAppointmentData.date)
+                                        + '. ' + getNamedDay(editAppointmentData.date, lang)
                                         + ' ' + editAppointmentData.time
                                     }
                                 </div>
@@ -188,8 +188,8 @@ const EditAppointmentDialog = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                        <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text={ lang === 'hun' ? 'Nem' : 'Igen' }/>
-                        <BasicPrimaryButton onClick={handleDeleteAppointment} text={ lang === 'hun' ? 'Igen' : 'Nem' }/>
+                        <BasicSecondaryButton onClick={() => {setDeleteDialogOpen(false)}} text={ lang === 'hun' ? 'Nem' : 'No' }/>
+                        <BasicPrimaryButton onClick={handleDeleteAppointment} text={ lang === 'hun' ? 'Igen' : 'Yes' }/>
                 </DialogActions>
             </Dialog>
         </>

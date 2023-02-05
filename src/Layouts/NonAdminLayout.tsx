@@ -10,6 +10,7 @@ const NonAdminLayout = ({ children }: Props) => {
 
     return (
         <section className="min-h-screen flex flex-col">
+            <NonAdminHeader/>
             {children}
             <NonAdminFooter/>
         </section>
