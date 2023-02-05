@@ -41,5 +41,12 @@ export const features = [
         descriptionHUN: 'Hasznos kimutatások vállalkozásoddal kapcsolatban.',
         descriptionENG: 'Based your appointment management, the application can provide useful stats about your business, for example your weekly income, number of appointments, etc.'
     },
+    {
+        titleHUN: 'Többnyelvű felület',
+        titleENG: 'Multi language platform',
+
+        descriptionHUN: 'A kezelőfelület elérhető magyar illetve angol nyelven egyaránt.',
+        descriptionENG: 'The platform is available in both English and Hungarian.'
+    },
     
 ]
