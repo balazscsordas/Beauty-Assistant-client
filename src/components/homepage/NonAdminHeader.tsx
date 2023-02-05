@@ -23,7 +23,7 @@ const NonAdminHeader = () => {
         <header className="border-b-[1px] border-indigo-600">
             <section className="flex p-4 max-w-7xl mx-auto items-center justify-between">
                 <Link passHref href="/">
-                    <h1 className="font-semibold text-sm md:text-lg text-black">Beauty Asszisztens</h1>
+                    <h1 className="font-semibold text-sm md:text-lg text-black">Beauty Assistant</h1>
                 </Link>
                 <nav>
                     <Image 
