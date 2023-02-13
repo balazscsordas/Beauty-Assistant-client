@@ -37,7 +37,7 @@ const MainBanner = () => {
         <section className="flex justify-center items-center min-h-50vh bg-banner">
             <div className="text-center text-white">
                 <h1 className="mb-4 text-3xl sm:text-5xl sm:mb-10 font-bold">Beauty Assistant</h1>
-                <p className="font-medium">{lang === 'hun' ? 'Időpontkezelés, online időpontfoglalás vendég nyilvántartás gyorsan, egyszerűen, hatékonyan.' : 'Fast and effective solution for appointment management, online appointment booking.'}</p>
+                <p className="font-medium">{lang === 'hun' ? 'Időpontkezelés, online időpontfoglalás, vendég nyilvántartás gyorsan, egyszerűen, hatékonyan.' : 'Fast and effective solution for appointment management, online appointment booking.'}</p>
                 <div className="flex justify-center max-w-lg m-auto mt-6">
                     <Link className="m-2" passHref href="/registration">
                         <BasicPrimaryButton text={ lang === 'hun' ? 'Regisztráció' : 'Registration' }/>

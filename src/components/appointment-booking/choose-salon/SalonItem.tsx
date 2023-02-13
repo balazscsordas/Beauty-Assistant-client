@@ -56,8 +56,11 @@ const SalonItem = ({ name, address, city, professions, adminId }: SalonDataInter
                 <div className="flex flex-col h-full">
                     <div className="mb-4">
                         <Image 
-                            src={accountImage} alt="me" 
-                            width={120} height={120}
+                            src={accountImage} 
+                            alt="me" 
+                            loading="eager"
+                            width={120} 
+                            height={120}
                             className="m-auto mb-4"
                         />
                         <h4 className="font-semibold text-center">{ name }</h4>
