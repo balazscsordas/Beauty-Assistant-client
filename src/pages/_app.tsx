@@ -6,21 +6,23 @@ import { AppointmentProvider } from '../context/AppointmentProvider';
 import { ClientProvider } from '../context/ClientProvider';
 import { ServiceProvider } from '../context/ServiceProvider';
 import { LangProvider } from '../context/LanguageProvider';
-
+import { BookAppointmentProvider } from '../context/BookAppointmentProvider';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <LangProvider>
-      <AuthProvider>
-        <ClientProvider>
-            <ServiceProvider>
-             <AppointmentProvider>
-               <NextNProgress options={{ showSpinner: false }}/>
-               <Component {...pageProps} />
-             </AppointmentProvider>
-            </ServiceProvider> 
-        </ClientProvider>
-      </AuthProvider>
+      <BookAppointmentProvider>
+        <AuthProvider>
+          <ClientProvider>
+              <ServiceProvider>
+              <AppointmentProvider>
+                <NextNProgress options={{ showSpinner: false }}/>
+                <Component {...pageProps} />
+              </AppointmentProvider>
+              </ServiceProvider> 
+          </ClientProvider>
+        </AuthProvider>
+      </BookAppointmentProvider>
     </LangProvider>
   )
 }

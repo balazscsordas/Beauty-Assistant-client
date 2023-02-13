@@ -1,16 +1,21 @@
 import axios from "axios";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import { useContext } from "react";
 import GiftcardList from "../../components/giftcard/GiftcardList";
 import { GiftcardProvider } from "../../context/GiftcardProvider";
+import LangContext from "../../context/LanguageProvider";
 import { GiftcardInterface } from "../../interfaces/GiftcardInterfaces";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
 const GiftcardPage = ({ giftcardList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const { lang } = useContext(LangContext);
+    
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Ajándékkártyák</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Ajándékkártyák" : "Beauty Assistant | Giftcards"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

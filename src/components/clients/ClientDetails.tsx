@@ -7,7 +7,6 @@ import { Alert } from "../smallComponents/Alerts";
 import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewClient/FixFields";
 import { ageValidator, mobileNumberValidator, trueIfNumberValidator } from "../smallComponents/InputValidators";
-import OptionFields from "./addNewClient/OptionFields";
 import AddNewClientOptionDialog from "./addNewClient/ClientOptionNamesDialog";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
 import LangContext from "../../context/LanguageProvider";
@@ -140,10 +139,6 @@ const ClientDetails = (props: ClientDataInterface) => {
                         showAgeError={showAgeError}
                         showMobileNumberError={showMobileNumberError}
                         showNameError={showNameError}
-                    />
-                    <OptionFields 
-                        inputData={clientData} 
-                        handleChange={handleChange}
                     />
                     <DeleteDialog 
                         deleteLabel={lang === 'hun' ? `Biztosan el szeretnéd távolítani ${props.name}-t a klienseid közül?` : `Do you really want to remove ${props.name} from your client list?`}

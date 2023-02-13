@@ -42,12 +42,12 @@ const HourBlock = ({ day }: Props) => {
 
     return (
         <section>
-            <div className='flex flex-row mt-3 justify-between'>
+            <div className='flex flex-row flex-wrap mt-3 justify-between'>
                 <p>{day}</p>
-                <div className="flex flex-row">
-                    <input className="w-20" placeholder='8:00' type="text" name="timeFrom" ref={input1Ref} onChange={handleChange} value={time.timeFrom}/>
-                    <span>-</span>
-                    <input className="w-20" placeholder='17:00' type="text" name="timeTo" ref={input2Ref} onChange={handleChange} value={time.timeTo}/>
+                <div className="flex flex-row ml-3">
+                    <input className="w-20 border border-gray-400 rounded-md" type="text" name="timeFrom" ref={input1Ref} onChange={handleChange} value={time.timeFrom}/>
+                    <span className="mx-2">-</span>
+                    <input className="w-20 border border-gray-400 rounded-md" type="text" name="timeTo" ref={input2Ref} onChange={handleChange} value={time.timeTo}/>
                 </div>
             </div>
             <Collapse in={showErrorMessage}>

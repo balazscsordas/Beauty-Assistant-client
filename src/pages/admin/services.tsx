@@ -6,6 +6,7 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import ServiceContext from "../../context/ServiceProvider";
 import Head from "next/head";
+import LangContext from "../../context/LanguageProvider";
 
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -29,6 +30,7 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
 const ServicesPage = ({ servicesList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const { setServices } = useContext(ServiceContext);
+    const { lang } = useContext(LangContext);
 
     useEffect(() => {
         setServices(servicesList);
@@ -38,7 +40,7 @@ const ServicesPage = ({ servicesList }: InferGetServerSidePropsType<typeof getSe
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Szolgáltatások</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Szolgáltatások" : "Beauty Assistant | Services"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

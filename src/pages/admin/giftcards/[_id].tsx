@@ -5,6 +5,8 @@ import axios from "axios";
 import GiftcardDetails from "../../../components/giftcard/GiftcardDetails";
 import { GiftcardProvider } from "../../../context/GiftcardProvider";
 import Head from "next/head";
+import { useContext } from "react";
+import LangContext from "../../../context/LanguageProvider";
 
 export const getServerSideProps: GetServerSideProps<{ giftcardDetails: GiftcardInterface }> = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -28,10 +30,12 @@ export const getServerSideProps: GetServerSideProps<{ giftcardDetails: GiftcardI
 
 const ClientDetailsPage = ({ giftcardDetails }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
+    const { lang } = useContext(LangContext);
+
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Ajándékkártya</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Ajándékkártya" : "Beauty Assistant | Giftcard"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

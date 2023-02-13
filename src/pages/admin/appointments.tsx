@@ -6,6 +6,7 @@ import AddAppointmentDialog from "../../components/appointment/addNewAppointment
 import Calendar from "../../components/appointment/Calendar";
 import EditAppointmentDialog from "../../components/appointment/editAppointment/EditAppointmDialog";
 import AppointmentContext from "../../context/AppointmentProvider";
+import LangContext from "../../context/LanguageProvider";
 import { AppointmentInterface, WeekdaysInterface } from "../../interfaces/AppointmentInterfaces";
 import NavbarLayout from "../../Layouts/NavbarLayout";
 
@@ -33,6 +34,7 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
 const AppointmentPage = ({ currentWeek, firstFetchAppointments }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     const {setCurrentWeek, setCurrentWeekAppointments } = useContext(AppointmentContext);
+    const { lang } = useContext(LangContext);
 
     useEffect(() => {
         setCurrentWeek({
@@ -50,7 +52,7 @@ const AppointmentPage = ({ currentWeek, firstFetchAppointments }: InferGetServer
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Időpontok</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Időpontok" : "Beauty Assistant | Appointments"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

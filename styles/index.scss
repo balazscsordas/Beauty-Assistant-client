@@ -29,7 +29,23 @@
     color: #012970;
   }
   .min-h-50vh {
-    min-height: 60vh;
+    min-height: 70vh;
+  }
+
+  .bg-banner {
+    background: radial-gradient(circle,rgba(0, 100, 151, 0.9),rgba(0, 75, 160, 0.95)),url("../public/diagmonds.png");
+    background-position: center;
+  }
+
+  .laci::before {
+    content: "";
+    height: 0.5rem;
+    background-color: green;
+    margin-left: -100%;
+    top: 0;
+    -webkit-transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    width: 100px;
   }
 
   .page-title {

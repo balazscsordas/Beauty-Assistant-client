@@ -7,6 +7,20 @@ export const features = [
         descriptionENG: 'The purpose of the application is to save you time, so the user interface was created in such a way that it helps you do the job fast and effectively'
     }, 
     {
+        titleHUN: 'Online időpontfoglalás',
+        titleENG: 'Online appointment booking',
+
+        descriptionHUN: 'Online időpontfoglalás használatával egyszerűbbé teheted a bejelentkezést számodra és vendégeid számára egyaránt, így időt spórolsz és új vendégeket is szerezhetsz.',
+        descriptionENG: 'Use the built in online appointment booking solution in your business and save time for you and your clients also.'
+    },
+    {
+        titleHUN: 'E-mail értesítés új foglaláskor',
+        titleENG: 'E-mail notification when someone books an appointment',
+
+        descriptionHUN: 'Amennyiben új foglalás érkezik, e-mailben azonnal értesítünk, hogy garantáltan ne feletkezz meg róla.',
+        descriptionENG: 'Every time someone books an appointment, we will send you a notification by e-mail.'
+    },
+    {
         titleHUN: 'Vendégkarton',
         titleENG: 'Collection of clients',
 
@@ -25,7 +39,7 @@ export const features = [
         titleENG: 'Keep record of your giftcards',
 
         descriptionHUN: 'Pár kattintással létrehozhatsz új ajándékutalványokat egyedi azonosítóval, rögzítheted a kezdeti és lejárati dátumot, utalvány összegét, illetve az utalvány státuszát (lejárt, függőben, felhasznált).',
-        descriptionENG: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.'
+        descriptionENG: 'You can create new giftcards with unique id, set the start and end date, modify the status.'
     }, 
     {
         titleHUN: 'Szolgáltatások rögzítése',
@@ -43,7 +57,7 @@ export const features = [
     },
     {
         titleHUN: 'Többnyelvű felület',
-        titleENG: 'Multi language platform',
+        titleENG: 'Multilangual platform',
 
         descriptionHUN: 'A kezelőfelület elérhető magyar illetve angol nyelven egyaránt.',
         descriptionENG: 'The platform is available in both English and Hungarian.'

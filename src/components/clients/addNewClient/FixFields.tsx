@@ -1,7 +1,11 @@
-import { useContext } from "react";
+import Collapse from "@mui/material/Collapse";
+import { useContext, useEffect } from "react";
+import ClientContext from "../../../context/ClientProvider";
 import LangContext from "../../../context/LanguageProvider";
 import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
-import { OneLineNonReqInput, OneLineReqInput } from "../../smallComponents/InputFields";
+import { BasicPrimaryButton } from "../../smallComponents/Buttons";
+import { MultilineNonReqInput, OneLineNonReqInput, OneLineReqInput } from "../../smallComponents/InputFields";
+import { fetchClientOptionNames } from "../Utils";
 
 interface Props {
     inputData: ClientDataInterface;
@@ -14,6 +18,19 @@ interface Props {
 const FixFields = ({ inputData, handleChange, showNameError, showMobileNumberError, showAgeError }: Props) => {
 
     const { lang } = useContext(LangContext);
+    const { setOpenClientOptionDialog, clientOptionNames, setClientOptionNames } = useContext(ClientContext);
+
+    useEffect(() => {
+        if(
+            clientOptionNames.option1Name === "" &&
+            clientOptionNames.option2Name === "" &&
+            clientOptionNames.option3Name === "" &&
+            clientOptionNames.option4Name === "" &&
+            clientOptionNames.option5Name === "") {
+            fetchClientOptionNames(setClientOptionNames);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     
     return (
         <>
@@ -54,6 +71,26 @@ const FixFields = ({ inputData, handleChange, showNameError, showMobileNumberErr
                     />
                 </div>
             </section>
+            <div>
+                <Collapse in={clientOptionNames.option1Name ? true : false} className="mx-2">
+                    <MultilineNonReqInput value={inputData.option1Content} onChange={handleChange} nameVal="option1Content" label={clientOptionNames.option1Name}/>
+                </Collapse>
+                <Collapse in={clientOptionNames.option2Name ? true : false} className="mx-2">
+                    <MultilineNonReqInput value={inputData.option2Content} onChange={handleChange} nameVal="option2Content" label={clientOptionNames.option2Name}/>
+                </Collapse>
+                <Collapse in={clientOptionNames.option3Name ? true : false} className="mx-2">
+                    <MultilineNonReqInput value={inputData.option3Content} onChange={handleChange} nameVal="option3Content" label={clientOptionNames.option3Name}/>
+                </Collapse>
+                <Collapse in={clientOptionNames.option4Name ? true : false} className="mx-2">
+                    <MultilineNonReqInput value={inputData.option4Content} onChange={handleChange} nameVal="option4Content" label={clientOptionNames.option4Name}/>
+                </Collapse>
+                <Collapse in={clientOptionNames.option5Name ? true : false} className="mx-2">
+                    <MultilineNonReqInput value={inputData.option5Content} onChange={handleChange} nameVal="option5Content" label={clientOptionNames.option5Name}/>
+                </Collapse>
+            </div>
+            <div className="text-center my-4">
+                <BasicPrimaryButton onClick={() => setOpenClientOptionDialog(true)} text={ lang === 'hun' ? 'mezők átnevezése' : 'Rename fields' }/>
+            </div>
         </>
     )
 }

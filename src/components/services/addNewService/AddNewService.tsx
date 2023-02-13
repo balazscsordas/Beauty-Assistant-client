@@ -1,16 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Collapse, Box } from '@mui/material';
 import { trueIfLetterValidator } from "../../smallComponents/InputValidators";
 import axios from "axios";
 import { ServiceDataInterface } from '../../../interfaces/ServiceInterfaces';
 import Router from 'next/router';
 import { Alert } from "../../smallComponents/Alerts";
-import { MultilineNonReqInput } from "../../smallComponents/InputFields";
-import { AddIconOptionButton, AddIconPrimaryButton } from "../../smallComponents/Buttons";
+import { AddIconPrimaryButton } from "../../smallComponents/Buttons";
 import FixFields from "./FixFields";
 import DetailsWrapper from "../../smallComponents/sectionWrappers/DetailsWrapper";
-import OptionFields from "./OptionFields";
 import LangContext from "../../../context/LanguageProvider";
+import Box from "@mui/material/Box";
 
 interface Props {
     categoryList: string[];
@@ -125,10 +123,6 @@ const AddNewService = ({ categoryList }: Props) => {
                             setNewCategory={setNewCategory}
                             handleChange={handleChange}
                             showPriceError={showPriceError}
-                        />
-                        <OptionFields 
-                            inputData={inputData}
-                            handleChange={handleChange}
                         />
                         <div className="text-center my-4">
                             <AddIconPrimaryButton text={ lang === 'hun' ? 'Szolgáltatás hozzáadása' : 'Create service' } type="submit"/>

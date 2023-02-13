@@ -4,6 +4,8 @@ import { ClientDataInterface } from "../../../interfaces/ClientInterfaces";
 import axios from "axios";
 import ClientDetails from "../../../components/clients/ClientDetails";
 import Head from "next/head";
+import { useContext } from "react";
+import LangContext from "../../../context/LanguageProvider";
 
 export const getServerSideProps: GetServerSideProps<{ clientDetails: ClientDataInterface }> = async ( context: GetServerSidePropsContext) => {
     const jwtCookie = context.req.headers.cookie;
@@ -26,10 +28,13 @@ export const getServerSideProps: GetServerSideProps<{ clientDetails: ClientDataI
 }
 
 const ClientDetailsPage = ({ clientDetails }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const { lang } = useContext(LangContext);
+
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Vendég</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Vendég" : "Beauty Assistant | Client"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

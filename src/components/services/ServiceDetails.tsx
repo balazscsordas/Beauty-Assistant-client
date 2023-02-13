@@ -8,7 +8,6 @@ import DeleteDialog from "../smallComponents/DeleteDialog";
 import FixFields from "./addNewService/FixFields";
 import { trueIfLetterValidator } from "../smallComponents/InputValidators";
 import DetailsWrapper from "../smallComponents/sectionWrappers/DetailsWrapper";
-import OptionFields from "./addNewService/OptionFields";
 import LangContext from "../../context/LanguageProvider";
 
 interface Props {
@@ -155,10 +154,6 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
                             setNewCategory={setNewCategory}
                             handleChange={handleInputChange}
                             showPriceError={showPriceError}
-                        />
-                        <OptionFields 
-                            inputData={serviceData}
-                            handleChange={handleInputChange}
                         />
                     <DeleteDialog 
                         deleteLabel={ lang === 'hun' ? 'Biztosan törölni szeretnéd a kezelést?' : 'Do you really want to remove the service?' }

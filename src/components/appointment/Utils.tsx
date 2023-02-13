@@ -321,7 +321,6 @@ export const countEmptyRowsWhenEmptyClicked = (rowIndex: number, colIndex: numbe
 // returns the number of 15 minutes before the next appointment begin
 export const countEmptyRowsWhenFullClicked = (rowIndex: number, colIndex: number) => {
     const rowSpanVal = document.getElementsByTagName('tr')[rowIndex].getElementsByTagName('td')[colIndex].rowSpan;
-    console.log(rowSpanVal)
     let numberOfEmptyCells = rowSpanVal;
     for (let index = 0; index < 10; index++) {
         const cell = document.getElementsByTagName('tr')[rowIndex + rowSpanVal + index].getElementsByTagName('td')[colIndex];

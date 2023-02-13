@@ -32,6 +32,7 @@ export const BasicPrimaryButton = ({ text, type="button", onClick, disabled }: P
     )
 }
 
+
 export const AddIconPrimaryButton = ({ text, type="button", onClick, disabled }: Props) => {
     return (
         <div className='relative inline-block'>

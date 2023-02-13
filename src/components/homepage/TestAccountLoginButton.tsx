@@ -40,10 +40,11 @@ const TestAccountLoginButton = () => {
     }
 
     const handleTestLogin = () => {
-        sendLoginData({email: 'tesztfiok@tesztfiok.com', password: 'Tesztfiok1996@'})
+        lang === 'hun' 
+          ? sendLoginData({email: 'tesztfiok@tesztfiok.com', password: 'Tesztfiok1996@'})
+          : sendLoginData({email: 'testaccount@testaccount.com', password: 'Testaccount1996@'})
     } 
 
-    
     return (
         <BasicPrimaryButton text={ lang === 'hun' ? 'Tesztfiók' : 'test account' } onClick={handleTestLogin} disabled={loginLoading}/>
     )

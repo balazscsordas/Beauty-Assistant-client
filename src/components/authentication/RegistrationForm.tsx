@@ -5,7 +5,6 @@ import Zoom from '@mui/material/Zoom';
 import Collapse from '@mui/material/Collapse';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import CircularProgress from '@mui/material/CircularProgress';
 import { OneLineReqInput } from '../smallComponents/InputFields';
 import { BasicPrimaryButton } from '../smallComponents/Buttons';
 import { RegistrationDataInterface } from '../../interfaces/AuthInterfaces';

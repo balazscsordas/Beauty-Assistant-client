@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import AuthContext from '../../context/AuthProvider';
 import Router from 'next/router';

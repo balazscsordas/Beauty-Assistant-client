@@ -4,6 +4,8 @@ import { ServiceDataInterface } from "../../../interfaces/ServiceInterfaces";
 import axios from "axios";
 import ServiceDetails from "../../../components/services/ServiceDetails";
 import Head from "next/head";
+import { useContext } from "react";
+import LangContext from "../../../context/LanguageProvider";
 
 export const getServerSideProps = async ( context: GetServerSidePropsContext ) => {
     const jwtCookie = context.req.headers.cookie;
@@ -28,10 +30,13 @@ export const getServerSideProps = async ( context: GetServerSidePropsContext ) =
 }
 
 const ClientDetailsPage = ({ serviceDataFromDatabase, categoryList }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+    const { lang } = useContext(LangContext);
+    
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Szolgáltatás</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Szolgáltatás" : "Beauty Assistant | Service"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>

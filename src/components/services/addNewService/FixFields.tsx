@@ -63,7 +63,10 @@ const FixFields = ({ inputData, handleChange, showPriceError, categoryList, newC
                     />
                 </div>
             </section>
-            
+            <div className="text-center mx-2">
+                <MultilineNonReqInput onChange={handleChange} value={inputData.description} label={ lang === 'hun' ? 'Leírás' : 'Description' } nameVal="description"/>
+                <MultilineNonReqInput onChange={handleChange} value={inputData.steps} label={ lang === 'hun' ? 'Lépések' : 'Steps' } nameVal="steps"/>
+            </div>
         </>
     )
 }

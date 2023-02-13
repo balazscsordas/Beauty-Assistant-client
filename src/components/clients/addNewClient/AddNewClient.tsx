@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Box } from '@mui/material';
 import axios from "axios";
 import { ClientDataInterface } from '../../../interfaces/ClientInterfaces';
 import Router from 'next/router';
@@ -7,10 +6,10 @@ import { Alert } from "../../smallComponents/Alerts";
 import { AddIconPrimaryButton } from "../../smallComponents/Buttons";
 import AddNewClientOptionDialog from "./ClientOptionNamesDialog";
 import { ageValidator, trueIfNumberValidator, mobileNumberValidator } from "../../smallComponents/InputValidators";
-import OptionFields from "./OptionFields";
 import FixFields from "./FixFields";
 import DetailsWrapper from "../../smallComponents/sectionWrappers/DetailsWrapper";
 import LangContext from "../../../context/LanguageProvider";
+import Box from "@mui/material/Box";
 
 const AddClients = () => {
 
@@ -116,10 +115,6 @@ const AddClients = () => {
                             showAgeError={showAgeError}
                             showMobileNumberError={showMobileNumberError}
                             showNameError={showNameError}
-                        />
-                        <OptionFields 
-                            inputData={inputData} 
-                            handleChange={handleChange}
                         />
                         <div className="text-center m-4">
                             <AddIconPrimaryButton text={ lang === 'hun' ? 'Vendég hozzáadása' : 'Add new client' } type="submit"/>

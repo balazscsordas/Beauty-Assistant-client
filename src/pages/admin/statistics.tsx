@@ -42,7 +42,7 @@ const StatisticsPage = ({ todayData, weekData, monthData, incomePerDay, incomePe
     return (
         <>
             <Head>
-            <title>Beauty Asszisztens | Statisztikák</title>
+            <title>{ lang === 'hun' ? "Beauty Assistant | Statisztikák" : "Beauty Assistant | Statistics"}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             </Head>
