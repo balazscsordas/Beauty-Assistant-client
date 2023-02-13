@@ -3,18 +3,14 @@ import { getCorrectUTCDay, getDayDataFromDayIndex, resetAllCells } from "../../a
 import { addAppointmentToCell } from "./Utils";
 import DaysHeader from "./DaysHeader";
 import HoursCol from "./HoursCol";
-import WeekPicker from "../../appointment/WeekPicker";
-import LangContext from "../../../context/LanguageProvider";
 import BookAppointmentContext from "../../../context/BookAppointmentProvider";
 import Router from "next/router";
 
 const Calendar = () => {
 
-    const { lang } = useContext(LangContext);
     const { 
         currentWeek,
         currentWeekAppointments,
-        setNewAppointmentData,
         bookAppointmentData,
         setBookAppointmentData
     } = useContext(BookAppointmentContext);
