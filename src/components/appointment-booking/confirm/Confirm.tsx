@@ -17,15 +17,15 @@ const Confirm = () => {
                     + ' ' + bookAppointmentData.time
 
     return (
-        <section className="m-auto">
-            <section className="bg-white p-4 rounded-xl m-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[30rem] max-w-full">
-                <h3 className="font-semibold text-xl text-center mb-10">{ dateText }<EditIconButton href="/appointment-booking/choose-date"/></h3>
+        <section className="mx-auto">
+            <section className="bg-white p-4 rounded-xl m-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] ">
+                <h4 className="font-semibold text-center mb-10">{ dateText }<EditIconButton href="/appointment-booking/choose-date"/></h4>
                 <div className="mb-8">
-                    <h3 className="font-semibold text-xl mb-4">{ lang === 'hun' ? 'Szalon:' : 'Salon' }<EditIconButton href="/appointment-booking/choose-salon"/></h3>
+                    <h4 className="font-semibold mb-4">{ lang === 'hun' ? 'Szalon:' : 'Salon' }<EditIconButton href="/appointment-booking/choose-salon"/></h4>
                     <p className="ml-2 mb-2">{bookAppointmentData.salonName}</p>
                 </div>
                 <div>
-                    <h3 className="font-semibold text-xl mb-4">{ lang === 'hun' ? 'Szolgáltatás:' : 'Service' }<EditIconButton href="/appointment-booking/choose-service"/></h3>
+                    <h4 className="font-semibold mb-4">{ lang === 'hun' ? 'Szolgáltatás:' : 'Service' }<EditIconButton href="/appointment-booking/choose-service"/></h4>
                     <p className="ml-2 mb-2">{bookAppointmentData.serviceName}</p>
                     <p className="ml-2 mb-2">{`${bookAppointmentData.servicePrice} ${ lang === 'hun' ? 'Ft' : '€' }`}</p>
                     <p className="ml-2 mb-2">{`${bookAppointmentData.serviceLength} ${ lang === 'hun' ? 'Perc' : 'Minutes' }`}</p>
