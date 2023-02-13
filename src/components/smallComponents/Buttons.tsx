@@ -16,7 +16,6 @@ export const BasicPrimaryButton = ({ text, type="button", onClick, disabled }: P
     return (
         <div className='relative inline-block'>
             <button 
-                id='primary-button'
                 className='base primary'
                 type={type}
                 onClick={onClick}
@@ -37,7 +36,6 @@ export const AddIconPrimaryButton = ({ text, type="button", onClick, disabled }:
     return (
         <div className='relative inline-block'>
             <button 
-                id='primary-button'
                 className='base primary'
                 type={type}
                 onClick={onClick}
@@ -57,7 +55,6 @@ export const BasicSecondaryButton = ({ text, type="button", onClick, disabled }:
     return (
         <div className='relative inline-block'>
             <button 
-                id='secondary-button'
                 className='base secondary'
                 type={type}
                 onClick={onClick}
@@ -77,7 +74,6 @@ export const AddIconOptionButton = ({ text, type="button", onClick, addIcon, dis
     return (
         <div className='relative inline-block'>
             <button 
-                id='primary-button'
                 className='base option'
                 type={type}
                 onClick={onClick}
