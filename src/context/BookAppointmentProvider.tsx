@@ -30,6 +30,8 @@ export const BookAppointmentProvider = ({children}: Props) => {
         servicePrice: "",
         date: new Date(),
         time: "",
+        clientEmail: "",
+        clientName: ""
     })
     const [serviceList, setServiceList] = useState<BookAppointmentServiceListInterface[]>([]);
     const [currentWeekAppointments, setCurrentWeekAppointments] = useState<BookAppointmentAppointmentInterface[] | null>(null)
