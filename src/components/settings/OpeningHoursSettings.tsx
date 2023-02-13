@@ -12,19 +12,6 @@ const OpeningHoursSettings = () => {
         /* saveNewData(inputData); */
     }
 
-    const saveNewData = async (newData: SalonDataInterface) => {
-        try {
-            const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/settings/save-salon-data";
-            const params = { newData };
-            const response = await axios.put(url, params, { withCredentials: true });
-            if(response.status === 200) {
-                setShowSavingAlert(true);
-            } 
-        } catch(err) {
-            setShowSavingErrorAlert(true);
-        }
-    }
-
     return (
         <SectionWrapper title={ lang === 'hun' ? 'Általános nyitvatartás' : 'Opening hours' }>
             <HourBlock day={ lang === 'hun' ? 'Hétfő' : 'Monday' }/>
