@@ -3,22 +3,15 @@ export const features = [
         titleHUN: 'Könnyedén kezelhető felület',
         titleENG: 'Easy to use platform',
 
-        descriptionHUN: 'Az alkalmazás elsődleges célja az, hogy használatával időt spórolj, ezért a kezelőfelület úgy lett megalkotva, hogy az elősegítse a gyors és hatékony munkavégzést.',
+        descriptionHUN: 'Az alkalmazás elsődleges célja az, hogy használatával időt spóroljon meg, ezért a kezelőfelület úgy lett megalkotva, hogy az elősegítse a gyors és hatékony munkavégzést.',
         descriptionENG: 'The purpose of the application is to save you time, so the user interface was created in such a way that it helps you do the job fast and effectively'
     }, 
     {
         titleHUN: 'Online időpontfoglalás',
         titleENG: 'Online appointment booking',
 
-        descriptionHUN: 'Online időpontfoglalás használatával egyszerűbbé teheted a bejelentkezést számodra és vendégeid számára egyaránt, így időt spórolsz és új vendégeket is szerezhetsz.',
+        descriptionHUN: 'Online időpontfoglalás használatával egyszerűbbé teheted a bejelentkezést vendégeid számára, így időt spórolsz és új vendégeket is szerezhetsz.',
         descriptionENG: 'Use the built in online appointment booking solution in your business and save time for you and your clients also.'
-    },
-    {
-        titleHUN: 'E-mail értesítés új foglaláskor',
-        titleENG: 'E-mail notification when someone books an appointment',
-
-        descriptionHUN: 'Amennyiben új foglalás érkezik, e-mailben azonnal értesítünk, hogy garantáltan ne feletkezz meg róla.',
-        descriptionENG: 'Every time someone books an appointment, we will send you a notification by e-mail.'
     },
     {
         titleHUN: 'Vendégkarton',
@@ -45,7 +38,7 @@ export const features = [
         titleHUN: 'Szolgáltatások rögzítése',
         titleENG: 'Services',
 
-        descriptionHUN: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket.',
+        descriptionHUN: 'Tedd mindenki számára láthatóvá szolgáltatásaidat és szerezz új ügyfeleket az online időpontfoglalásnak köszönhetően.',
         descriptionENG: 'You can add, edit and delete your services and provide data about them for your clients.'
     },
     {
