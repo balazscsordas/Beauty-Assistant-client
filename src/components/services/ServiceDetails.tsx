@@ -29,10 +29,6 @@ const ServiceDetails = ({ serviceDataFromDatabase, categoryList}: Props ) => {
     const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
     const [showSaveButton, setShowSaveButton] = useState(false);
 
-    // States for show or hide textfields
-
-    const [showSteps, setShowSteps] = useState(serviceData.steps ? true : false);
-
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!showPriceError) {

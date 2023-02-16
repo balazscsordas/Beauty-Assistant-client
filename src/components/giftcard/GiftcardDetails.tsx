@@ -1,4 +1,4 @@
-import { Box, Collapse } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import GiftcardContext from "../../context/GiftcardProvider";

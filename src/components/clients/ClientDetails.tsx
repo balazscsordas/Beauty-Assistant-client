@@ -59,7 +59,6 @@ const ClientDetails = (props: ClientDataInterface) => {
     }
 
     // Delete client API
-
     const deleteClientRequest = async (clientId: string | undefined) => {
         const url = process.env.NEXT_PUBLIC_BASE_URL_AUTH_SERVER + "/client/delete-client";
         const options = {

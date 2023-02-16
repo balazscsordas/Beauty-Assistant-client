@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useContext } from "react";
 import Calendar from "../../components/appointment-booking/choose-date/Calendar";
+import Info from "../../components/appointment-booking/choose-date/Info";
 import PageTitle from "../../components/appointment-booking/PageTitle";
 import PhaseDisplayer from "../../components/appointment-booking/phase-displayer/PhaseDisplayer";
 import LangContext from "../../context/LanguageProvider";
@@ -25,6 +26,7 @@ const ChooseService = () => {
                     bgColor3="bg-yellow-300"
                     bgColor4="bg-slate-300"
                 />
+                <Info/>
                 <Calendar/>
             </NonAdminLayout>
         </>
