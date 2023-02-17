@@ -9,7 +9,6 @@ import NonAdminLayout from "../../Layouts/NonAdminLayout"
 const ChooseService = () => {
 
     const { lang } = useContext(LangContext);
-
     
     return (
         <>

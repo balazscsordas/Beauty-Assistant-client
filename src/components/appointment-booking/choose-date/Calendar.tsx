@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { getCorrectUTCDay, getDayDataFromDayIndex, resetAllCells } from "../../appointment/Utils";
-import { addAppointmentToCell } from "./Utils";
+import { addAppointmentToCell, setBookableCells, setCellsFromPastToFull } from "./Utils";
 import DaysHeader from "./DaysHeader";
 import HoursCol from "./HoursCol";
 import BookAppointmentContext from "../../../context/BookAppointmentProvider";
@@ -38,6 +38,7 @@ const Calendar = () => {
     useEffect(() => {
         if (currentWeekAppointments) {
             visualizeAppointments();
+            setCellsFromPastToFull(currentWeek);
             setBookableCells(bookAppointmentData.serviceLength, hours); // Argumentum: hossza a kezelésnek
             return () => {
                 resetAllCells();
@@ -54,32 +55,6 @@ const Calendar = () => {
             const rowIndex = hours.indexOf(time);
             const colIndex = getCorrectUTCDay(new Date(appointment.date));
             addAppointmentToCell(rowIndex, colIndex, appointmLength);
-        });
-        
-    }
-
-    const setBookableCells = (lengthOfService: number, hours: string[]) => {
-        const cells = document.querySelectorAll('td');
-        const numberOfRows = document.querySelectorAll('tr').length;
-        cells.forEach(cell => {
-            if (cell.classList.contains('empty')) {
-                const dayIndex = cell.cellIndex;
-                const rowIndex = cell.closest('tr')!.rowIndex;
-                const numberOfRowsToCheck = lengthOfService / 15;
-                let numberOfEmptyRows = 1;
-                for (let i = 1; i < numberOfRowsToCheck; i++) {
-                    if (rowIndex + i < numberOfRows) { // Csak akkor megy tovább ha van elég sor
-                        const currentCell = document.getElementsByTagName('tr')[rowIndex + i].getElementsByTagName('td')[dayIndex];
-                        if (currentCell.classList.contains('empty')) {
-                            numberOfEmptyRows++
-                        } else break
-                    }
-                }
-                if (numberOfRowsToCheck <= numberOfEmptyRows) {
-                    cell.classList.add('bookable');
-                    cell.innerHTML += `<div class='rounded-md h-full flex items-center justify-center text-[0.65rem] leading-[0.82rem] lg:text-sm bg-green-300 font-medium'>${hours[rowIndex]}</div>`;
-                }
-            }
         });
     }
 
@@ -98,7 +73,6 @@ const Calendar = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWeekAppointments]);
-    
 
     const handleTdClick = (cell: HTMLTableCellElement) => {
         const dayIndex = cell.cellIndex;
