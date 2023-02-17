@@ -15,6 +15,11 @@ const Calendar = () => {
         setBookAppointmentData
     } = useContext(BookAppointmentContext);
 
+    // Redirects to the start of the appointment booking process
+    useEffect(() => {
+        !bookAppointmentData.adminId && Router.push("/appointment-booking/choose-salon");
+    }, [])
+
     const hours = useMemo(() => [
         '8:00', '8:15', '8:30', '8:45', 
         '9:00', '9:15', '9:30', '9:45',

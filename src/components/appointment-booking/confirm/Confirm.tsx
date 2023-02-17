@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import Router from "next/router";
+import { useContext, useEffect } from "react";
 import BookAppointmentContext from "../../../context/BookAppointmentProvider";
 import LangContext from "../../../context/LanguageProvider";
 import { getNamedDay, getNamedMonth, getNumberedDay } from "../../appointment/Utils";
@@ -9,6 +10,10 @@ const Confirm = () => {
 
     const { bookAppointmentData } = useContext(BookAppointmentContext);
     const { lang } = useContext(LangContext);
+
+    useEffect(() => {
+        !bookAppointmentData.adminId && Router.push("/appointment-booking/choose-salon");
+    }, [])
     
     const dateText = bookAppointmentData.date.getFullYear() 
                     + '. ' + getNamedMonth(bookAppointmentData.date, lang) 
@@ -17,7 +22,7 @@ const Confirm = () => {
                     + ' ' + bookAppointmentData.time
 
     return (
-        <section className="mx-auto">
+        <section className="mx-auto w-[36rem] max-w-full">
             <section className="bg-white p-4 rounded-xl m-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] ">
                 <h4 className="font-semibold text-center mb-10">{ dateText }<EditIconButton href="/appointment-booking/choose-date"/></h4>
                 <div className="mb-8">
